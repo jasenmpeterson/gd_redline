@@ -1,0 +1,41 @@
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:url("../fonts/open-sans-v15-latin-regular.eot");src:local("Open Sans Regular"),local("OpenSans-Regular"),url("../fonts/open-sans-v15-latin-regular.eot?#iefix") format("embedded-opentype"),url("../fonts/open-sans-v15-latin-regular.woff2") format("woff2"),url("../fonts/open-sans-v15-latin-regular.woff") format("woff"),url("../fonts/open-sans-v15-latin-regular.ttf") format("truetype"),url("../fonts/open-sans-v15-latin-regular.svg#OpenSans") format("svg")}
+@font-face{font-family:'Open Sans';font-style:italic;font-weight:400;src:url("../fonts/open-sans-v15-latin-italic.eot");src:local("Open Sans Italic"),local("OpenSans-Italic"),url("../fonts/open-sans-v15-latin-italic.eot?#iefix") format("embedded-opentype"),url("../fonts/open-sans-v15-latin-italic.woff2") format("woff2"),url("../fonts/open-sans-v15-latin-italic.woff") format("woff"),url("../fonts/open-sans-v15-latin-italic.ttf") format("truetype"),url("../fonts/open-sans-v15-latin-italic.svg#OpenSans") format("svg")}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:url("../fonts/open-sans-v15-latin-600.eot");src:local("Open Sans SemiBold"),local("OpenSans-SemiBold"),url("../fonts/open-sans-v15-latin-600.eot?#iefix") format("embedded-opentype"),url("../fonts/open-sans-v15-latin-600.woff2") format("woff2"),url("../fonts/open-sans-v15-latin-600.woff") format("woff"),url("../fonts/open-sans-v15-latin-600.ttf") format("truetype"),url("../fonts/open-sans-v15-latin-600.svg#OpenSans") format("svg")}
+@font-face{font-family:'Open Sans';font-style:italic;font-weight:600;src:url("../fonts/open-sans-v15-latin-600italic.eot");src:local("Open Sans SemiBold Italic"),local("OpenSans-SemiBoldItalic"),url("../fonts/open-sans-v15-latin-600italic.eot?#iefix") format("embedded-opentype"),url("../fonts/open-sans-v15-latin-600italic.woff2") format("woff2"),url("../fonts/open-sans-v15-latin-600italic.woff") format("woff"),url("../fonts/open-sans-v15-latin-600italic.ttf") format("truetype"),url("../fonts/open-sans-v15-latin-600italic.svg#OpenSans") format("svg")}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;src:url("../fonts/open-sans-v15-latin-700.eot");src:local("Open Sans Bold"),local("OpenSans-Bold"),url("../fonts/open-sans-v15-latin-700.eot?#iefix") format("embedded-opentype"),url("../fonts/open-sans-v15-latin-700.woff2") format("woff2"),url("../fonts/open-sans-v15-latin-700.woff") format("woff"),url("../fonts/open-sans-v15-latin-700.ttf") format("truetype"),url("../fonts/open-sans-v15-latin-700.svg#OpenSans") format("svg")}
+@font-face{font-family:'Open Sans';font-style:italic;font-weight:700;src:url("../fonts/open-sans-v15-latin-700italic.eot");src:local("Open Sans Bold Italic"),local("OpenSans-BoldItalic"),url("../fonts/open-sans-v15-latin-700italic.eot?#iefix") format("embedded-opentype"),url("../fonts/open-sans-v15-latin-700italic.woff2") format("woff2"),url("../fonts/open-sans-v15-latin-700italic.woff") format("woff"),url("../fonts/open-sans-v15-latin-700italic.ttf") format("truetype"),url("../fonts/open-sans-v15-latin-700italic.svg#OpenSans") format("svg")}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:800;src:url("../fonts/open-sans-v15-latin-800.eot");src:local("Open Sans ExtraBold"),local("OpenSans-ExtraBold"),url("../fonts/open-sans-v15-latin-800.eot?#iefix") format("embedded-opentype"),url("../fonts/open-sans-v15-latin-800.woff2") format("woff2"),url("../fonts/open-sans-v15-latin-800.woff") format("woff"),url("../fonts/open-sans-v15-latin-800.ttf") format("truetype"),url("../fonts/open-sans-v15-latin-800.svg#OpenSans") format("svg")}
+@font-face{font-family:'Open Sans';font-style:italic;font-weight:800;src:url("../fonts/open-sans-v15-latin-800italic.eot");src:local("Open Sans ExtraBold Italic"),local("OpenSans-ExtraBoldItalic"),url("../fonts/open-sans-v15-latin-800italic.eot?#iefix") format("embedded-opentype"),url("../fonts/open-sans-v15-latin-800italic.woff2") format("woff2"),url("../fonts/open-sans-v15-latin-800italic.woff") format("woff"),url("../fonts/open-sans-v15-latin-800italic.ttf") format("truetype"),url("../fonts/open-sans-v15-latin-800italic.svg#OpenSans") format("svg")}
+body{padding:0;margin:0}
+body,html{height:100%}
+.grid__wrap{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-flow:row wrap;-ms-flex-flow:row wrap;flex-flow:row wrap}
+.cell{-webkit-box-flex:0;-webkit-flex:0 0 auto;-ms-flex:0 0 auto;flex:0 0 auto;min-height:0;min-width:0;width:100%}
+a{text-decoration:none}
+body{font-family:'Open Sans',Helvetica;font-weight:400;overflow:hidden}
+.section__wrap{height:100vh;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}
+h1:before,h2:before{content:'';display:block;height:.0625rem;width:4.0625rem;background:#981b31;margin-bottom:1.5rem}
+.scroll__wrap{overflow:auto}
+main{position:relative}
+main,.scroll__wrap{height:100%}
+header{position:fixed;z-index:20;top:0;left:0;width:100%;pointer-events:none;padding-top:6.25rem}
+header>*{pointer-events:auto}
+header .grid__wrap{-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding:6.25rem 3rem 0 3rem}
+header .grid__wrap .cell:first-of-type{width:25%}
+header .grid__wrap .cell:last-of-type{width:12.5rem}
+header .grid__wrap .cell:first-of-type svg{display:block;width:100%;height:auto}
+header span.contact-btn{text-align:center;display:block;max-width:12.5rem;color:#fff;border:.0625rem solid #ed0b35;font-weight:700;padding:.8rem 0;cursor:pointer}
+header .grid__wrap:last-of-type{padding-top:0}
+header ul{padding:0;list-style-type:none;margin:1.5rem 0}
+header ul li:not(:last-child){margin-bottom:1rem}
+.social__icon__wrap{margin-top:6.25rem}
+.social__icon__wrap a{color:#a41e37;width:25px;height:25px;display:block;border-radius:50px;background-color:#fff;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-transition:background-color .3s ease-in,color .3s ease-in;transition:background-color .3s ease-in,color .3s ease-in;margin-left:auto}
+.introduction__wrap{position:relative}
+.introduction__wrap .grid__wrap{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;position:relative;z-index:2}
+.introduction__wrap:after{position:absolute;height:100%;content:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%221079.695%20-0.169%20840.305%201080.169%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20.cls-1%20%7B%0A%20%20%20%20%20%20%20%20fill%3A%20%23a41e37%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%3C/style%3E%0A%20%20%3C/defs%3E%0A%20%20%3Cpath%20id%3D%22Path_19%22%20data-name%3D%22Path%2019%22%20class%3D%22cls-1%22%20d%3D%22M-382.194%2C1080.169H164.888V0H-675.417Z%22%20transform%3D%22translate%281755.112%20-0.169%29%22/%3E%0A%3C/svg%3E%0A);display:block;top:0;right:0}
+.introduction__wrap h1{font-style:italic;color:#4b4b4b;font-size:2.5rem;line-height:1.2}
+.introduction__wrap img{width:100%}
+@media screen and (min-width:90rem){.introduction__wrap:after{width:45%}
+.introduction__wrap .grid__wrap .cell:first-of-type{width:30%}
+.introduction__wrap .grid__wrap .cell:last-of-type{width:30%}
+}

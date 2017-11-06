@@ -1,0 +1,64 @@
+header {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  padding-top: 6.25rem;
+}
+header > * {
+  pointer-events: auto;
+}
+header .grid__wrap {
+  justify-content: space-between;
+  padding: 6.25rem 3rem 0 3rem;
+}
+header .grid__wrap .cell:first-of-type {
+  width: 25%;
+}
+header .grid__wrap .cell:last-of-type {
+  width: 12.5rem;
+}
+header .grid__wrap .cell:first-of-type svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+header span.contact-btn {
+  text-align: center;
+  display: block;
+  max-width: 12.5rem;
+  color: #fff;
+  border: 0.0625rem solid #ED0B35;
+  font-weight: 700;
+  padding: 0.8rem 0;
+  cursor: pointer;
+}
+header .grid__wrap:last-of-type {
+  padding-top: 0;
+}
+header ul {
+  padding: 0;
+  list-style-type: none;
+  margin: 1.5rem 0;
+}
+header ul li:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.social__icon__wrap {
+  margin-top: 6.25rem;
+}
+.social__icon__wrap a {
+  color: #A41E37;
+  width: 25px;
+  height: 25px;
+  display: block;
+  border-radius: 50px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color .3s ease-in,color .3s ease-in;
+  margin-left: auto;
+}

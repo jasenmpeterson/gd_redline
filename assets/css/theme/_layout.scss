@@ -1,0 +1,29 @@
+body {
+  font-family: 'Open Sans', Helvetica;
+  font-weight: 400;
+  overflow: hidden;
+}
+.section__wrap {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+h1:before,
+h2:before {
+  content: '';
+  display: block;
+  height: 0.0625rem;
+  width: 4.0625rem;
+  background: #981B31;
+  margin-bottom: 1.5rem;
+}
+.scroll__wrap {
+  overflow: auto;
+}
+main {
+  position: relative;
+}
+main,
+.scroll__wrap {
+  height: 100%;
+}
