@@ -1,0 +1,45 @@
+// thanks! @ http://codepen.io/TundraTech/pen/jPwzob
+// box shadow left :
+@mixin box-shadow-left($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: -15px 0 15px -15px unquote($bgColor);
+}
+// box shadow right :
+@mixin box-shadow-right($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: 15px 0 15px -15px unquote($bgColor);
+}
+// box shadow left and right :
+@mixin box-shadow-left-and-right($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: -15px 0 15px -15px unquote($bgColor), 15px 0 15px -15px unquote($bgColor);
+}
+// box shadow top :
+@mixin box-shadow-top($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: 0 -15px 15px -15px unquote($bgColor);
+}
+// box shadow bottom :
+@mixin box-shadow-bottom($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: 0 15px 15px -15px unquote($bgColor);
+}
+// box shadow top and bottom :
+@mixin box-shadow-top-and-bottom($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: 0 -15px 15px -15px unquote($bgColor), 0 15px 15px -15px unquote($bgColor);
+}
+// box shadow all :
+@mixin box-shadow-all($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: 0 0 15px unquote($bgColor);
+}
+// box shadow inset top :
+@mixin box-shadow-inset-top($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: inset 0 15px 15px -15px unquote($bgColor);
+}
+// box shadow inset bottom :
+@mixin box-shadow-inset-bottom($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: inset 0 -15px 15px -15px unquote($bgColor);
+}
+// box shadow inset top and bottom :
+@mixin box-shadow-inset-top-and-bottom($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: inset 0 15px 15px -15px unquote($bgColor), inset 0 -15px 15px -15px unquote($bgColor);
+}
+// box shadow inset all :
+@mixin box-shadow-inset-all($bgColor: 'rgba(44,62,80,.5)') {
+  box-shadow: inset 0 0 15px unquote($bgColor);
+}

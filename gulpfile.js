@@ -104,6 +104,7 @@ var mmq          = require('gulp-merge-media-queries'); // Combine matching medi
 // JS related plugins.
 var concat       = require('gulp-concat'); // Concatenates JS files
 var uglify       = require('gulp-uglify'); // Minifies JS files
+var babel        = require('gulp-babel');
 
 // Image realted plugins.
 var imagemin     = require('gulp-imagemin'); // Minify PNG, JPEG, GIF and SVG images with imagemin.
@@ -248,6 +249,9 @@ gulp.task( 'customJS', function() {
   gulp.src( jsCustomSRC )
       .pipe( concat( jsCustomFile + '.js' ) )
       .pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
+      .pipe(babel({
+        presets: ['env']
+      }))
       .pipe( gulp.dest( jsCustomDestination ) )
       .pipe( rename( {
         basename: jsCustomFile,

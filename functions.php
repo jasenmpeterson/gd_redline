@@ -25,7 +25,10 @@ add_action( 'wp_enqueue_scripts', 'enqueue_styles' );
 
 function enqueue_scripts() {
 
-	wp_register_script( 'theme-script', THEME_DIR . '/assets/js/custom.js', array( 'jquery' ), '1', true );
+	wp_register_script( 'vendor-script', THEME_DIR . '/assets/js/vendors.js', array(), '1', true );
+	wp_enqueue_script( 'vendor-script' );
+
+	wp_register_script( 'theme-script', THEME_DIR . '/assets/js/custom.min.js', array(), '1', true );
 	wp_enqueue_script( 'theme-script' );
 
 	wp_register_script( 'font-awesome', 'https://use.fontawesome.com/d7c7bc48b2.js', array(), '1', true );

@@ -3,14 +3,7 @@ body {
   font-weight: 400;
   overflow: hidden;
 }
-.section__wrap {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-}
-h1:before,
-h2:before {
-  content: '';
+span.line {
   display: block;
   height: 0.0625rem;
   width: 4.0625rem;
@@ -18,7 +11,8 @@ h2:before {
   margin-bottom: 1.5rem;
 }
 .scroll__wrap {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 main {
   position: relative;
@@ -26,4 +20,35 @@ main {
 main,
 .scroll__wrap {
   height: 100%;
+}
+.curtain {
+  background: #981B31;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+}
+.curtain .square {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 6.25rem;
+  height: 4.6875rem;
+  background-color: #fff;
+  border-radius: 0.1875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include box-shadow-all('rgba(0,0,0,.5)');
+}
+
+.curtain .square img {
+  @media screen and (min-width: 90rem) {
+    width: 70%;
+  }
 }

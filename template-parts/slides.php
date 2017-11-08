@@ -12,9 +12,10 @@ $introduction = get_field('introduction', $page_id);
 
 ?>
 
-<div class="section__wrap introduction__wrap">
+<div class="section__wrap introduction__wrap" id="introduction">
 	<div class="grid__wrap">
 		<div class="cell">
+            <span class="line"></span>
 			<?php echo $introduction['content']; ?>
 		</div>
 		<div class="cell">
