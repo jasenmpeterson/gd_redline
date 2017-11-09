@@ -1,97 +1,112 @@
-// TODO - Button Click to Slide
-// TODO - Change Active Button on Scroll
-class PageSlider {
-  // credit: https://codepen.io/Javarome/pen/LEOQMe
-  constructor (section) {
-    this.slide = section
-    this.slideStart = this.slide.offsetTop
-    this.slideJump = false
-    this.viewStart
-    this.duration = 1000
-    this.scrolled = document.querySelector('.scroll__wrap')
-  }
+// TODO - Smooth Scroll
 
-  animateScroll () {
+// Thanks! https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 
-    this.slideJump = true
+// Button Click Page Scroll
 
-    // Calculate Scroll Length
-    var startLocation = this.viewStart
-    var endLocation = this.slideStart
-    var distance = endLocation - startLocation
-
-    let runAnimation
-
-    // Set animations variables to 0/undefined
-    var timeLapsed = 0
-    var percentage
-    var position
-
-    // acceleration until halfway, then deceleration
-    var easing = function (progress) {
-      return progress < 0.5 ? 4 * progress * progress * progress : (progress - 1) * (2 * progress - 2) * (2 * progress - 2) + 1
+function scrollIt(destination, duration = 200, easing = 'linear', callback) {
+  
+  const easings = {
+    linear(t) {
+      return t;
+    },
+    easeInQuad(t) {
+      return t * t;
+    },
+    easeOutQuad(t) {
+      return t * (2 - t);
+    },
+    easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    },
+    easeInCubic(t) {
+      return t * t * t;
+    },
+    easeOutCubic(t) {
+      return (--t) * t * t + 1;
+    },
+    easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+    },
+    easeInQuart(t) {
+      return t * t * t * t;
+    },
+    easeOutQuart(t) {
+      return 1 - (--t) * t * t * t;
+    },
+    easeInOutQuart(t) {
+      return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+    },
+    easeInQuint(t) {
+      return t * t * t * t * t;
+    },
+    easeOutQuint(t) {
+      return 1 + (--t) * t * t * t * t;
+    },
+    easeInOutQuint(t) {
+      return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t;
     }
-
-    let stopAnimationIfRequired = (pos) => {
-      if (pos === endLocation) {
-        cancelAnimationFrame(runAnimation)
-        setTimeout( ()=> {
-          this.slideJump = false
-        }, 500)
-      }
+  };
+  
+  const start = window.pageYOffset;
+  
+  // https://developer.mozilla.org/en-US/docs/Web/API/Window/performance
+  const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+  
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
+  const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+  
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+  const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
+  const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+  
+  if ('requestAnimationFrame' in window === false) {
+    window.scroll(0, destinationOffsetToScroll);
+    if (callback) {
+      callback();
     }
-
-    let animate = () => {
-      timeLapsed += 16
-      percentage = timeLapsed / this.duration
-      if (percentage > 1) {
-        percentage = 1
-        position = endLocation
-      } else {
-        position = startLocation + distance * easing(percentage)
+    return;
+  }
+  
+  function scroll() {
+    const now = 'now' in window.performance ? performance.now() : new Date().getTime();
+    
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
+    const time = Math.min(1, ((now - startTime) / duration));
+    
+    const timeFunction = easings[easing](time);
+    
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
+    window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+  
+    // Stop requesting animation when window reached its destination
+    // And run a callback function
+    if (window.pageYOffset === destinationOffsetToScroll) {
+      if (callback) {
+        callback();
       }
-      this.scrolled.scrollTop = position
-      runAnimation = requestAnimationFrame(animate)
-      stopAnimationIfRequired(position)
-      // console.log('position=' + this.scrolled.scrollTop + '(' + percentage + ')')
+      return;
     }
-    // loop animation function
-    runAnimation = requestAnimationFrame(animate)
+  
+    requestAnimationFrame(scroll);
   }
-
-  scrollToSection () {
-    window.addEventListener('wheel', (event)=> {
-      this.viewStart = this.scrolled.scrollTop
-        if(!this.slideJump) {
-        let slideHeight = this.slide.scrollHeight
-        let slideStopPortion = slideHeight / 2
-        let viewHeight = window.innerHeight
-
-        let viewEnd = this.viewStart + viewHeight
-        let slideStartPart = viewEnd - this.slideStart
-        let slideEndPart = (this.slideStart + slideHeight) - this.viewStart
-
-        let canJumpDown = slideStartPart >= 0
-        let stopJumpDown = slideStartPart > slideStopPortion
-
-        let canJumpUp = slideEndPart >= 0
-        let stopJumpUp = slideEndPart > slideStopPortion
-        
-        let scrollingForward = event.deltaY > 0
-        if ( ( scrollingForward && canJumpDown && !stopJumpDown) || ( !scrollingForward && canJumpUp && !stopJumpUp) ) {
-          event.preventDefault()
-          this.animateScroll()
-        }
-        false
-      } else {
-        event.preventDefault()
-      }
-    })
-  }
+  
+  scroll();
+  
 }
 
-var slides = document.querySelectorAll('.section__wrap')
+// TODO - Need to set active link to inactive
 
-for(var slide of slides) {
-  new PageSlider(slide).scrollToSection()
+let scrollButtons = document.querySelectorAll('.scroll__button')
+for(let button of scrollButtons) {
+  button.addEventListener('click', (event) => {
+    'use strict';
+    let sectionID = event.target.dataset.id
+    scrollIt(
+        document.getElementById(sectionID),
+        700,
+        'easeOutQuad',
+        () => console.log(`Just finished scrolling to ${window.pageYOffset}px`)
+    );
+  });
 }

@@ -1,7 +1,7 @@
 body {
   font-family: 'Open Sans', Helvetica;
   font-weight: 400;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 span.line {
   display: block;
@@ -10,15 +10,8 @@ span.line {
   background: #981B31;
   margin-bottom: 1.5rem;
 }
-.scroll__wrap {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
 main {
   position: relative;
-}
-main,
-.scroll__wrap {
   height: 100%;
 }
 .curtain {

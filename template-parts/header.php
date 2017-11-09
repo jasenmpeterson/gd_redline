@@ -5,7 +5,7 @@
             <nav>
                 <ul>
                     <li class="active scroll__button" data-id="introduction">Introduction</li>
-                    <li class="scroll__button" data-id="test">Construction</li>
+                    <li class="scroll__button" data-id="construction">Construction</li>
                     <li class="scroll__button">Durability</li>
                     <li class="scroll__button">Service</li>
                     <li class="scroll__button">Contact</li>

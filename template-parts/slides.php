@@ -23,3 +23,14 @@ $introduction = get_field('introduction', $page_id);
 		</div>
 	</div>
 </div>
+<div class="section__wrap introduction__wrap" id="construction">
+    <div class="grid__wrap">
+        <div class="cell">
+            <span class="line"></span>
+			<?php echo $introduction['content']; ?>
+        </div>
+        <div class="cell">
+            <img src="<?php echo $introduction['image']['sizes']['large']; ?>" alt="<?php echo $introduction['alt']; ?>">
+        </div>
+    </div>
+</div>

@@ -23,7 +23,6 @@ var SplashAnimation = function () {
       this.splashTimeline.to(this.square, 0.8, {
         autoAlpha: 1,
         scale: 2,
-        rotation: 0,
         ease: Elastic.easeOut.config(1, 0.5)
       }).to(this.logo, 0.5, {
         autoAlpha: 1,
@@ -128,121 +127,125 @@ GSDevTools.create({
     zIndex: 100
   }
 });
-// TODO - Button Click to Slide
-// TODO - Change Active Button on Scroll
+// TODO - Smooth Scroll
 
-var PageSlider = function () {
-  // credit: https://codepen.io/Javarome/pen/LEOQMe
-  function PageSlider(section) {
-    _classCallCheck(this, PageSlider);
+// Thanks! https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 
-    this.slide = section;
-    this.slideStart = this.slide.offsetTop;
-    this.slideJump = false;
-    this.viewStart;
-    this.duration = 1000;
-    this.scrolled = document.querySelector('.scroll__wrap');
+// Button Click Page Scroll
+
+function scrollIt(destination) {
+  var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 200;
+  var easing = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'linear';
+  var callback = arguments[3];
+
+
+  var easings = {
+    linear: function linear(t) {
+      return t;
+    },
+    easeInQuad: function easeInQuad(t) {
+      return t * t;
+    },
+    easeOutQuad: function easeOutQuad(t) {
+      return t * (2 - t);
+    },
+    easeInOutQuad: function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    },
+    easeInCubic: function easeInCubic(t) {
+      return t * t * t;
+    },
+    easeOutCubic: function easeOutCubic(t) {
+      return --t * t * t + 1;
+    },
+    easeInOutCubic: function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+    },
+    easeInQuart: function easeInQuart(t) {
+      return t * t * t * t;
+    },
+    easeOutQuart: function easeOutQuart(t) {
+      return 1 - --t * t * t * t;
+    },
+    easeInOutQuart: function easeInOutQuart(t) {
+      return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t;
+    },
+    easeInQuint: function easeInQuint(t) {
+      return t * t * t * t * t;
+    },
+    easeOutQuint: function easeOutQuint(t) {
+      return 1 + --t * t * t * t * t;
+    },
+    easeInOutQuint: function easeInOutQuint(t) {
+      return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * --t * t * t * t * t;
+    }
+  };
+
+  var start = window.pageYOffset;
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/Window/performance
+  var startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
+  var documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+
+  var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+  var destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
+  var destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+
+  if ('requestAnimationFrame' in window === false) {
+    window.scroll(0, destinationOffsetToScroll);
+    if (callback) {
+      callback();
+    }
+    return;
   }
 
-  _createClass(PageSlider, [{
-    key: 'animateScroll',
-    value: function animateScroll() {
-      var _this = this;
+  function scroll() {
+    var now = 'now' in window.performance ? performance.now() : new Date().getTime();
 
-      this.slideJump = true;
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
+    var time = Math.min(1, (now - startTime) / duration);
 
-      // Calculate Scroll Length
-      var startLocation = this.viewStart;
-      var endLocation = this.slideStart;
-      var distance = endLocation - startLocation;
+    var timeFunction = easings[easing](time);
 
-      var runAnimation = void 0;
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
+    window.scroll(0, Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start));
 
-      // Set animations variables to 0/undefined
-      var timeLapsed = 0;
-      var percentage;
-      var position;
-
-      // acceleration until halfway, then deceleration
-      var easing = function easing(progress) {
-        return progress < 0.5 ? 4 * progress * progress * progress : (progress - 1) * (2 * progress - 2) * (2 * progress - 2) + 1;
-      };
-
-      var stopAnimationIfRequired = function stopAnimationIfRequired(pos) {
-        if (pos === endLocation) {
-          cancelAnimationFrame(runAnimation);
-          setTimeout(function () {
-            _this.slideJump = false;
-          }, 500);
-        }
-      };
-
-      var animate = function animate() {
-        timeLapsed += 16;
-        percentage = timeLapsed / _this.duration;
-        if (percentage > 1) {
-          percentage = 1;
-          position = endLocation;
-        } else {
-          position = startLocation + distance * easing(percentage);
-        }
-        _this.scrolled.scrollTop = position;
-        runAnimation = requestAnimationFrame(animate);
-        stopAnimationIfRequired(position);
-        // console.log('position=' + this.scrolled.scrollTop + '(' + percentage + ')')
-      };
-      // loop animation function
-      runAnimation = requestAnimationFrame(animate);
+    // Stop requesting animation when window reached its destination
+    // And run a callback function
+    if (window.pageYOffset === destinationOffsetToScroll) {
+      if (callback) {
+        callback();
+      }
+      return;
     }
-  }, {
-    key: 'scrollToSection',
-    value: function scrollToSection() {
-      var _this2 = this;
 
-      window.addEventListener('wheel', function (event) {
-        _this2.viewStart = _this2.scrolled.scrollTop;
-        if (!_this2.slideJump) {
-          var slideHeight = _this2.slide.scrollHeight;
-          var slideStopPortion = slideHeight / 2;
-          var viewHeight = window.innerHeight;
+    requestAnimationFrame(scroll);
+  }
 
-          var viewEnd = _this2.viewStart + viewHeight;
-          var slideStartPart = viewEnd - _this2.slideStart;
-          var slideEndPart = _this2.slideStart + slideHeight - _this2.viewStart;
+  scroll();
+}
 
-          var canJumpDown = slideStartPart >= 0;
-          var stopJumpDown = slideStartPart > slideStopPortion;
+// TODO - Need to set active link to inactive
 
-          var canJumpUp = slideEndPart >= 0;
-          var stopJumpUp = slideEndPart > slideStopPortion;
-
-          var scrollingForward = event.deltaY > 0;
-          if (scrollingForward && canJumpDown && !stopJumpDown || !scrollingForward && canJumpUp && !stopJumpUp) {
-            event.preventDefault();
-            _this2.animateScroll();
-          }
-          false;
-        } else {
-          event.preventDefault();
-        }
-      });
-    }
-  }]);
-
-  return PageSlider;
-}();
-
-var slides = document.querySelectorAll('.section__wrap');
-
+var scrollButtons = document.querySelectorAll('.scroll__button');
 var _iteratorNormalCompletion = true;
 var _didIteratorError = false;
 var _iteratorError = undefined;
 
 try {
-  for (var _iterator = slides[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-    var slide = _step.value;
+  for (var _iterator = scrollButtons[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+    var button = _step.value;
 
-    new PageSlider(slide).scrollToSection();
+    button.addEventListener('click', function (event) {
+      'use strict';
+
+      var sectionID = event.target.dataset.id;
+      scrollIt(document.getElementById(sectionID), 700, 'easeOutQuad', function () {
+        return console.log('Just finished scrolling to ' + window.pageYOffset + 'px');
+      });
+    });
   }
 } catch (err) {
   _didIteratorError = true;

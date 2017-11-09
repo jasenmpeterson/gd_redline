@@ -14,7 +14,6 @@ class SplashAnimation {
         {
           autoAlpha: 1,
           scale: 2,
-          rotation: 0,
           ease: Elastic.easeOut.config(1, 0.5)
         }
     ).to(

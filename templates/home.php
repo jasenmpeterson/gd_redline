@@ -18,9 +18,7 @@ get_header();
         </div>
     </div>
     <?php get_template_part( 'template-parts/header' ); ?>
-    <div class="scroll__wrap">
-        <?php get_template_part( 'template-parts/slides' ); ?>
-    </div>
+	<?php get_template_part( 'template-parts/slides' ); ?>
 </main>
 
 <?php
