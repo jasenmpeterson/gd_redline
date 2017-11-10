@@ -53,17 +53,37 @@ var IntroductionAnimation = function () {
     _classCallCheck(this, IntroductionAnimation);
 
     this.mainTimeline = new TimelineLite({ delay: 1.50 });
+    this.logo = document.querySelector('.redline__logo');
+    this.logoTimeline = new TimelineLite();
     this.lineTimeline = new TimelineLite();
     this.textTimeline = new TimelineLite();
     this.splitText = new SplitText('.introduction__wrap h1', { type: 'words,chars' });
+    this.chars = this.splitText.chars;
     this.introductionText = document.querySelector('.introduction__wrap h1');
     this.line = document.querySelector('.introduction__wrap .line');
-    this.chars = this.splitText.chars;
-    this.logo = document.querySelector('.redline__logo');
-    this.logoTimeline = new TimelineLite();
+    this.productShotTimeline = new TimelineLite();
+    this.productShot = document.querySelector('.introduction__wrap .product__shot');
+    this.navTimeline = new TimelineLite();
+    this.nav = document.querySelectorAll('nav ul li');
+    this.socialIconTimline = new TimelineLite();
+    this.socialIcons = document.querySelectorAll('.social__icon__wrap ul li a');
+    this.contactButtonTimline = new TimelineLite({ delay: 0.84 });
+    this.contactButton = document.querySelector('.contact__btn');
   }
 
   _createClass(IntroductionAnimation, [{
+    key: 'AnimateLogo',
+    value: function AnimateLogo() {
+      TweenLite.set(this.logo, { autoAlpha: 0, scale: 0.5 });
+      var logoAnimation = TweenLite.to(this.logo, 1.2, {
+        autoAlpha: 1,
+        scale: 1,
+        ease: Elastic.easeInOut.config(0.5, 0.3)
+      });
+
+      this.logoTimeline.add(logoAnimation);
+    }
+  }, {
     key: 'AnimateText',
     value: function AnimateText() {
 
@@ -75,45 +95,137 @@ var IntroductionAnimation = function () {
         y: 80,
         rotationX: 180,
         transformOrigin: "0% 50% -50",
+        delay: 0.8,
         ease: Back.easeOut
       }, 0.01, '+=0');
     }
   }, {
     key: 'AnimateLine',
     value: function AnimateLine() {
-      var lineAnimation = TweenLite.fromTo(this.line, 0.5, {
-        opacity: 0,
-        width: 0
-      }, {
-        opacity: 1,
+      TweenLite.set(this.line, { autoAlpha: 0, width: 0 });
+      var lineAnimation = TweenLite.to(this.line, 0.5, {
+        autoAlpha: 1,
         width: '4.0625rem',
-        ease: Power1.easeOut,
-        delay: 0.60
-      });
+        ease: Power4.easeOut,
+        delay: 0.8
+      }, '+=0');
 
       this.lineTimeline.add(lineAnimation);
     }
   }, {
-    key: 'AnimateLogo',
-    value: function AnimateLogo() {
-      TweenLite.set(this.logo, { autoAlpha: 0, x: 100 });
-      var logoAnimation = TweenLite.to(this.logo, 0.5, {
+    key: 'AnimateProductShot',
+    value: function AnimateProductShot() {
+      TweenLite.set(this.productShot, { autoAlpha: 0, x: 350 });
+      var productShotAnimation = TweenLite.to(this.productShot, 1, {
         autoAlpha: 1,
         x: 0,
-        delay: 0.65,
-        easing: Power4.easeOut
+        delay: 1.5,
+        ease: Power4.easeInOut
       });
+      this.productShotTimeline.add(productShotAnimation);
+    }
+  }, {
+    key: 'AnimateSocialIcons',
+    value: function AnimateSocialIcons() {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
-      this.logoTimeline.add(logoAnimation);
+      try {
+
+        for (var _iterator = this.socialIcons[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var icon = _step.value;
+
+          TweenLite.set(icon, { autoAlpha: 0, scale: 0.5 });
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      this.socialIconTimline.staggerTo(this.socialIcons, 0.1, {
+        autoAlpha: 1,
+        scale: 1,
+        delay: 0.84,
+        ease: Bounce.easeOut
+      }, '0.2');
+    }
+  }, {
+    key: 'AnimateContactButton',
+    value: function AnimateContactButton() {
+      TweenLite.set(this.contactButton, { autoAlpha: 0 });
+      var rule = CSSRulePlugin.getRule('header div.contact__btn:before');
+      var contactButtonAnimation = TweenLite.to(this.contactButton, 0.5, {
+        autoAlpha: 1,
+        ease: Power2.easeOut
+      });
+      TweenLite.set(rule, { cssRule: { width: 0 } });
+      var contactButtonBeforeAnimation = TweenLite.to(rule, 0.3, {
+        cssRule: {
+          width: '100%'
+        },
+        ease: Power4.easeInOut
+      });
+      this.contactButtonTimline.add([contactButtonAnimation, contactButtonBeforeAnimation]);
+    }
+  }, {
+    key: 'AnimateNav',
+    value: function AnimateNav() {
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+
+        for (var _iterator2 = this.nav[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var link = _step2.value;
+
+          TweenLite.set(link, { autoAlpha: 0, x: 125 });
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      this.navTimeline.staggerTo(this.nav, 0.5, {
+        autoAlpha: 1,
+        x: 0,
+        delay: 0.84,
+        ease: Power4.easeOut
+      }, '0.2');
     }
   }, {
     key: 'Animate',
     value: function Animate() {
+      this.AnimateLogo();
       this.AnimateText();
       this.AnimateLine();
-      this.AnimateLogo();
+      this.AnimateProductShot();
+      this.AnimateSocialIcons();
+      this.AnimateContactButton();
+      this.AnimateNav();
 
-      this.mainTimeline.add([this.textTimeline, this.lineTimeline, this.logoTimeline]);
+      this.mainTimeline.add([this.textTimeline, this.lineTimeline, this.logoTimeline, this.socialIconTimline, this.contactButtonTimline, this.navTimeline]);
     }
   }]);
 
@@ -122,13 +234,38 @@ var IntroductionAnimation = function () {
 
 new IntroductionAnimation().Animate();
 
+var ConstructionAnimation = function ConstructionAnimation() {
+  _classCallCheck(this, ConstructionAnimation);
+
+  this.line = document.querySelector('.construction__wrap .line');
+  this.sectionTitle = document.querySelector('.construction__wrap h3');
+  this.splitText = new SplitText('.construction__wrap h1', { type: 'words,chars' });
+  this.chars = this.splitText.chars;
+  this.introductionText = document.querySelector('.construction__wrap h1');
+};
+
 GSDevTools.create({
   css: {
     zIndex: 100
   }
 });
-// TODO - Smooth Scroll
 
+// https://projects.lukehaas.me/scrollify/#home
+
+jQuery(function () {
+  jQuery.scrollify({
+    section: '.section__wrap',
+    sectionName: 'id',
+    updateHash: false,
+    after: function after(index) {
+      'use strict';
+
+      var currPosition = index + 1;
+      jQuery('.scroll__button.active').removeClass('active');
+      jQuery('.scroll__button:nth-of-type(' + currPosition + ')').addClass('active');
+    }
+  });
+});
 // Thanks! https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 
 // Button Click Page Scroll
@@ -227,37 +364,40 @@ function scrollIt(destination) {
   scroll();
 }
 
-// TODO - Need to set active link to inactive
-
 var scrollButtons = document.querySelectorAll('.scroll__button');
-var _iteratorNormalCompletion = true;
-var _didIteratorError = false;
-var _iteratorError = undefined;
+var _iteratorNormalCompletion3 = true;
+var _didIteratorError3 = false;
+var _iteratorError3 = undefined;
 
 try {
-  for (var _iterator = scrollButtons[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-    var button = _step.value;
+  for (var _iterator3 = scrollButtons[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+    var button = _step3.value;
 
     button.addEventListener('click', function (event) {
       'use strict';
 
       var sectionID = event.target.dataset.id;
+
+      var currentActiveLink = document.querySelector('.scroll__button.active');
+      currentActiveLink.classList.remove('active');
+      event.target.classList.add('active');
+
       scrollIt(document.getElementById(sectionID), 700, 'easeOutQuad', function () {
         return console.log('Just finished scrolling to ' + window.pageYOffset + 'px');
       });
     });
   }
 } catch (err) {
-  _didIteratorError = true;
-  _iteratorError = err;
+  _didIteratorError3 = true;
+  _iteratorError3 = err;
 } finally {
   try {
-    if (!_iteratorNormalCompletion && _iterator.return) {
-      _iterator.return();
+    if (!_iteratorNormalCompletion3 && _iterator3.return) {
+      _iterator3.return();
     }
   } finally {
-    if (_didIteratorError) {
-      throw _iteratorError;
+    if (_didIteratorError3) {
+      throw _iteratorError3;
     }
   }
 }

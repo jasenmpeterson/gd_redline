@@ -39,7 +39,6 @@ main {
   justify-content: center;
   @include box-shadow-all('rgba(0,0,0,.5)');
 }
-
 .curtain .square img {
   @media screen and (min-width: 90rem) {
     width: 70%;

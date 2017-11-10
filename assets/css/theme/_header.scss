@@ -22,7 +22,7 @@ header .grid__wrap .cell:first-of-type svg {
   width: 100%;
   height: auto;
 }
-header span.contact-btn {
+header div.contact__btn {
   text-align: center;
   display: block;
   max-width: 12.5rem;
@@ -32,6 +32,22 @@ header span.contact-btn {
   padding: 0.8rem 0;
   cursor: pointer;
   pointer-events: auto;
+  position: relative;
+}
+header div.contact__btn span {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+}
+header div.contact__btn:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  display: block;
+  width: 0;
+  height: 100%;
+  background-color: #ED0B35;
 }
 header .grid__wrap:last-of-type {
   padding-top: 0;
@@ -49,6 +65,7 @@ header nav li {
   color: #2B2B2B;
   font-weight: 400;
   pointer-events: auto;
+  transition: color 300ms ease-out;
 }
 header nav li:before,
 header nav li:after {

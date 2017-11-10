@@ -1,5 +1,3 @@
-// TODO - Smooth Scroll
-
 // Thanks! https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 
 // Button Click Page Scroll
@@ -95,13 +93,16 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback) {
   
 }
 
-// TODO - Need to set active link to inactive
-
-let scrollButtons = document.querySelectorAll('.scroll__button')
+let scrollButtons = document.querySelectorAll('.scroll__button');
 for(let button of scrollButtons) {
   button.addEventListener('click', (event) => {
     'use strict';
-    let sectionID = event.target.dataset.id
+    let sectionID = event.target.dataset.id;
+    
+    let currentActiveLink = document.querySelector('.scroll__button.active');
+    currentActiveLink.classList.remove('active');
+    event.target.classList.add('active');
+    
     scrollIt(
         document.getElementById(sectionID),
         700,

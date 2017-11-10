@@ -13,7 +13,7 @@
             </nav>
 		</div>
 		<div class="cell">
-			<span class="contact-btn">Contact</span>
+			<div class="contact__btn"><span>Contact</span></div>
             <div class="social__icon__wrap">
                 <ul>
                     <li>
