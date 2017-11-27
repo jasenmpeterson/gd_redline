@@ -1,253 +1,133 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+// TODO - Disable Scrolling While Splash Animation is Playing
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var siteTimeline = new TimelineMax({ id: 'Site Timeline' });
 
-var SplashAnimation = function () {
-  function SplashAnimation() {
-    _classCallCheck(this, SplashAnimation);
+// Splash Page Logo Animation
 
-    this.splashTimeline = new TimelineMax();
-    this.curtain = document.querySelector('.curtain');
-    this.logo = document.querySelector('.square img');
-    this.square = document.querySelector('.curtain .square');
-  }
+function LogoAnimation() {
 
-  _createClass(SplashAnimation, [{
-    key: 'animateSquare',
-    value: function animateSquare() {
+  var logoTimeline = new TimelineMax();
+  var curtain = document.querySelector('.curtain');
+  var logo = document.querySelector('.square img');
+  var square = document.querySelector('.curtain .square');
 
-      TweenMax.set(this.square, { autoAlpha: 0 });
+  TweenMax.set(square, { autoAlpha: 0 });
 
-      this.splashTimeline.to(this.square, 0.8, {
-        autoAlpha: 1,
-        scale: 2,
-        ease: Elastic.easeOut.config(1, 0.5)
-      }).to(this.logo, 0.5, {
-        autoAlpha: 1,
-        ease: Power4.easeOut
-      }, '-=0.80').to(this.square, 1.2, {
-        width: '100%',
-        height: '100%',
-        autoAlpha: 0,
-        delay: 0.5,
-        ease: Power4.easeOut
-      }).to(this.logo, 0.2, {
-        autoAlpha: 0,
-        ease: Power4.easeOut
-      }, '1.20').to(this.curtain, 0.1, {
-        autoAlpha: 0,
-        ease: Power4.easeOut
-      }, '1.45');
-    }
-  }]);
+  logoTimeline.add('logo_animation').to(square, 0.8, {
+    autoAlpha: 1,
+    scale: 2,
+    ease: Elastic.easeOut.config(1, 0.5)
+  }).to(logo, 0.5, {
+    autoAlpha: 1,
+    ease: Power4.easeOut
+  }, '-=0.80').to(square, 1.2, {
+    width: '100%',
+    height: '100%',
+    autoAlpha: 0,
+    delay: 0.5,
+    ease: Power4.easeOut
+  }).to(logo, 0.2, {
+    autoAlpha: 0,
+    ease: Power4.easeOut
+  }, '1.20').to(curtain, 0.1, {
+    autoAlpha: 0,
+    ease: Power4.easeOut
+  }, '1.45');
 
-  return SplashAnimation;
-}();
+  return logoTimeline;
+}
 
-new SplashAnimation().animateSquare();
+// Introduction Section Logo Animation
 
-var IntroductionAnimation = function () {
-  function IntroductionAnimation() {
-    _classCallCheck(this, IntroductionAnimation);
+function Intro__RedlineLogo() {
 
-    this.mainTimeline = new TimelineLite({ delay: 1.50 });
-    this.logo = document.querySelector('.redline__logo');
-    this.logoTimeline = new TimelineLite();
-    this.lineTimeline = new TimelineLite();
-    this.textTimeline = new TimelineLite();
-    this.splitText = new SplitText('.introduction__wrap h1', { type: 'words,chars' });
-    this.chars = this.splitText.chars;
-    this.introductionText = document.querySelector('.introduction__wrap h1');
-    this.line = document.querySelector('.introduction__wrap .line');
-    this.productShotTimeline = new TimelineLite();
-    this.productShot = document.querySelector('.introduction__wrap .product__shot');
-    this.navTimeline = new TimelineLite();
-    this.nav = document.querySelectorAll('nav ul li');
-    this.socialIconTimline = new TimelineLite();
-    this.socialIcons = document.querySelectorAll('.social__icon__wrap ul li a');
-    this.contactButtonTimline = new TimelineLite({ delay: 0.84 });
-    this.contactButton = document.querySelector('.contact__btn');
-  }
+  var timeline = new TimelineMax({ delay: 1.50 });
+  var logo = document.querySelector('.redline__logo');
 
-  _createClass(IntroductionAnimation, [{
-    key: 'AnimateLogo',
-    value: function AnimateLogo() {
-      TweenLite.set(this.logo, { autoAlpha: 0, scale: 0.5 });
-      var logoAnimation = TweenLite.to(this.logo, 1.2, {
-        autoAlpha: 1,
-        scale: 1,
-        ease: Elastic.easeInOut.config(0.5, 0.3)
-      });
+  TweenMax.set(logo, { autoAlpha: 0, scale: 0.5 });
 
-      this.logoTimeline.add(logoAnimation);
-    }
-  }, {
-    key: 'AnimateText',
-    value: function AnimateText() {
+  var logoAnimation = TweenMax.to(logo, 1.2, {
+    autoAlpha: 1,
+    scale: 1,
+    ease: Elastic.easeInOut.config(0.5, 0.3)
+  });
 
-      TweenLite.set(this.introductionText, { perspective: 400 });
+  timeline.add(logoAnimation);
 
-      this.textTimeline.staggerFrom(this.chars, 0.8, {
-        opacity: 0,
-        scale: 0,
-        y: 80,
-        rotationX: 180,
-        transformOrigin: "0% 50% -50",
-        delay: 0.8,
-        ease: Back.easeOut
-      }, 0.01, '+=0');
-    }
-  }, {
-    key: 'AnimateLine',
-    value: function AnimateLine() {
-      TweenLite.set(this.line, { autoAlpha: 0, width: 0 });
-      var lineAnimation = TweenLite.to(this.line, 0.5, {
-        autoAlpha: 1,
-        width: '4.0625rem',
-        ease: Power4.easeOut,
-        delay: 0.8
-      }, '+=0');
+  return timeline;
+}
 
-      this.lineTimeline.add(lineAnimation);
-    }
-  }, {
-    key: 'AnimateProductShot',
-    value: function AnimateProductShot() {
-      TweenLite.set(this.productShot, { autoAlpha: 0, x: 350 });
-      var productShotAnimation = TweenLite.to(this.productShot, 1, {
-        autoAlpha: 1,
-        x: 0,
-        delay: 1.5,
-        ease: Power4.easeInOut
-      });
-      this.productShotTimeline.add(productShotAnimation);
-    }
-  }, {
-    key: 'AnimateSocialIcons',
-    value: function AnimateSocialIcons() {
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+// Introduction Section Text
 
-      try {
+function Intro__Text() {
 
-        for (var _iterator = this.socialIcons[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var icon = _step.value;
+  var timeline = new TimelineMax({ delay: 2.15 });
+  var splitText = new SplitText('.introduction__wrap h1', { type: 'words,chars' });
+  var chars = splitText.chars;
+  var introductionText = document.querySelector('.introduction__wrap h1');
+  var line = document.querySelector('.introduction__wrap .line');
 
-          TweenLite.set(icon, { autoAlpha: 0, scale: 0.5 });
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
+  // Accent Line
 
-      this.socialIconTimline.staggerTo(this.socialIcons, 0.1, {
-        autoAlpha: 1,
-        scale: 1,
-        delay: 0.84,
-        ease: Bounce.easeOut
-      }, '0.2');
-    }
-  }, {
-    key: 'AnimateContactButton',
-    value: function AnimateContactButton() {
-      TweenLite.set(this.contactButton, { autoAlpha: 0 });
-      var rule = CSSRulePlugin.getRule('header div.contact__btn:before');
-      var contactButtonAnimation = TweenLite.to(this.contactButton, 0.5, {
-        autoAlpha: 1,
-        ease: Power2.easeOut
-      });
-      TweenLite.set(rule, { cssRule: { width: 0 } });
-      var contactButtonBeforeAnimation = TweenLite.to(rule, 0.3, {
-        cssRule: {
-          width: '100%'
-        },
-        ease: Power4.easeInOut
-      });
-      this.contactButtonTimline.add([contactButtonAnimation, contactButtonBeforeAnimation]);
-    }
-  }, {
-    key: 'AnimateNav',
-    value: function AnimateNav() {
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+  TweenMax.set(line, { autoAlpha: 0, width: 0 });
 
-      try {
+  var lineAnimation = TweenMax.to(line, 0.5, {
+    autoAlpha: 1,
+    width: '4.0625rem',
+    ease: Power4.easeOut
+  });
 
-        for (var _iterator2 = this.nav[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var link = _step2.value;
+  timeline.add(lineAnimation);
 
-          TweenLite.set(link, { autoAlpha: 0, x: 125 });
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
+  // Text
 
-      this.navTimeline.staggerTo(this.nav, 0.5, {
-        autoAlpha: 1,
-        x: 0,
-        delay: 0.84,
-        ease: Power4.easeOut
-      }, '0.2');
-    }
-  }, {
-    key: 'Animate',
-    value: function Animate() {
-      this.AnimateLogo();
-      this.AnimateText();
-      this.AnimateLine();
-      this.AnimateProductShot();
-      this.AnimateSocialIcons();
-      this.AnimateContactButton();
-      this.AnimateNav();
+  TweenMax.set(introductionText, { perspective: 400 });
 
-      this.mainTimeline.add([this.textTimeline, this.lineTimeline, this.logoTimeline, this.socialIconTimline, this.contactButtonTimline, this.navTimeline]);
-    }
-  }]);
+  timeline.staggerFrom(chars, 0.8, {
+    opacity: 0,
+    scale: 0,
+    y: 80,
+    rotationX: 180,
+    transformOrigin: "0% 50% -50",
+    ease: Back.easeOut
+  });
 
-  return IntroductionAnimation;
-}();
+  return timeline;
+}
 
-new IntroductionAnimation().Animate();
+// Introduction Product Shot
 
-var ConstructionAnimation = function ConstructionAnimation() {
-  _classCallCheck(this, ConstructionAnimation);
+function Intro__ProductShot() {
 
-  this.line = document.querySelector('.construction__wrap .line');
-  this.sectionTitle = document.querySelector('.construction__wrap h3');
-  this.splitText = new SplitText('.construction__wrap h1', { type: 'words,chars' });
-  this.chars = this.splitText.chars;
-  this.introductionText = document.querySelector('.construction__wrap h1');
-};
+  var timeline = new TimelineMax({ delay: .95 });
+  var productShot = document.querySelector('.introduction__wrap .product__shot');
+
+  TweenLite.set(productShot, { autoAlpha: 0, x: 350 });
+  var productShotAnimation = TweenLite.to(productShot, 1, {
+    autoAlpha: 1,
+    x: 0,
+    delay: 1.5,
+    ease: Power4.easeInOut
+  });
+
+  timeline.add(productShotAnimation);
+
+  return timeline;
+}
+
+siteTimeline.add([LogoAnimation(), Intro__RedlineLogo(), Intro__Text(), Intro__ProductShot()]);
+
+siteTimeline.play('logo_animation');
 
 GSDevTools.create({
   css: {
     zIndex: 100
-  }
+  },
+  globalSync: false,
+  persist: false,
+  paused: true
 });
 
 // https://projects.lukehaas.me/scrollify/#home
@@ -263,9 +143,26 @@ jQuery(function () {
       var currPosition = index + 1;
       jQuery('.scroll__button.active').removeClass('active');
       jQuery('.scroll__button:nth-of-type(' + currPosition + ')').addClass('active');
+      // scrollifyOnEnter(currPosition);
     }
   });
 });
+
+// scrollify on enter
+
+// let scrollifyOnEnter = function (currPosition) {
+
+//   var currentSection = jQuery('.scroll__button:nth-of-type(' + currPosition + ')').data('id');
+
+//   switch (currentSection) {
+//     case 'introduction':
+//       console.log(currentSection);
+//       break;
+//     case 'construction':
+//       break;
+//   }
+
+// }
 // Thanks! https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 
 // Button Click Page Scroll
@@ -365,13 +262,13 @@ function scrollIt(destination) {
 }
 
 var scrollButtons = document.querySelectorAll('.scroll__button');
-var _iteratorNormalCompletion3 = true;
-var _didIteratorError3 = false;
-var _iteratorError3 = undefined;
+var _iteratorNormalCompletion = true;
+var _didIteratorError = false;
+var _iteratorError = undefined;
 
 try {
-  for (var _iterator3 = scrollButtons[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-    var button = _step3.value;
+  for (var _iterator = scrollButtons[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+    var button = _step.value;
 
     button.addEventListener('click', function (event) {
       'use strict';
@@ -388,16 +285,16 @@ try {
     });
   }
 } catch (err) {
-  _didIteratorError3 = true;
-  _iteratorError3 = err;
+  _didIteratorError = true;
+  _iteratorError = err;
 } finally {
   try {
-    if (!_iteratorNormalCompletion3 && _iterator3.return) {
-      _iterator3.return();
+    if (!_iteratorNormalCompletion && _iterator.return) {
+      _iterator.return();
     }
   } finally {
-    if (_didIteratorError3) {
-      throw _iteratorError3;
+    if (_didIteratorError) {
+      throw _iteratorError;
     }
   }
 }

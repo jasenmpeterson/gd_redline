@@ -1,238 +1,173 @@
-class SplashAnimation {
-  constructor () {
-    this.splashTimeline = new TimelineMax();
-    this.curtain = document.querySelector('.curtain');
-    this.logo = document.querySelector('.square img');
-    this.square = document.querySelector('.curtain .square')
-  }
-  animateSquare () {
-    
-    TweenMax.set(this.square, { autoAlpha: 0});
-    
-    this.splashTimeline.to(
-          this.square, 0.8,
-        {
-          autoAlpha: 1,
-          scale: 2,
-          ease: Elastic.easeOut.config(1, 0.5)
-        }
-    ).to(
-        this.logo, 0.5,
-        {
-          autoAlpha: 1,
-          ease: Power4.easeOut
-        }, '-=0.80'
-    ).to(
-        this.square, 1.2,
-        {
-          width: '100%',
-          height: '100%',
-          autoAlpha: 0,
-          delay: 0.5,
-          ease: Power4.easeOut
-        }
-    ).to(
-        this.logo, 0.2,
-        {
-          autoAlpha: 0,
-          ease: Power4.easeOut
-        }, '1.20'
-    ).to(
-        this.curtain, 0.1,
-        {
-          autoAlpha: 0,
-          ease: Power4.easeOut
-        }, '1.45'
-    )
-  }
-}
+// TODO - Disable Scrolling While Splash Animation is Playing
 
-new SplashAnimation().animateSquare();
+var siteTimeline = new TimelineMax({ id: 'Site Timeline' })
 
-class IntroductionAnimation {
-  constructor () {
-    this.mainTimeline = new TimelineLite({ delay: 1.50 });
-    this.logo = document.querySelector('.redline__logo');
-    this.logoTimeline = new TimelineLite();
-    this.lineTimeline = new TimelineLite();
-    this.textTimeline = new TimelineLite();
-    this.splitText = new SplitText('.introduction__wrap h1', {type:'words,chars'});
-    this.chars = this.splitText.chars;
-    this.introductionText = document.querySelector('.introduction__wrap h1');
-    this.line = document.querySelector('.introduction__wrap .line');
-    this.productShotTimeline = new TimelineLite();
-    this.productShot = document.querySelector('.introduction__wrap .product__shot');
-    this.navTimeline = new TimelineLite();
-    this.nav = document.querySelectorAll('nav ul li');
-    this.socialIconTimline = new TimelineLite();
-    this.socialIcons = document.querySelectorAll('.social__icon__wrap ul li a');
-    this.contactButtonTimline = new TimelineLite({ delay: 0.84 });
-    this.contactButton = document.querySelector('.contact__btn');
-}
-  AnimateLogo () {
-    TweenLite.set(this.logo, { autoAlpha: 0, scale: 0.5});
-    let logoAnimation = TweenLite.to
-    (   this.logo,
-        1.2,
-        {
-          autoAlpha: 1,
-          scale: 1,
-          ease: Elastic.easeInOut.config(0.5, 0.3)
-        }
-    );
-    
-    this.logoTimeline.add(logoAnimation)
-  }
-  AnimateText () {
-    
-    TweenLite.set(this.introductionText, {perspective:400});
-    
-    this.textTimeline.staggerFrom(
-        this.chars, 0.8,
-        {
-          opacity:0,
-          scale:0,
-          y:80,
-          rotationX:180,
-          transformOrigin:"0% 50% -50",
-          delay: 0.8,
-          ease: Back.easeOut
-        },
-        0.01,
-        '+=0'
-    )
-  }
-  AnimateLine () {
-    TweenLite.set( this.line, { autoAlpha: 0, width: 0})
-    let lineAnimation = TweenLite.to
-    (
-      this.line,
-      0.5,
-        {
-          autoAlpha: 1,
-          width: '4.0625rem',
-          ease: Power4.easeOut,
-          delay: 0.8
-        }, '+=0'
-    );
-    
-    this.lineTimeline.add(lineAnimation)
-    
-  }
-  AnimateProductShot () {
-    TweenLite.set(this.productShot, { autoAlpha: 0 , x: 350 });
-    let productShotAnimation = TweenLite.to
-    (
-        this.productShot,
-        1,
-        {
-          autoAlpha: 1,
-          x: 0,
-          delay: 1.5,
-          ease: Power4.easeInOut
-        }
-    );
-    this.productShotTimeline.add(productShotAnimation)
-  }
-  AnimateSocialIcons () {
+// Splash Page Logo Animation
 
-    for(let icon of this.socialIcons) {
-      TweenLite.set(icon, { autoAlpha: 0, scale: 0.5})
-    }
-    this.socialIconTimline.staggerTo
-    (
-        this.socialIcons,
-        0.1,
-        {
-          autoAlpha: 1,
-          scale: 1,
-          delay: 0.84,
-          ease: Bounce.easeOut
-        }, '0.2'
-    )
-    
-  }
-  AnimateContactButton () {
-    TweenLite.set(this.contactButton, { autoAlpha: 0});
-    const rule = CSSRulePlugin.getRule('header div.contact__btn:before');
-    let contactButtonAnimation = TweenLite.to
-    (
-        this.contactButton,
-        0.5,
-        {
-          autoAlpha: 1,
-          ease: Power2.easeOut
-        }
-    );
-    TweenLite.set(rule, { cssRule: { width: 0 }});
-    let contactButtonBeforeAnimation = TweenLite.to
-    (
-        rule,
-        0.3,
-        {
-          cssRule: {
-            width: '100%'
-          },
-          ease: Power4.easeInOut
-        }
-    );
-    this.contactButtonTimline.add([contactButtonAnimation, contactButtonBeforeAnimation])
-  }
-  AnimateNav() {
+function LogoAnimation() {
+
+  let logoTimeline = new TimelineMax();
+  let curtain = document.querySelector('.curtain');
+  let logo = document.querySelector('.square img');
+  let square = document.querySelector('.curtain .square');
+
+  TweenMax.set(square, { autoAlpha: 0 });
   
-    for(let link of this.nav) {
-      TweenLite.set(link, { autoAlpha: 0, x: 125})
+  logoTimeline
+    .add('logo_animation')
+    .to(
+    square, 0.8,
+    {
+      autoAlpha: 1,
+      scale: 2,
+      ease: Elastic.easeOut.config(1, 0.5)
     }
-    this.navTimeline.staggerTo
+    ).to(
+    logo, 0.5,
+    {
+      autoAlpha: 1,
+      ease: Power4.easeOut
+    }, '-=0.80'
+    ).to(
+    square, 1.2,
+    {
+      width: '100%',
+      height: '100%',
+      autoAlpha: 0,
+      delay: 0.5,
+      ease: Power4.easeOut
+    }
+    ).to(
+    logo, 0.2,
+    {
+      autoAlpha: 0,
+      ease: Power4.easeOut
+    }, '1.20'
+    ).to(
+    curtain, 0.1,
+    {
+      autoAlpha: 0,
+      ease: Power4.easeOut
+    }, '1.45'
+  );
+
+  return logoTimeline;
+
+}
+
+// Introduction Section Logo Animation
+
+function Intro__RedlineLogo() {
+
+  let timeline = new TimelineMax({ delay: 1.50 })
+  let logo = document.querySelector('.redline__logo');
+
+  TweenMax.set(logo, { autoAlpha: 0, scale: 0.5 });
+
+  let logoAnimation = TweenMax.to
+    (logo,
+    1.2,
+    {
+      autoAlpha: 1,
+      scale: 1,
+      ease: Elastic.easeInOut.config(0.5, 0.3)
+    }
+  );
+  
+  timeline.add(logoAnimation)
+
+  return timeline;
+
+}
+
+// Introduction Section Text
+
+function Intro__Text() {
+
+  let timeline = new TimelineMax({ delay: 2.15 });
+  let splitText = new SplitText('.introduction__wrap h1', { type: 'words,chars' });
+  let chars = splitText.chars;
+  let introductionText = document.querySelector('.introduction__wrap h1');
+  let line = document.querySelector('.introduction__wrap .line');
+
+  // Accent Line
+
+  TweenMax.set(line, { autoAlpha: 0, width: 0 });
+
+  let lineAnimation = TweenMax.to
     (
-        this.nav,
-        0.5,
-        {
-          autoAlpha: 1,
-          x: 0,
-          delay: 0.84,
-          ease: Power4.easeOut
-        }, '0.2'
-    )
-  }
-  Animate () {
-    this.AnimateLogo();
-    this.AnimateText();
-    this.AnimateLine();
-    this.AnimateProductShot();
-    this.AnimateSocialIcons();
-    this.AnimateContactButton();
-    this.AnimateNav();
-    
-    this.mainTimeline.add(
-        [
-          this.textTimeline,
-          this.lineTimeline,
-          this.logoTimeline,
-          this.socialIconTimline,
-          this.contactButtonTimline,
-          this.navTimeline
-        ]
-    )
-  }
+    line,
+    0.5,
+    {
+      autoAlpha: 1,
+      width: '4.0625rem',
+      ease: Power4.easeOut
+    }
+  );
+  
+  timeline.add(lineAnimation)
+
+  // Text
+
+  TweenMax.set(introductionText, { perspective: 400 });
+
+  timeline.staggerFrom(
+    chars, 0.8,
+    {
+      opacity: 0,
+      scale: 0,
+      y: 80,
+      rotationX: 180,
+      transformOrigin: "0% 50% -50",
+      ease: Back.easeOut
+    }
+  );
+
+  return timeline;
 }
 
-new IntroductionAnimation().Animate();
+// Introduction Product Shot
 
-class ConstructionAnimation {
-  constructor () {
-    this.line = document.querySelector('.construction__wrap .line');
-    this.sectionTitle = document.querySelector('.construction__wrap h3')
-    this.splitText = new SplitText('.construction__wrap h1', {type:'words,chars'});
-    this.chars = this.splitText.chars;
-    this.introductionText = document.querySelector('.construction__wrap h1');
-  }
+function Intro__ProductShot() {
+
+  let timeline = new TimelineMax({ delay: .95 });
+  let productShot = document.querySelector('.introduction__wrap .product__shot');
+
+  TweenLite.set(productShot, { autoAlpha: 0, x: 350 });
+  let productShotAnimation = TweenLite.to
+    (
+      productShot,
+    1,
+    {
+      autoAlpha: 1,
+      x: 0,
+      delay: 1.5,
+      ease: Power4.easeInOut
+    }
+  );
+  
+  timeline.add(productShotAnimation);
+
+  return timeline;
+
 }
+
+siteTimeline.add([
+  LogoAnimation(),
+  Intro__RedlineLogo(),
+  Intro__Text(),
+  Intro__ProductShot()
+]);
+
+siteTimeline.play('logo_animation');
 
 GSDevTools.create({
   css: {
     zIndex: 100
-  }
+  },
+  globalSync: false,
+  persist: false,
+  paused: true
 });
 
 // https://projects.lukehaas.me/scrollify/#home
@@ -244,9 +179,26 @@ jQuery(function() {
     updateHash: false,
     after: function (index) {
       'use strict';
-      var currPosition = index+1
+      var currPosition = index + 1;
       jQuery('.scroll__button.active').removeClass('active');
-      jQuery('.scroll__button:nth-of-type('+currPosition+')').addClass('active');
+      jQuery('.scroll__button:nth-of-type(' + currPosition + ')').addClass('active');
+     // scrollifyOnEnter(currPosition);
     }
   });
 });
+
+// scrollify on enter
+
+// let scrollifyOnEnter = function (currPosition) {
+
+//   var currentSection = jQuery('.scroll__button:nth-of-type(' + currPosition + ')').data('id');
+
+//   switch (currentSection) {
+//     case 'introduction':
+//       console.log(currentSection);
+//       break;
+//     case 'construction':
+//       break;
+//   }
+
+// }

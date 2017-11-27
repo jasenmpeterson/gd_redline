@@ -13,7 +13,7 @@ $construction = get_field('construction', $page_id);
 
 ?>
 
-<div class="section__wrap introduction__wrap" id="introduction">
+<div class="section__wrap introduction__wrap" id="introduction" data-id="introduction-section">
 	<div class="grid__wrap">
 		<div class="cell">
             <span class="line"></span>
@@ -24,7 +24,7 @@ $construction = get_field('construction', $page_id);
 		</div>
 	</div>
 </div>
-<div class="section__wrap construction__wrap dark__theme" id="construction">
+<div class="section__wrap construction__wrap dark__theme" id="construction" data-id="construction-section">
     <div class="grid__wrap">
         <div class="cell">
             <h5><?php echo $construction['title']; ?></h5>
