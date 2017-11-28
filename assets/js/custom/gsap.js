@@ -133,8 +133,8 @@ function Intro__ProductShot() {
   let timeline = new TimelineMax({ delay: .95 });
   let productShot = document.querySelector('.introduction__wrap .product__shot');
 
-  TweenLite.set(productShot, { autoAlpha: 0, x: 350 });
-  let productShotAnimation = TweenLite.to
+  TweenMax.set(productShot, { autoAlpha: 0, x: 350 });
+  let productShotAnimation = TweenMax.to
     (
       productShot,
     1,
@@ -152,23 +152,121 @@ function Intro__ProductShot() {
 
 }
 
+// navigation
+
+function navigation() {
+
+  let timeline = new TimelineMax({ delay: 1.15 });
+  let nav = document.querySelectorAll('nav ul li');
+
+  for (let link of nav) {
+    TweenMax.set(link, { autoAlpha: 0, x: 125 })
+  };
+
+  timeline.staggerTo
+    (
+    nav,
+    0.5,
+    {
+      autoAlpha: 1,
+      x: 0,
+      delay: 0.84,
+      ease: Power4.easeOut
+    }, '0.2'
+  );
+
+  return timeline;
+
+}
+
+// social icons
+
+function Social__Icons() {
+
+  let timeline = new TimelineMax({ delay: .76 });
+  let socialIcons = document.querySelectorAll('.social__icon__wrap ul li a');
+
+  for (let icon of socialIcons) {
+    TweenMax.set(icon, { autoAlpha: 0, scale: 0.5 })
+  }
+
+  timeline.staggerTo
+    (
+    socialIcons,
+    0.1,
+    {
+      autoAlpha: 1,
+      scale: 1,
+      delay: 0.84,
+      ease: Bounce.easeOut
+    }, '0.2'
+  );
+
+  return timeline;
+
+}
+
+// contact button
+
+function Contact__Button() {
+
+  let timeline = new TimelineMax({ delay: 1.80 });
+  let contactButton = document.querySelector('.contact__btn');
+  
+  TweenLite.set(contactButton, { autoAlpha: 0 });
+
+  const rule = CSSRulePlugin.getRule('header div.contact__btn:before');
+  let contactButtonAnimation = TweenMax.to
+    (
+    contactButton,
+    0.5,
+    {
+      autoAlpha: 1,
+      ease: Power2.easeOut
+    }
+  );
+  
+  TweenMax.set(rule, { cssRule: { width: 0 } });
+
+  let contactButtonBeforeAnimation = TweenLite.to
+    (
+    rule,
+    0.3,
+    {
+      cssRule: {
+        width: '100%'
+      },
+      delay: 0.2,
+      ease: Power4.easeInOut
+    }
+  );
+  
+  timeline.add([contactButtonAnimation, contactButtonBeforeAnimation])
+
+  return timeline;
+
+}
+
 siteTimeline.add([
   LogoAnimation(),
   Intro__RedlineLogo(),
   Intro__Text(),
-  Intro__ProductShot()
+  Intro__ProductShot(),
+  navigation(),
+  Social__Icons(),
+  Contact__Button()
 ]);
 
 siteTimeline.play('logo_animation');
 
-GSDevTools.create({
-  css: {
-    zIndex: 100
-  },
-  globalSync: false,
-  persist: false,
-  paused: true
-});
+// GSDevTools.create({
+//   css: {
+//     zIndex: 100
+//   },
+//   globalSync: false,
+//   persist: false,
+//   paused: true
+// });
 
 // https://projects.lukehaas.me/scrollify/#home
 

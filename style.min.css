@@ -17,8 +17,6 @@ span.line{display:block;height:.0625rem;width:4.0625rem;background:#981b31;margi
 main{position:relative;height:100%}
 .curtain{background:#981b31;position:fixed;top:0;left:0;width:100%;height:100vh;z-index:100}
 .curtain .square{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;width:6.25rem;height:4.6875rem;background-color:#fff;border-radius:.1875rem;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;box-shadow:0 0 15px rgba(0,0,0,.5)}
-.section__wrap{height:100vh;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}
-.section__wrap .grid__wrap{height:100vh}
 header{position:fixed;z-index:20;top:0;left:0;width:100%;pointer-events:none;padding-top:6.25rem}
 header .grid__wrap{-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding:6.25rem 3rem 0 3rem}
 header .grid__wrap .cell:first-of-type{width:25%}
@@ -54,6 +52,12 @@ header ul li:not(:last-child){margin-bottom:1rem}
 .construction__wrap .grid__wrap{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;position:relative;z-index:2}
 .construction__wrap h1{font-size:2.5rem;line-height:1.2}
 .construction__wrap img{margin:0 auto;display:block}
+.section__wrap{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}
+.section__wrap .grid__wrap{height:100%}
+.construction__wrap{position:relative;z-index:20;margin-top:-6rem}
+.section__title__wrap .wrap{display:block}
+.section__title__wrap{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;width:100%;z-index:10}
+.section__title__wrap h1{margin:0;font-size:1rem;cursor:pointer;padding:2.5rem;display:inline-block}
 @media screen and (min-width:90rem){.curtain .square img{width:70%}
 .introduction__wrap:after{width:45%}
 .introduction__wrap:before{width:35%;bottom:15.625rem;right:-3.125rem}

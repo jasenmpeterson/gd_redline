@@ -1,8 +1,29 @@
 .section__wrap {
-  height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 .section__wrap .grid__wrap {
-  height: 100vh;
+  height: 100%;
+}
+.construction__wrap {
+  position: relative;
+  z-index: 20;
+  margin-top: -6rem;
+}
+.section__title__wrap .wrap {
+  display: block;
+}
+.section__title__wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  z-index: 10;
+}
+.section__title__wrap h1 {
+  margin: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 2.5rem;
+  display: inline-block;
 }

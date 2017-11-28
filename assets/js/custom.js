@@ -104,8 +104,8 @@ function Intro__ProductShot() {
   var timeline = new TimelineMax({ delay: .95 });
   var productShot = document.querySelector('.introduction__wrap .product__shot');
 
-  TweenLite.set(productShot, { autoAlpha: 0, x: 350 });
-  var productShotAnimation = TweenLite.to(productShot, 1, {
+  TweenMax.set(productShot, { autoAlpha: 0, x: 350 });
+  var productShotAnimation = TweenMax.to(productShot, 1, {
     autoAlpha: 1,
     x: 0,
     delay: 1.5,
@@ -117,18 +117,134 @@ function Intro__ProductShot() {
   return timeline;
 }
 
-siteTimeline.add([LogoAnimation(), Intro__RedlineLogo(), Intro__Text(), Intro__ProductShot()]);
+// navigation
+
+function navigation() {
+
+  var timeline = new TimelineMax({ delay: 1.15 });
+  var nav = document.querySelectorAll('nav ul li');
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = nav[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var link = _step.value;
+
+      TweenMax.set(link, { autoAlpha: 0, x: 125 });
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  ;
+
+  timeline.staggerTo(nav, 0.5, {
+    autoAlpha: 1,
+    x: 0,
+    delay: 0.84,
+    ease: Power4.easeOut
+  }, '0.2');
+
+  return timeline;
+}
+
+// social icons
+
+function Social__Icons() {
+
+  var timeline = new TimelineMax({ delay: .76 });
+  var socialIcons = document.querySelectorAll('.social__icon__wrap ul li a');
+
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
+
+  try {
+    for (var _iterator2 = socialIcons[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var icon = _step2.value;
+
+      TweenMax.set(icon, { autoAlpha: 0, scale: 0.5 });
+    }
+  } catch (err) {
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+        _iterator2.return();
+      }
+    } finally {
+      if (_didIteratorError2) {
+        throw _iteratorError2;
+      }
+    }
+  }
+
+  timeline.staggerTo(socialIcons, 0.1, {
+    autoAlpha: 1,
+    scale: 1,
+    delay: 0.84,
+    ease: Bounce.easeOut
+  }, '0.2');
+
+  return timeline;
+}
+
+// contact button
+
+function Contact__Button() {
+
+  var timeline = new TimelineMax({ delay: 1.80 });
+  var contactButton = document.querySelector('.contact__btn');
+
+  TweenLite.set(contactButton, { autoAlpha: 0 });
+
+  var rule = CSSRulePlugin.getRule('header div.contact__btn:before');
+  var contactButtonAnimation = TweenMax.to(contactButton, 0.5, {
+    autoAlpha: 1,
+    ease: Power2.easeOut
+  });
+
+  TweenMax.set(rule, { cssRule: { width: 0 } });
+
+  var contactButtonBeforeAnimation = TweenLite.to(rule, 0.3, {
+    cssRule: {
+      width: '100%'
+    },
+    delay: 0.2,
+    ease: Power4.easeInOut
+  });
+
+  timeline.add([contactButtonAnimation, contactButtonBeforeAnimation]);
+
+  return timeline;
+}
+
+siteTimeline.add([LogoAnimation(), Intro__RedlineLogo(), Intro__Text(), Intro__ProductShot(), navigation(), Social__Icons(), Contact__Button()]);
 
 siteTimeline.play('logo_animation');
 
-GSDevTools.create({
-  css: {
-    zIndex: 100
-  },
-  globalSync: false,
-  persist: false,
-  paused: true
-});
+// GSDevTools.create({
+//   css: {
+//     zIndex: 100
+//   },
+//   globalSync: false,
+//   persist: false,
+//   paused: true
+// });
 
 // https://projects.lukehaas.me/scrollify/#home
 
@@ -262,39 +378,52 @@ function scrollIt(destination) {
 }
 
 var scrollButtons = document.querySelectorAll('.scroll__button');
-var _iteratorNormalCompletion = true;
-var _didIteratorError = false;
-var _iteratorError = undefined;
+
+var _loop = function _loop(button) {
+  button.addEventListener('click', function (event) {
+
+    'use strict';
+
+    event.stopPropagation();
+    event.preventDefault();
+
+    if (event.target !== button) return;
+
+    var sectionID = event.target.dataset.id;
+
+    console.log(event);
+
+    // let currentActiveLink = document.querySelector('.scroll__button.active');
+    // currentActiveLink.classList.remove('active');
+    // event.target.classList.add('active');
+
+    scrollIt(document.getElementById(sectionID), 700, 'easeOutQuad', function () {
+      return console.log('Just finished scrolling to ' + window.pageYOffset + 'px');
+    });
+  });
+};
+
+var _iteratorNormalCompletion3 = true;
+var _didIteratorError3 = false;
+var _iteratorError3 = undefined;
 
 try {
-  for (var _iterator = scrollButtons[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-    var button = _step.value;
+  for (var _iterator3 = scrollButtons[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+    var button = _step3.value;
 
-    button.addEventListener('click', function (event) {
-      'use strict';
-
-      var sectionID = event.target.dataset.id;
-
-      var currentActiveLink = document.querySelector('.scroll__button.active');
-      currentActiveLink.classList.remove('active');
-      event.target.classList.add('active');
-
-      scrollIt(document.getElementById(sectionID), 700, 'easeOutQuad', function () {
-        return console.log('Just finished scrolling to ' + window.pageYOffset + 'px');
-      });
-    });
+    _loop(button);
   }
 } catch (err) {
-  _didIteratorError = true;
-  _iteratorError = err;
+  _didIteratorError3 = true;
+  _iteratorError3 = err;
 } finally {
   try {
-    if (!_iteratorNormalCompletion && _iterator.return) {
-      _iterator.return();
+    if (!_iteratorNormalCompletion3 && _iterator3.return) {
+      _iterator3.return();
     }
   } finally {
-    if (_didIteratorError) {
-      throw _iteratorError;
+    if (_didIteratorError3) {
+      throw _iteratorError3;
     }
   }
 }

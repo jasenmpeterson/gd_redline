@@ -96,12 +96,21 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback) {
 let scrollButtons = document.querySelectorAll('.scroll__button');
 for(let button of scrollButtons) {
   button.addEventListener('click', (event) => {
-    'use strict';
-    let sectionID = event.target.dataset.id;
     
-    let currentActiveLink = document.querySelector('.scroll__button.active');
-    currentActiveLink.classList.remove('active');
-    event.target.classList.add('active');
+    'use strict';
+
+    event.stopPropagation();
+    event.preventDefault();
+
+    if (event.target !== button) return;
+    
+    let sectionID = event.target.dataset.id;
+
+    console.log(event);
+    
+    // let currentActiveLink = document.querySelector('.scroll__button.active');
+    // currentActiveLink.classList.remove('active');
+    // event.target.classList.add('active');
     
     scrollIt(
         document.getElementById(sectionID),
@@ -109,5 +118,6 @@ for(let button of scrollButtons) {
         'easeOutQuad',
         () => console.log(`Just finished scrolling to ${window.pageYOffset}px`)
     );
+
   });
 }
