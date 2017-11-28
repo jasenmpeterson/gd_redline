@@ -267,36 +267,3 @@ siteTimeline.play('logo_animation');
 //   persist: false,
 //   paused: true
 // });
-
-// https://projects.lukehaas.me/scrollify/#home
-
-jQuery(function() {
-  jQuery.scrollify({
-    section : '.section__wrap',
-    sectionName : 'id',
-    updateHash: false,
-    after: function (index) {
-      'use strict';
-      var currPosition = index + 1;
-      jQuery('.scroll__button.active').removeClass('active');
-      jQuery('.scroll__button:nth-of-type(' + currPosition + ')').addClass('active');
-     // scrollifyOnEnter(currPosition);
-    }
-  });
-});
-
-// scrollify on enter
-
-// let scrollifyOnEnter = function (currPosition) {
-
-//   var currentSection = jQuery('.scroll__button:nth-of-type(' + currPosition + ')').data('id');
-
-//   switch (currentSection) {
-//     case 'introduction':
-//       console.log(currentSection);
-//       break;
-//     case 'construction':
-//       break;
-//   }
-
-// }

@@ -245,40 +245,6 @@ siteTimeline.play('logo_animation');
 //   persist: false,
 //   paused: true
 // });
-
-// https://projects.lukehaas.me/scrollify/#home
-
-jQuery(function () {
-  jQuery.scrollify({
-    section: '.section__wrap',
-    sectionName: 'id',
-    updateHash: false,
-    after: function after(index) {
-      'use strict';
-
-      var currPosition = index + 1;
-      jQuery('.scroll__button.active').removeClass('active');
-      jQuery('.scroll__button:nth-of-type(' + currPosition + ')').addClass('active');
-      // scrollifyOnEnter(currPosition);
-    }
-  });
-});
-
-// scrollify on enter
-
-// let scrollifyOnEnter = function (currPosition) {
-
-//   var currentSection = jQuery('.scroll__button:nth-of-type(' + currPosition + ')').data('id');
-
-//   switch (currentSection) {
-//     case 'introduction':
-//       console.log(currentSection);
-//       break;
-//     case 'construction':
-//       break;
-//   }
-
-// }
 // Thanks! https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 
 // Button Click Page Scroll
@@ -287,6 +253,7 @@ function scrollIt(destination) {
   var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 200;
   var easing = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'linear';
   var callback = arguments[3];
+  var callbackBefore = arguments[4];
 
 
   var easings = {
@@ -351,6 +318,10 @@ function scrollIt(destination) {
     return;
   }
 
+  if (callbackBefore) {
+    callbackBefore();
+  }
+
   function scroll() {
     var now = 'now' in window.performance ? performance.now() : new Date().getTime();
 
@@ -377,6 +348,13 @@ function scrollIt(destination) {
   scroll();
 }
 
+function themeSwitcher(boolean) {
+
+  var body = document.getElementsByTagName('body')[0];
+
+  boolean ? body.classList.add('dark') : body.classList.remove('dark');
+}
+
 var scrollButtons = document.querySelectorAll('.scroll__button');
 
 var _loop = function _loop(button) {
@@ -391,15 +369,14 @@ var _loop = function _loop(button) {
 
     var sectionID = event.target.dataset.id;
 
-    console.log(event);
-
     // let currentActiveLink = document.querySelector('.scroll__button.active');
     // currentActiveLink.classList.remove('active');
     // event.target.classList.add('active');
 
-    scrollIt(document.getElementById(sectionID), 700, 'easeOutQuad', function () {
-      return console.log('Just finished scrolling to ' + window.pageYOffset + 'px');
-    });
+    scrollIt(document.getElementById(sectionID), 700, 'easeOutQuad'
+    // () => themeSwitcher(),
+    // () => themeSwitcher()
+    );
   });
 };
 
@@ -413,6 +390,8 @@ try {
 
     _loop(button);
   }
+
+  // https://projects.lukehaas.me/scrollify/#home
 } catch (err) {
   _didIteratorError3 = true;
   _iteratorError3 = err;
@@ -427,3 +406,21 @@ try {
     }
   }
 }
+
+jQuery(function () {
+  jQuery.scrollify({
+    section: '.section__wrap',
+    sectionName: 'id',
+    updateHash: false,
+    before: function before(index) {
+      index !== 0 ? themeSwitcher(true) : themeSwitcher(false);
+    },
+    after: function after(index, sections) {
+      'use strict';
+
+      var currSection = index + 1;
+      jQuery('.scroll__button.active').removeClass('active');
+      jQuery('.scroll__button:nth-of-type(' + currSection + ')').addClass('active');
+    }
+  });
+});

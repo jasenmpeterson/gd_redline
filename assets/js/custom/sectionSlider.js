@@ -2,7 +2,7 @@
 
 // Button Click Page Scroll
 
-function scrollIt(destination, duration = 200, easing = 'linear', callback) {
+function scrollIt(destination, duration = 200, easing = 'linear', callback, callbackBefore) {
   
   const easings = {
     linear(t) {
@@ -65,6 +65,10 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback) {
     }
     return;
   }
+
+  if (callbackBefore) {
+    callbackBefore();
+  }
   
   function scroll() {
     const now = 'now' in window.performance ? performance.now() : new Date().getTime();
@@ -93,6 +97,14 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback) {
   
 }
 
+function themeSwitcher(boolean) {
+  
+  let body = document.getElementsByTagName('body')[0];
+
+  ( boolean ? body.classList.add('dark') : body.classList.remove('dark') )
+  
+}
+
 let scrollButtons = document.querySelectorAll('.scroll__button');
 for(let button of scrollButtons) {
   button.addEventListener('click', (event) => {
@@ -105,8 +117,6 @@ for(let button of scrollButtons) {
     if (event.target !== button) return;
     
     let sectionID = event.target.dataset.id;
-
-    console.log(event);
     
     // let currentActiveLink = document.querySelector('.scroll__button.active');
     // currentActiveLink.classList.remove('active');
@@ -116,8 +126,28 @@ for(let button of scrollButtons) {
         document.getElementById(sectionID),
         700,
         'easeOutQuad',
-        () => console.log(`Just finished scrolling to ${window.pageYOffset}px`)
+        // () => themeSwitcher(),
+        // () => themeSwitcher()
     );
 
   });
 }
+
+// https://projects.lukehaas.me/scrollify/#home
+
+jQuery(function() {
+  jQuery.scrollify({
+    section : '.section__wrap',
+    sectionName : 'id',
+    updateHash: false,
+    before: function(index) {
+      ( index !== 0 ? themeSwitcher(true) : themeSwitcher(false) )
+    },
+    after: function (index, sections) {
+      'use strict';
+      var currSection = index + 1;
+      jQuery('.scroll__button.active').removeClass('active');
+      jQuery('.scroll__button:nth-of-type(' + currSection + ')').addClass('active');
+    }
+  });
+});

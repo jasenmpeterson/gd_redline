@@ -1,6 +1,6 @@
 header {
   position: fixed;
-  z-index: 20;
+  z-index: 100;
   top: 0;
   left: 0;
   width: 100%;
@@ -147,4 +147,7 @@ header ul li:not(:last-child) {
 .social__icon__wrap a:hover span {
   width: 86%;
   height: 86%;
+}
+.dark .header .redline__logo path {
+  fill:  #ffffff !important;
 }
