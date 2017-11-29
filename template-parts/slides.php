@@ -13,18 +13,23 @@ $construction = get_field('construction', $page_id);
 
 ?>
 
-    <div class="section__wrap introduction__wrap section" id="introduction" data-id="1">
+    <div class="introduction__wrap section__wrap section" id="introduction" data-id="1">
         <div class="grid__wrap">
             <div class="cell">
+                <h5>
+                    <?php echo $introduction['title']; ?>
+                </h5>
                 <span class="line"></span>
-                <?php echo $introduction['content']; ?>
+                <div class="content__wrap">
+                    <?php echo $introduction['content']; ?>
+                </div>
             </div>
             <div class="cell">
                 <img class="product__shot" src="<?php echo $introduction['image']['sizes']['large']; ?>" alt="<?php echo $introduction['alt']; ?>">
             </div>
         </div>
     </div>
-    <div class="section__wrap construction__wrap dark__theme section interior" id="construction" data-id="2">
+    <div class="construction__wrap section__wrap dark__theme section interior" id="construction" data-id="2">
         <div class="section__title__wrap section__title__construction">
             <div class="wrap">
                 <h1 class="scroll__button" data-id="construction">
@@ -38,14 +43,16 @@ $construction = get_field('construction', $page_id);
                     <?php echo $construction['title']; ?>
                 </h5>
                 <span class="line"></span>
-                <?php echo $construction['content']; ?>
+                <div class="content__wrap">
+                    <?php echo $construction['content']; ?>
+                </div>
             </div>
             <div class="cell">
-                <img src="<?php echo $construction['image']['sizes']['large']; ?>" alt="<?php echo $construction['alt']; ?>">
+                <img class="product__shot" src="<?php echo $construction['image']['sizes']['large']; ?>" alt="<?php echo $construction['alt']; ?>">
             </div>
         </div>
     </div>
-    <div class="section__wrap durability__wrap dark__theme section interior" id="durability" data-id="3">
+    <div class="durability__wrap section__wrap dark__theme section interior" id="durability" data-id="3">
         <div class="section__title__wrap section__title__construction">
             <div class="wrap">
                 <h1 class="scroll__button" data-id="construction">
@@ -59,10 +66,12 @@ $construction = get_field('construction', $page_id);
                     <?php echo $construction['title']; ?>
                 </h5>
                 <span class="line"></span>
-                <?php echo $construction['content']; ?>
+                <div class="content__wrap">
+                    <?php echo $construction['content']; ?>
+                </div>
             </div>
             <div class="cell">
-                <img src="<?php echo $construction['image']['sizes']['large']; ?>" alt="<?php echo $construction['alt']; ?>">
+                <img class="product__shot" src="<?php echo $construction['image']['sizes']['large']; ?>" alt="<?php echo $construction['alt']; ?>">
             </div>
         </div>
     </div>

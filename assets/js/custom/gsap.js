@@ -1,8 +1,33 @@
 // TODO - Disable Scrolling While Splash Animation is Playing
 
-var siteTimeline = new TimelineMax({
-  id: 'Site Timeline'
+var introSectionTimeline = new TimelineMax({
+  id: 'Intro Section Timeline'
 });
+
+var splashLogoTimeline = new TimelineMax({
+  id: 'Splash Logo Timeline'
+});
+
+var logoTimeline = new TimelineMax({
+  id: 'Logo Timeline',
+  delay: 1.50
+});
+
+var contactButtonTimeline = new TimelineMax({
+  id: 'Contact Button Timeline',
+  delay: 1.80
+});
+
+var socialIconsTimeline = new TimelineMax({
+  id: 'Social Icons Timeline',
+  delay: .76
+});
+
+var navTimeline = new TimelineMax({
+  id: 'Nav Timeline',
+  delay: .76
+});
+
 var sectionTimeline = new TimelineMax({
   id: 'Section Timeline',
   delay: 1.5,
@@ -13,7 +38,7 @@ var sectionTimeline = new TimelineMax({
 
 function LogoAnimation() {
 
-  let logoTimeline = new TimelineMax();
+  let timeline = new TimelineMax()
   let curtain = document.querySelector('.curtain');
   let logo = document.querySelector('.square img');
   let square = document.querySelector('.curtain .square');
@@ -22,50 +47,48 @@ function LogoAnimation() {
     autoAlpha: 0
   });
 
-  logoTimeline
-    .add('logo_animation')
-    .to(
-      square, 0.8, {
-        autoAlpha: 1,
-        scale: 2,
-        ease: Elastic.easeOut.config(1, 0.5)
-      }
-    ).to(
-      logo, 0.5, {
-        autoAlpha: 1,
-        ease: Power4.easeOut
-      }, '-=0.80'
-    ).to(
-      square, 1.2, {
-        width: '100%',
-        height: '100%',
-        autoAlpha: 0,
-        delay: 0.5,
-        ease: Power4.easeOut
-      }
-    ).to(
-      logo, 0.2, {
-        autoAlpha: 0,
-        ease: Power4.easeOut
-      }, '1.20'
-    ).to(
-      curtain, 0.1, {
-        autoAlpha: 0,
-        ease: Power4.easeOut
-      }, '1.45'
-    );
+  timeline.to(
+    square, 0.8, {
+      autoAlpha: 1,
+      scale: 2,
+      ease: Elastic.easeOut.config(1, 0.5)
+    }
+  ).to(
+    logo, 0.5, {
+      autoAlpha: 1,
+      ease: Power4.easeOut
+    }, '-=0.80'
+  ).to(
+    square, 1.2, {
+      width: '100%',
+      height: '100%',
+      autoAlpha: 0,
+      delay: 0.5,
+      ease: Power4.easeOut
+    }
+  ).to(
+    logo, 0.2, {
+      autoAlpha: 0,
+      ease: Power4.easeOut
+    }, '1.20'
+  ).to(
+    curtain, 0.1, {
+      autoAlpha: 0,
+      ease: Power4.easeOut
+    }, '1.45'
+  );
 
-  return logoTimeline;
+  return timeline;
 
 }
+
+splashLogoTimeline.add(LogoAnimation());
 
 // Introduction Section Logo Animation
 
 function Intro__RedlineLogo() {
 
-  let timeline = new TimelineMax({
-    delay: 1.50
-  })
+  let timeline = new TimelineMax()
   let logo = document.querySelector('.redline__logo');
 
   TweenMax.set(logo, {
@@ -87,86 +110,7 @@ function Intro__RedlineLogo() {
 
 }
 
-// Introduction Section Text
-
-function Intro__Text() {
-
-  let timeline = new TimelineMax({
-    delay: 2.15
-  });
-  let splitText = new SplitText('.introduction__wrap h1', {
-    type: 'words,chars'
-  });
-  let chars = splitText.chars;
-  let introductionText = document.querySelector('.introduction__wrap h1');
-  let line = document.querySelector('.introduction__wrap .line');
-
-  // Accent Line
-
-  TweenMax.set(line, {
-    autoAlpha: 0,
-    width: 0
-  });
-
-  let lineAnimation = TweenMax.to(
-    line,
-    0.5, {
-      autoAlpha: 1,
-      width: '4.0625rem',
-      ease: Power4.easeOut
-    }
-  );
-
-  timeline.add(lineAnimation)
-
-  // Text
-
-  TweenMax.set(introductionText, {
-    perspective: 400
-  });
-
-  timeline.staggerFrom(
-    chars, 0.8, {
-      opacity: 0,
-      scale: 0,
-      y: 80,
-      rotationX: 180,
-      transformOrigin: "0% 50% -50",
-      ease: Back.easeOut
-    }
-  );
-
-  return timeline;
-}
-
-// Introduction Product Shot
-
-function Intro__ProductShot() {
-
-  let timeline = new TimelineMax({
-    delay: .95
-  });
-  let productShot = document.querySelector('.introduction__wrap .product__shot');
-
-  TweenMax.set(productShot, {
-    autoAlpha: 0,
-    x: 350
-  });
-  let productShotAnimation = TweenMax.to(
-    productShot,
-    1, {
-      autoAlpha: 1,
-      x: 0,
-      delay: 1.5,
-      ease: Power4.easeInOut
-    }
-  );
-
-  timeline.add(productShotAnimation);
-
-  return timeline;
-
-}
+logoTimeline.add(Intro__RedlineLogo());
 
 // navigation
 
@@ -198,13 +142,13 @@ function navigation() {
 
 }
 
+navTimeline.add(navigation());
+
 // social icons
 
 function Social__Icons() {
 
-  let timeline = new TimelineMax({
-    delay: .76
-  });
+  let timeline = new TimelineMax();
   let socialIcons = document.querySelectorAll('.social__icon__wrap ul li a');
 
   for (let icon of socialIcons) {
@@ -228,13 +172,13 @@ function Social__Icons() {
 
 }
 
+contactButtonTimeline.add(Social__Icons());
+
 // contact button
 
 function Contact__Button() {
 
-  let timeline = new TimelineMax({
-    delay: 1.80
-  });
+  let timeline = new TimelineMax();
   let contactButton = document.querySelector('.contact__btn');
 
   TweenLite.set(contactButton, {
@@ -273,26 +217,134 @@ function Contact__Button() {
 
 }
 
-siteTimeline.add([
-  LogoAnimation(),
-  Intro__RedlineLogo(),
-  Intro__Text(),
-  Intro__ProductShot(),
-  navigation(),
-  Social__Icons(),
-  Contact__Button()
-]);
+contactButtonTimeline.add(Contact__Button());
 
-siteTimeline.play('logo_animation');
+function Section__Animations(section = 'introduction__wrap') {
+
+  // SubTitle
+
+  function SubTitle() {
+
+    let timeline = new TimelineMax({
+      delay: 1
+    });
+
+    let subTitle = document.querySelector('.' + section + ' .grid__wrap .cell h5');
+
+    TweenMax.set(subTitle, {
+      autoAlpha: 0,
+      x: -300
+    });
+
+    let subTitleAnimation = TweenMax.to(
+      subTitle,
+      0.5, {
+        autoAlpha: 1,
+        x: 0,
+        ease: Power4.easeOut
+      }
+    );
+
+    timeline.add(subTitleAnimation);
+
+    let line = document.querySelector('.' + section + ' .line');
+
+    // Accent Line
+
+    TweenMax.set(line, {
+      autoAlpha: 0,
+      x: 300
+    });
+
+    let lineAnimation = TweenMax.to(
+      line,
+      0.5, {
+        autoAlpha: 1,
+        x: 0,
+        ease: Power4.easeOut
+      }
+    );
+
+    timeline.add(lineAnimation)
+
+    return timeline;
+  }
+  // Text
+
+  function TextAnimation() {
+
+    let timeline = new TimelineMax({
+      delay: 1.5
+    });
+
+    let text = document.querySelector('.' + section + ' .grid__wrap .cell .content__wrap');
+
+    TweenMax.set(text, {
+      autoAlpha: 0,
+      x: -300
+    });
+
+    let textAnimation = TweenMax.to(
+      text,
+      0.5, {
+        autoAlpha: 1,
+        x: 0,
+        ease: Power4.easeInOut
+      }
+    );
+
+    timeline.add(textAnimation);
+
+    return timeline;
+
+  }
+
+
+  // Product Shot
+
+  function ProductShot() {
+
+    let timeline = new TimelineMax();
+    let productShot = document.querySelector('.' + section + ' .product__shot');
+
+    TweenMax.set(productShot, {
+      autoAlpha: 0,
+      x: 350
+    });
+    let productShotAnimation = TweenMax.to(
+      productShot,
+      1, {
+        autoAlpha: 1,
+        x: 0,
+        delay: 1.5,
+        ease: Power4.easeInOut
+      }
+    );
+
+    timeline.add(productShotAnimation);
+
+    return timeline;
+
+  }
+
+  introSectionTimeline.add([
+    SubTitle(),
+    TextAnimation(),
+    ProductShot()
+  ]);
+
+};
+
+Section__Animations();
 
 // section title
 
-let timeline = new TimelineMax({
-  id: 'Section Title Timeline',
-  paused: true
-});
-
 function Section__Title__Animation(sectionTitle) {
+
+  let timeline = new TimelineMax({
+    id: 'Section Title Timeline',
+    paused: true
+  });
 
   let section = jQuery('.interior .section__title__wrap .scroll__button span.invisible');
   TweenMax.to(
@@ -312,7 +364,7 @@ function Section__Title__Animation(sectionTitle) {
       ease: Power4.easeInOut
     }
   );
-  
+
   sectionTitle.removeClass('visible').addClass('invisible');
   timeline.add(scrollButtonOutAnimation);
   timeline.play();
@@ -335,7 +387,19 @@ jQuery(function () {
     scrollSpeed: 1100,
     updateHash: false,
     before: function (index) {
+
       (index !== 0 ? themeSwitcher(true) : themeSwitcher(false))
+
+      var currSection = index + 1;
+
+      if (currSection === 1) {
+        var nextSection = jQuery('.section__wrap[data-id="1"]').attr('class').split(' ')[0];
+      } else {
+        var nextSection = jQuery('.section__wrap[data-id="' + currSection + '"]').attr('class').split(' ')[0];
+      }
+
+      Section__Animations(nextSection);
+
     },
     after: function (index, sections) {
       'use strict';

@@ -2,9 +2,34 @@
 
 // TODO - Disable Scrolling While Splash Animation is Playing
 
-var siteTimeline = new TimelineMax({
-  id: 'Site Timeline'
+var introSectionTimeline = new TimelineMax({
+  id: 'Intro Section Timeline'
 });
+
+var splashLogoTimeline = new TimelineMax({
+  id: 'Splash Logo Timeline'
+});
+
+var logoTimeline = new TimelineMax({
+  id: 'Logo Timeline',
+  delay: 1.50
+});
+
+var contactButtonTimeline = new TimelineMax({
+  id: 'Contact Button Timeline',
+  delay: 1.80
+});
+
+var socialIconsTimeline = new TimelineMax({
+  id: 'Social Icons Timeline',
+  delay: .76
+});
+
+var navTimeline = new TimelineMax({
+  id: 'Nav Timeline',
+  delay: .76
+});
+
 var sectionTimeline = new TimelineMax({
   id: 'Section Timeline',
   delay: 1.5,
@@ -15,7 +40,7 @@ var sectionTimeline = new TimelineMax({
 
 function LogoAnimation() {
 
-  var logoTimeline = new TimelineMax();
+  var timeline = new TimelineMax();
   var curtain = document.querySelector('.curtain');
   var logo = document.querySelector('.square img');
   var square = document.querySelector('.curtain .square');
@@ -24,7 +49,7 @@ function LogoAnimation() {
     autoAlpha: 0
   });
 
-  logoTimeline.add('logo_animation').to(square, 0.8, {
+  timeline.to(square, 0.8, {
     autoAlpha: 1,
     scale: 2,
     ease: Elastic.easeOut.config(1, 0.5)
@@ -45,16 +70,16 @@ function LogoAnimation() {
     ease: Power4.easeOut
   }, '1.45');
 
-  return logoTimeline;
+  return timeline;
 }
+
+splashLogoTimeline.add(LogoAnimation());
 
 // Introduction Section Logo Animation
 
 function Intro__RedlineLogo() {
 
-  var timeline = new TimelineMax({
-    delay: 1.50
-  });
+  var timeline = new TimelineMax();
   var logo = document.querySelector('.redline__logo');
 
   TweenMax.set(logo, {
@@ -73,77 +98,7 @@ function Intro__RedlineLogo() {
   return timeline;
 }
 
-// Introduction Section Text
-
-function Intro__Text() {
-
-  var timeline = new TimelineMax({
-    delay: 2.15
-  });
-  var splitText = new SplitText('.introduction__wrap h1', {
-    type: 'words,chars'
-  });
-  var chars = splitText.chars;
-  var introductionText = document.querySelector('.introduction__wrap h1');
-  var line = document.querySelector('.introduction__wrap .line');
-
-  // Accent Line
-
-  TweenMax.set(line, {
-    autoAlpha: 0,
-    width: 0
-  });
-
-  var lineAnimation = TweenMax.to(line, 0.5, {
-    autoAlpha: 1,
-    width: '4.0625rem',
-    ease: Power4.easeOut
-  });
-
-  timeline.add(lineAnimation);
-
-  // Text
-
-  TweenMax.set(introductionText, {
-    perspective: 400
-  });
-
-  timeline.staggerFrom(chars, 0.8, {
-    opacity: 0,
-    scale: 0,
-    y: 80,
-    rotationX: 180,
-    transformOrigin: "0% 50% -50",
-    ease: Back.easeOut
-  });
-
-  return timeline;
-}
-
-// Introduction Product Shot
-
-function Intro__ProductShot() {
-
-  var timeline = new TimelineMax({
-    delay: .95
-  });
-  var productShot = document.querySelector('.introduction__wrap .product__shot');
-
-  TweenMax.set(productShot, {
-    autoAlpha: 0,
-    x: 350
-  });
-  var productShotAnimation = TweenMax.to(productShot, 1, {
-    autoAlpha: 1,
-    x: 0,
-    delay: 1.5,
-    ease: Power4.easeInOut
-  });
-
-  timeline.add(productShotAnimation);
-
-  return timeline;
-}
+logoTimeline.add(Intro__RedlineLogo());
 
 // navigation
 
@@ -194,13 +149,13 @@ function navigation() {
   return timeline;
 }
 
+navTimeline.add(navigation());
+
 // social icons
 
 function Social__Icons() {
 
-  var timeline = new TimelineMax({
-    delay: .76
-  });
+  var timeline = new TimelineMax();
   var socialIcons = document.querySelectorAll('.social__icon__wrap ul li a');
 
   var _iteratorNormalCompletion2 = true;
@@ -241,13 +196,13 @@ function Social__Icons() {
   return timeline;
 }
 
+contactButtonTimeline.add(Social__Icons());
+
 // contact button
 
 function Contact__Button() {
 
-  var timeline = new TimelineMax({
-    delay: 1.80
-  });
+  var timeline = new TimelineMax();
   var contactButton = document.querySelector('.contact__btn');
 
   TweenLite.set(contactButton, {
@@ -279,18 +234,116 @@ function Contact__Button() {
   return timeline;
 }
 
-siteTimeline.add([LogoAnimation(), Intro__RedlineLogo(), Intro__Text(), Intro__ProductShot(), navigation(), Social__Icons(), Contact__Button()]);
+contactButtonTimeline.add(Contact__Button());
 
-siteTimeline.play('logo_animation');
+function Section__Animations() {
+  var section = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'introduction__wrap';
+
+
+  // SubTitle
+
+  function SubTitle() {
+
+    var timeline = new TimelineMax({
+      delay: 1
+    });
+
+    var subTitle = document.querySelector('.' + section + ' .grid__wrap .cell h5');
+
+    TweenMax.set(subTitle, {
+      autoAlpha: 0,
+      x: -300
+    });
+
+    var subTitleAnimation = TweenMax.to(subTitle, 0.5, {
+      autoAlpha: 1,
+      x: 0,
+      ease: Power4.easeOut
+    });
+
+    timeline.add(subTitleAnimation);
+
+    var line = document.querySelector('.' + section + ' .line');
+
+    // Accent Line
+
+    TweenMax.set(line, {
+      autoAlpha: 0,
+      x: 300
+    });
+
+    var lineAnimation = TweenMax.to(line, 0.5, {
+      autoAlpha: 1,
+      x: 0,
+      ease: Power4.easeOut
+    });
+
+    timeline.add(lineAnimation);
+
+    return timeline;
+  }
+  // Text
+
+  function TextAnimation() {
+
+    var timeline = new TimelineMax({
+      delay: 1.5
+    });
+
+    var text = document.querySelector('.' + section + ' .grid__wrap .cell .content__wrap');
+
+    TweenMax.set(text, {
+      autoAlpha: 0,
+      x: -300
+    });
+
+    var textAnimation = TweenMax.to(text, 0.5, {
+      autoAlpha: 1,
+      x: 0,
+      ease: Power4.easeInOut
+    });
+
+    timeline.add(textAnimation);
+
+    return timeline;
+  }
+
+  // Product Shot
+
+  function ProductShot() {
+
+    var timeline = new TimelineMax();
+    var productShot = document.querySelector('.' + section + ' .product__shot');
+
+    TweenMax.set(productShot, {
+      autoAlpha: 0,
+      x: 350
+    });
+    var productShotAnimation = TweenMax.to(productShot, 1, {
+      autoAlpha: 1,
+      x: 0,
+      delay: 1.5,
+      ease: Power4.easeInOut
+    });
+
+    timeline.add(productShotAnimation);
+
+    return timeline;
+  }
+
+  introSectionTimeline.add([SubTitle(), TextAnimation(), ProductShot()]);
+};
+
+Section__Animations();
 
 // section title
 
-var timeline = new TimelineMax({
-  id: 'Section Title Timeline',
-  paused: true
-});
-
 function Section__Title__Animation(sectionTitle) {
+
+  var timeline = new TimelineMax({
+    id: 'Section Title Timeline',
+    paused: true
+  });
 
   var section = jQuery('.interior .section__title__wrap .scroll__button span.invisible');
   TweenMax.to(section, 1.2, {
@@ -327,7 +380,18 @@ jQuery(function () {
     scrollSpeed: 1100,
     updateHash: false,
     before: function before(index) {
+
       index !== 0 ? themeSwitcher(true) : themeSwitcher(false);
+
+      var currSection = index + 1;
+
+      if (currSection === 1) {
+        var nextSection = jQuery('.section__wrap[data-id="1"]').attr('class').split(' ')[0];
+      } else {
+        var nextSection = jQuery('.section__wrap[data-id="' + currSection + '"]').attr('class').split(' ')[0];
+      }
+
+      Section__Animations(nextSection);
     },
     after: function after(index, sections) {
       'use strict';
