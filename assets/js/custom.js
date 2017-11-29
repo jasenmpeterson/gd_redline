@@ -2,7 +2,14 @@
 
 // TODO - Disable Scrolling While Splash Animation is Playing
 
-var siteTimeline = new TimelineMax({ id: 'Site Timeline' });
+var siteTimeline = new TimelineMax({
+  id: 'Site Timeline'
+});
+var sectionTimeline = new TimelineMax({
+  id: 'Section Timeline',
+  delay: 1.5,
+  paused: true
+});
 
 // Splash Page Logo Animation
 
@@ -13,7 +20,9 @@ function LogoAnimation() {
   var logo = document.querySelector('.square img');
   var square = document.querySelector('.curtain .square');
 
-  TweenMax.set(square, { autoAlpha: 0 });
+  TweenMax.set(square, {
+    autoAlpha: 0
+  });
 
   logoTimeline.add('logo_animation').to(square, 0.8, {
     autoAlpha: 1,
@@ -43,10 +52,15 @@ function LogoAnimation() {
 
 function Intro__RedlineLogo() {
 
-  var timeline = new TimelineMax({ delay: 1.50 });
+  var timeline = new TimelineMax({
+    delay: 1.50
+  });
   var logo = document.querySelector('.redline__logo');
 
-  TweenMax.set(logo, { autoAlpha: 0, scale: 0.5 });
+  TweenMax.set(logo, {
+    autoAlpha: 0,
+    scale: 0.5
+  });
 
   var logoAnimation = TweenMax.to(logo, 1.2, {
     autoAlpha: 1,
@@ -63,15 +77,22 @@ function Intro__RedlineLogo() {
 
 function Intro__Text() {
 
-  var timeline = new TimelineMax({ delay: 2.15 });
-  var splitText = new SplitText('.introduction__wrap h1', { type: 'words,chars' });
+  var timeline = new TimelineMax({
+    delay: 2.15
+  });
+  var splitText = new SplitText('.introduction__wrap h1', {
+    type: 'words,chars'
+  });
   var chars = splitText.chars;
   var introductionText = document.querySelector('.introduction__wrap h1');
   var line = document.querySelector('.introduction__wrap .line');
 
   // Accent Line
 
-  TweenMax.set(line, { autoAlpha: 0, width: 0 });
+  TweenMax.set(line, {
+    autoAlpha: 0,
+    width: 0
+  });
 
   var lineAnimation = TweenMax.to(line, 0.5, {
     autoAlpha: 1,
@@ -83,7 +104,9 @@ function Intro__Text() {
 
   // Text
 
-  TweenMax.set(introductionText, { perspective: 400 });
+  TweenMax.set(introductionText, {
+    perspective: 400
+  });
 
   timeline.staggerFrom(chars, 0.8, {
     opacity: 0,
@@ -101,10 +124,15 @@ function Intro__Text() {
 
 function Intro__ProductShot() {
 
-  var timeline = new TimelineMax({ delay: .95 });
+  var timeline = new TimelineMax({
+    delay: .95
+  });
   var productShot = document.querySelector('.introduction__wrap .product__shot');
 
-  TweenMax.set(productShot, { autoAlpha: 0, x: 350 });
+  TweenMax.set(productShot, {
+    autoAlpha: 0,
+    x: 350
+  });
   var productShotAnimation = TweenMax.to(productShot, 1, {
     autoAlpha: 1,
     x: 0,
@@ -121,7 +149,9 @@ function Intro__ProductShot() {
 
 function navigation() {
 
-  var timeline = new TimelineMax({ delay: 1.15 });
+  var timeline = new TimelineMax({
+    delay: 1.15
+  });
   var nav = document.querySelectorAll('nav ul li');
 
   var _iteratorNormalCompletion = true;
@@ -132,7 +162,10 @@ function navigation() {
     for (var _iterator = nav[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var link = _step.value;
 
-      TweenMax.set(link, { autoAlpha: 0, x: 125 });
+      TweenMax.set(link, {
+        autoAlpha: 0,
+        x: 125
+      });
     }
   } catch (err) {
     _didIteratorError = true;
@@ -165,7 +198,9 @@ function navigation() {
 
 function Social__Icons() {
 
-  var timeline = new TimelineMax({ delay: .76 });
+  var timeline = new TimelineMax({
+    delay: .76
+  });
   var socialIcons = document.querySelectorAll('.social__icon__wrap ul li a');
 
   var _iteratorNormalCompletion2 = true;
@@ -176,7 +211,10 @@ function Social__Icons() {
     for (var _iterator2 = socialIcons[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
       var icon = _step2.value;
 
-      TweenMax.set(icon, { autoAlpha: 0, scale: 0.5 });
+      TweenMax.set(icon, {
+        autoAlpha: 0,
+        scale: 0.5
+      });
     }
   } catch (err) {
     _didIteratorError2 = true;
@@ -207,10 +245,14 @@ function Social__Icons() {
 
 function Contact__Button() {
 
-  var timeline = new TimelineMax({ delay: 1.80 });
+  var timeline = new TimelineMax({
+    delay: 1.80
+  });
   var contactButton = document.querySelector('.contact__btn');
 
-  TweenLite.set(contactButton, { autoAlpha: 0 });
+  TweenLite.set(contactButton, {
+    autoAlpha: 0
+  });
 
   var rule = CSSRulePlugin.getRule('header div.contact__btn:before');
   var contactButtonAnimation = TweenMax.to(contactButton, 0.5, {
@@ -218,7 +260,11 @@ function Contact__Button() {
     ease: Power2.easeOut
   });
 
-  TweenMax.set(rule, { cssRule: { width: 0 } });
+  TweenMax.set(rule, {
+    cssRule: {
+      width: 0
+    }
+  });
 
   var contactButtonBeforeAnimation = TweenLite.to(rule, 0.3, {
     cssRule: {
@@ -237,17 +283,82 @@ siteTimeline.add([LogoAnimation(), Intro__RedlineLogo(), Intro__Text(), Intro__P
 
 siteTimeline.play('logo_animation');
 
+// section title
+
+var timeline = new TimelineMax({
+  id: 'Section Title Timeline',
+  paused: true
+});
+
+function Section__Title__Animation(sectionTitle) {
+
+  var section = jQuery('.interior .section__title__wrap .scroll__button span.invisible');
+  TweenMax.to(section, 1.2, {
+    autoAlpha: 1,
+    ease: Power4.easeInOut
+  });
+
+  section.removeClass('invisible').addClass('visible');
+
+  var scrollButtonOutAnimation = TweenMax.to(sectionTitle, 1.2, {
+    autoAlpha: 0,
+    ease: Power4.easeInOut
+  });
+
+  sectionTitle.removeClass('visible').addClass('invisible');
+  timeline.add(scrollButtonOutAnimation);
+  timeline.play();
+}
+
 // GSDevTools.create({
 //   css: {
 //     zIndex: 100
 //   },
-//   globalSync: false,
-//   persist: false,
 //   paused: true
 // });
+
+// https://projects.lukehaas.me/scrollify/#home
+
+jQuery(function () {
+  jQuery.scrollify({
+    section: '.section__wrap',
+    sectionName: 'id',
+    easing: 'easeOutExpo',
+    scrollSpeed: 1100,
+    updateHash: false,
+    before: function before(index) {
+      index !== 0 ? themeSwitcher(true) : themeSwitcher(false);
+    },
+    after: function after(index, sections) {
+      'use strict';
+
+      var currSection = index + 1;
+      var nextSection = jQuery('.interior[data-id="' + currSection + '"] .section__title__wrap .scroll__button span');
+      jQuery('.scroll__button.active').removeClass('active');
+      jQuery('.scroll__button:nth-of-type(' + currSection + ')').addClass('active');
+      Section__Title__Animation(nextSection);
+      sectionOnEnter(currSection);
+    }
+  });
+});
+
+var sectionOnEnter = function sectionOnEnter(currSection) {
+
+  var section = jQuery('.scroll__button:nth-of-type(' + currSection + ')').data('id');
+
+  switch (section) {
+    case 'introduction':
+      break;
+    case 'construction':
+      break;
+  }
+};
 // Thanks! https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
 
 // Button Click Page Scroll
+
+// TODO - THEME SWITCH ON MOUSE SCROLL.
+// TODO - THEME SWITCH ON BUTTON CLICK.
 
 function scrollIt(destination) {
   var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 200;
@@ -352,7 +463,9 @@ function themeSwitcher(boolean) {
 
   var body = document.getElementsByTagName('body')[0];
 
-  boolean ? body.classList.add('dark') : body.classList.remove('dark');
+  boolean ? setTimeout(function () {
+    body.classList.add('dark');
+  }, 300) : body.classList.remove('dark');
 }
 
 var scrollButtons = document.querySelectorAll('.scroll__button');
@@ -373,7 +486,7 @@ var _loop = function _loop(button) {
     // currentActiveLink.classList.remove('active');
     // event.target.classList.add('active');
 
-    scrollIt(document.getElementById(sectionID), 700, 'easeOutQuad'
+    scrollIt(document.getElementById(sectionID), 100, 'easeInCubic'
     // () => themeSwitcher(),
     // () => themeSwitcher()
     );
@@ -390,8 +503,6 @@ try {
 
     _loop(button);
   }
-
-  // https://projects.lukehaas.me/scrollify/#home
 } catch (err) {
   _didIteratorError3 = true;
   _iteratorError3 = err;
@@ -406,21 +517,3 @@ try {
     }
   }
 }
-
-jQuery(function () {
-  jQuery.scrollify({
-    section: '.section__wrap',
-    sectionName: 'id',
-    updateHash: false,
-    before: function before(index) {
-      index !== 0 ? themeSwitcher(true) : themeSwitcher(false);
-    },
-    after: function after(index, sections) {
-      'use strict';
-
-      var currSection = index + 1;
-      jQuery('.scroll__button.active').removeClass('active');
-      jQuery('.scroll__button:nth-of-type(' + currSection + ')').addClass('active');
-    }
-  });
-});

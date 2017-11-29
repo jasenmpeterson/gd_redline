@@ -2,8 +2,11 @@
 
 // Button Click Page Scroll
 
+// TODO - THEME SWITCH ON MOUSE SCROLL.
+// TODO - THEME SWITCH ON BUTTON CLICK.
+
 function scrollIt(destination, duration = 200, easing = 'linear', callback, callbackBefore) {
-  
+
   const easings = {
     linear(t) {
       return t;
@@ -45,19 +48,19 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback, call
       return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t;
     }
   };
-  
+
   const start = window.pageYOffset;
-  
+
   // https://developer.mozilla.org/en-US/docs/Web/API/Window/performance
   const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
-  
+
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
   const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-  
+
   const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
   const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
   const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
-  
+
   if ('requestAnimationFrame' in window === false) {
     window.scroll(0, destinationOffsetToScroll);
     if (callback) {
@@ -69,18 +72,18 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback, call
   if (callbackBefore) {
     callbackBefore();
   }
-  
+
   function scroll() {
     const now = 'now' in window.performance ? performance.now() : new Date().getTime();
-    
+
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
     const time = Math.min(1, ((now - startTime) / duration));
-    
+
     const timeFunction = easings[easing](time);
-    
+
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
     window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
-  
+
     // Stop requesting animation when window reached its destination
     // And run a callback function
     if (window.pageYOffset === destinationOffsetToScroll) {
@@ -89,65 +92,48 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback, call
       }
       return;
     }
-  
+
     requestAnimationFrame(scroll);
   }
-  
+
   scroll();
-  
+
 }
 
 function themeSwitcher(boolean) {
-  
+
   let body = document.getElementsByTagName('body')[0];
 
-  ( boolean ? body.classList.add('dark') : body.classList.remove('dark') )
-  
+  (boolean ? setTimeout(() => {
+    body.classList.add('dark')
+  }, 300) : body.classList.remove('dark'))
+
 }
 
 let scrollButtons = document.querySelectorAll('.scroll__button');
-for(let button of scrollButtons) {
+for (let button of scrollButtons) {
   button.addEventListener('click', (event) => {
-    
+
     'use strict';
 
     event.stopPropagation();
     event.preventDefault();
 
     if (event.target !== button) return;
-    
+
     let sectionID = event.target.dataset.id;
-    
+
     // let currentActiveLink = document.querySelector('.scroll__button.active');
     // currentActiveLink.classList.remove('active');
     // event.target.classList.add('active');
-    
+
     scrollIt(
-        document.getElementById(sectionID),
-        700,
-        'easeOutQuad',
-        // () => themeSwitcher(),
-        // () => themeSwitcher()
+      document.getElementById(sectionID),
+      100,
+      'easeInCubic',
+      // () => themeSwitcher(),
+      // () => themeSwitcher()
     );
 
   });
 }
-
-// https://projects.lukehaas.me/scrollify/#home
-
-jQuery(function() {
-  jQuery.scrollify({
-    section : '.section__wrap',
-    sectionName : 'id',
-    updateHash: false,
-    before: function(index) {
-      ( index !== 0 ? themeSwitcher(true) : themeSwitcher(false) )
-    },
-    after: function (index, sections) {
-      'use strict';
-      var currSection = index + 1;
-      jQuery('.scroll__button.active').removeClass('active');
-      jQuery('.scroll__button:nth-of-type(' + currSection + ')').addClass('active');
-    }
-  });
-});

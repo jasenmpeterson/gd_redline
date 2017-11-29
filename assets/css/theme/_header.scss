@@ -66,6 +66,7 @@ header nav li {
   font-weight: 400;
   pointer-events: auto;
   transition: color 300ms ease-out;
+  margin-left: -1.25rem;
 }
 header nav li:before,
 header nav li:after {
@@ -148,6 +149,18 @@ header ul li:not(:last-child) {
   width: 86%;
   height: 86%;
 }
-.dark .header .redline__logo path {
-  fill:  #ffffff !important;
+
+// logo
+
+.redline__logo path.red {
+  fill:  #a32035;
+}
+
+// dark theme
+
+.dark .header .redline__logo path.black {
+  fill:  #ffffff;
+}
+.dark header nav li {
+  color: #ffffff;
 }

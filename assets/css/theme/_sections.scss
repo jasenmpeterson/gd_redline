@@ -6,7 +6,7 @@
 .section__wrap .grid__wrap {
   height: 100%;
 }
-.construction__wrap {
+.section__wrap.interior {
   position: relative;
   z-index: 20;
   margin-top: -6rem;
@@ -24,6 +24,51 @@
   margin: 0;
   font-size: 1rem;
   cursor: pointer;
-  padding: 2.5rem;
+  padding: 2.5rem 0 2.5rem 3.5rem;
+  display: inline-block;
+  color: #fff;
+  width: 100%;
+}
+
+// interior
+.section__wrap.interior h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 400;
+}
+.section__wrap.interior {
+  position: relative;
+  background: #242424;
+  color: #FFFFFF;
+}
+.section__wrap.interior .grid__wrap {
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+.section__wrap.interior .grid__wrap .cell:first-of-type {
+  @media screen and (min-width: 90rem) {
+    width: 30%;
+  }
+}
+.section__wrap.interior .grid__wrap .cell:last-of-type {
+  @media screen and (min-width: 90rem) {
+    width: 40%;
+  }
+}
+.section__wrap.interior img {
+  @media screen and (min-width: 90rem) {
+    width: 60%;
+  }
+  margin: 0 auto;
+  display: block;
+}
+.section__wrap.interior .scroll__button {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  display: block;
+}
+.section__wrap.interior .scroll__button span {
   display: inline-block;
 }
