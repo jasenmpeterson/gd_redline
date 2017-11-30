@@ -17,11 +17,6 @@ header .grid__wrap .cell:first-of-type {
 header .grid__wrap .cell:last-of-type {
   width: 12.5rem;
 }
-header .grid__wrap .cell:first-of-type svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
 header div.contact__btn {
   text-align: center;
   display: block;
@@ -59,14 +54,17 @@ header ul {
 }
 header nav {
   display: inline-block;
+  margin-top: 1.2rem;
 }
 header nav li {
   cursor: pointer;
   color: #2B2B2B;
-  font-weight: 400;
+  font-weight: 900;
   pointer-events: auto;
   transition: color 300ms ease-out;
   margin-left: -1.25rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 header nav li:before,
 header nav li:after {
@@ -85,8 +83,6 @@ header nav li:after {
   transform: translateX(-20px);
 }
 header nav li.active {
-  font-style: italic;
-  font-weight: 700;
   cursor: default;
 }
 header nav li:hover,
@@ -151,6 +147,17 @@ header ul li:not(:last-child) {
 }
 
 // logo
+
+.redline__logo {
+  transition: 300ms ease-out;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.redline__logo.shrink {
+  width: 40%;
+}
 
 .redline__logo path.red {
   fill:  #a32035;

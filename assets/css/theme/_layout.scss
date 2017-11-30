@@ -6,9 +6,7 @@ body {
 span.line {
   display: block;
   height: 0.0625rem;
-  width: 4.0625rem;
   background: #981B31;
-  margin-bottom: 1.5rem;
 }
 main {
   position: relative;
@@ -46,4 +44,19 @@ main {
 }
 .sections__wrap {
   position: relative;
+}
+
+// typography
+
+h1 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+h5 {
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  color: #A5A5A5;
+}
+.dark h5 {
+  color: #ffffff;
 }

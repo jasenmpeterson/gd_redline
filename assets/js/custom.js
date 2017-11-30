@@ -1,9 +1,7 @@
 'use strict';
 
 // FIXME: Disable Scrolling While Splash Animation is playing
-// TODO: Stop and reverse animation if user slides to next section before animation completion
-
-var sceneController;
+// FIXME: Set conditional for tweened targets
 
 var introSectionTimeline = new TimelineMax({
   id: 'Intro Section Timeline'
@@ -276,7 +274,7 @@ function Section__Animations() {
     });
 
     var lineAnimation = TweenMax.to(line, 0.5, {
-      autoAlpha: 1,
+      autoAlpha: 0.5,
       x: 0,
       ease: Power4.easeOut
     });
@@ -318,23 +316,26 @@ function Section__Animations() {
     var timeline = new TimelineMax();
     var productShot = document.querySelector('.' + section + ' .product__shot');
 
-    TweenMax.set(productShot, {
-      autoAlpha: 0,
-      x: 350
-    });
-    var productShotAnimation = TweenMax.to(productShot, 1, {
-      autoAlpha: 1,
-      x: 0,
-      delay: 1.5,
-      ease: Power4.easeInOut
-    });
+    if (typeof productShot !== 'undefined' && productShot !== null) {
 
-    timeline.add(productShotAnimation);
+      TweenMax.set(productShot, {
+        autoAlpha: 0,
+        x: 350
+      });
+      var productShotAnimation = TweenMax.to(productShot, 1, {
+        autoAlpha: 1,
+        x: 0,
+        delay: 1.5,
+        ease: Power4.easeInOut
+      });
 
-    return timeline;
+      timeline.add(productShotAnimation);
+
+      return timeline;
+    }
   }
 
-  introSectionTimeline.add([SubTitle(), TextAnimation(), ProductShot()]);
+  introSectionTimeline.add([typeof SubTitle() !== 'undefined' && SubTitle() !== null ? SubTitle() : '', typeof TextAnimation() !== 'undefined' && TextAnimation() !== null ? TextAnimation() : '', typeof ProductShot() !== 'undefined' && ProductShot() !== null ? ProductShot() : '']);
 };
 
 Section__Animations();
@@ -403,6 +404,12 @@ jQuery(function () {
         introSectionTimeline.reverse(-2);
         introSectionTimeline.play();
       };
+
+      if (currSection !== 1) {
+        jQuery('.redline__logo').addClass('shrink');
+      } else {
+        jQuery('.redline__logo').removeClass('shrink');
+      }
     },
     after: function after(index, sections) {
       'use strict';

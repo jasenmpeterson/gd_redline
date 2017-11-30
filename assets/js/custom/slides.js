@@ -1,7 +1,5 @@
 // FIXME: Disable Scrolling While Splash Animation is playing
-// TODO: Stop and reverse animation if user slides to next section before animation completion
-
-var sceneController;
+// FIXME: Set conditional for tweened targets
 
 var introSectionTimeline = new TimelineMax({
   id: 'Intro Section Timeline'
@@ -262,7 +260,7 @@ function Section__Animations(section = 'introduction__wrap') {
     let lineAnimation = TweenMax.to(
       line,
       0.5, {
-        autoAlpha: 1,
+        autoAlpha: 0.5,
         x: 0,
         ease: Power4.easeOut
       }
@@ -310,30 +308,34 @@ function Section__Animations(section = 'introduction__wrap') {
     let timeline = new TimelineMax();
     let productShot = document.querySelector('.' + section + ' .product__shot');
 
-    TweenMax.set(productShot, {
-      autoAlpha: 0,
-      x: 350
-    });
-    let productShotAnimation = TweenMax.to(
-      productShot,
-      1, {
-        autoAlpha: 1,
-        x: 0,
-        delay: 1.5,
-        ease: Power4.easeInOut
-      }
-    );
+    if (typeof (productShot) !== 'undefined' && productShot !== null) {
 
-    timeline.add(productShotAnimation);
+      TweenMax.set(productShot, {
+        autoAlpha: 0,
+        x: 350
+      });
+      let productShotAnimation = TweenMax.to(
+        productShot,
+        1, {
+          autoAlpha: 1,
+          x: 0,
+          delay: 1.5,
+          ease: Power4.easeInOut
+        }
+      );
 
-    return timeline;
+      timeline.add(productShotAnimation);
+
+      return timeline;
+
+    }
 
   }
 
   introSectionTimeline.add([
-    SubTitle(),
-    TextAnimation(),
-    ProductShot()
+    (typeof (SubTitle()) !== 'undefined' && SubTitle() !== null ? SubTitle() : ''),
+    (typeof (TextAnimation()) !== 'undefined' && TextAnimation() !== null ? TextAnimation() : ''),
+    (typeof (ProductShot()) !== 'undefined' && ProductShot() !== null ? ProductShot() : '')
   ]);
 
 };
@@ -406,10 +408,16 @@ jQuery(function () {
 
       Section__Animations(nextSection);
 
-      if(introSectionTimeline.isActive()) {
+      if (introSectionTimeline.isActive()) {
         introSectionTimeline.reverse(-2);
         introSectionTimeline.play();
       };
+
+      if( currSection !== 1) {
+        jQuery('.redline__logo').addClass('shrink')
+      } else {
+        jQuery('.redline__logo').removeClass('shrink')
+      }
 
     },
     after: function (index, sections) {
