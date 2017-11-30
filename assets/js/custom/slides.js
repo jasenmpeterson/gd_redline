@@ -1,4 +1,7 @@
-// TODO - Disable Scrolling While Splash Animation is Playing
+// FIXME: Disable Scrolling While Splash Animation is playing
+// TODO: Stop and reverse animation if user slides to next section before animation completion
+
+var sceneController;
 
 var introSectionTimeline = new TimelineMax({
   id: 'Intro Section Timeline'
@@ -383,10 +386,13 @@ jQuery(function () {
   jQuery.scrollify({
     section: '.section__wrap',
     sectionName: 'id',
+    scrollbars: false,
     easing: 'easeOutExpo',
     scrollSpeed: 1100,
     updateHash: false,
-    before: function (index) {
+    before: function (index, panels) {
+
+      var ref = panels[index].attr('data-id');
 
       (index !== 0 ? themeSwitcher(true) : themeSwitcher(false))
 
@@ -400,6 +406,11 @@ jQuery(function () {
 
       Section__Animations(nextSection);
 
+      if(introSectionTimeline.isActive()) {
+        introSectionTimeline.reverse(-2);
+        introSectionTimeline.play();
+      };
+
     },
     after: function (index, sections) {
       'use strict';
@@ -409,6 +420,13 @@ jQuery(function () {
       jQuery('.scroll__button:nth-of-type(' + currSection + ')').addClass('active');
       Section__Title__Animation(nextSection);
       sectionOnEnter(currSection);
+    },
+    afterRender: function () {
+      // pagination
+      jQuery('nav li.scroll__button').on('click', function () {
+        let ID = jQuery(this).data('id') - 1;
+        jQuery.scrollify.move(ID);
+      })
     }
   });
 });
@@ -424,4 +442,14 @@ let sectionOnEnter = function (currSection) {
       break;
   }
 
+}
+
+
+function themeSwitcher(boolean) {
+
+  var body = document.getElementsByTagName('body')[0];
+
+  boolean ? setTimeout(function () {
+    body.classList.add('dark');
+  }, 300) : body.classList.remove('dark');
 }

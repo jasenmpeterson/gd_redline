@@ -1,6 +1,9 @@
 'use strict';
 
-// TODO - Disable Scrolling While Splash Animation is Playing
+// FIXME: Disable Scrolling While Splash Animation is playing
+// TODO: Stop and reverse animation if user slides to next section before animation completion
+
+var sceneController;
 
 var introSectionTimeline = new TimelineMax({
   id: 'Intro Section Timeline'
@@ -376,10 +379,13 @@ jQuery(function () {
   jQuery.scrollify({
     section: '.section__wrap',
     sectionName: 'id',
+    scrollbars: false,
     easing: 'easeOutExpo',
     scrollSpeed: 1100,
     updateHash: false,
-    before: function before(index) {
+    before: function before(index, panels) {
+
+      var ref = panels[index].attr('data-id');
 
       index !== 0 ? themeSwitcher(true) : themeSwitcher(false);
 
@@ -392,6 +398,11 @@ jQuery(function () {
       }
 
       Section__Animations(nextSection);
+
+      if (introSectionTimeline.isActive()) {
+        introSectionTimeline.reverse(-2);
+        introSectionTimeline.play();
+      };
     },
     after: function after(index, sections) {
       'use strict';
@@ -402,6 +413,13 @@ jQuery(function () {
       jQuery('.scroll__button:nth-of-type(' + currSection + ')').addClass('active');
       Section__Title__Animation(nextSection);
       sectionOnEnter(currSection);
+    },
+    afterRender: function afterRender() {
+      // pagination
+      jQuery('nav li.scroll__button').on('click', function () {
+        var ID = jQuery(this).data('id') - 1;
+        jQuery.scrollify.move(ID);
+      });
     }
   });
 });
@@ -417,111 +435,6 @@ var sectionOnEnter = function sectionOnEnter(currSection) {
       break;
   }
 };
-// Thanks! https://pawelgrzybek.com/page-scroll-in-vanilla-javascript/
-
-// Button Click Page Scroll
-
-// TODO - THEME SWITCH ON MOUSE SCROLL.
-// TODO - THEME SWITCH ON BUTTON CLICK.
-
-function scrollIt(destination) {
-  var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 200;
-  var easing = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'linear';
-  var callback = arguments[3];
-  var callbackBefore = arguments[4];
-
-
-  var easings = {
-    linear: function linear(t) {
-      return t;
-    },
-    easeInQuad: function easeInQuad(t) {
-      return t * t;
-    },
-    easeOutQuad: function easeOutQuad(t) {
-      return t * (2 - t);
-    },
-    easeInOutQuad: function easeInOutQuad(t) {
-      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    },
-    easeInCubic: function easeInCubic(t) {
-      return t * t * t;
-    },
-    easeOutCubic: function easeOutCubic(t) {
-      return --t * t * t + 1;
-    },
-    easeInOutCubic: function easeInOutCubic(t) {
-      return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-    },
-    easeInQuart: function easeInQuart(t) {
-      return t * t * t * t;
-    },
-    easeOutQuart: function easeOutQuart(t) {
-      return 1 - --t * t * t * t;
-    },
-    easeInOutQuart: function easeInOutQuart(t) {
-      return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t;
-    },
-    easeInQuint: function easeInQuint(t) {
-      return t * t * t * t * t;
-    },
-    easeOutQuint: function easeOutQuint(t) {
-      return 1 + --t * t * t * t * t;
-    },
-    easeInOutQuint: function easeInOutQuint(t) {
-      return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * --t * t * t * t * t;
-    }
-  };
-
-  var start = window.pageYOffset;
-
-  // https://developer.mozilla.org/en-US/docs/Web/API/Window/performance
-  var startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
-
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
-  var documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-
-  var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-  var destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
-  var destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
-
-  if ('requestAnimationFrame' in window === false) {
-    window.scroll(0, destinationOffsetToScroll);
-    if (callback) {
-      callback();
-    }
-    return;
-  }
-
-  if (callbackBefore) {
-    callbackBefore();
-  }
-
-  function scroll() {
-    var now = 'now' in window.performance ? performance.now() : new Date().getTime();
-
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
-    var time = Math.min(1, (now - startTime) / duration);
-
-    var timeFunction = easings[easing](time);
-
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
-    window.scroll(0, Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start));
-
-    // Stop requesting animation when window reached its destination
-    // And run a callback function
-    if (window.pageYOffset === destinationOffsetToScroll) {
-      if (callback) {
-        callback();
-      }
-      return;
-    }
-
-    requestAnimationFrame(scroll);
-  }
-
-  scroll();
-}
 
 function themeSwitcher(boolean) {
 
@@ -530,54 +443,4 @@ function themeSwitcher(boolean) {
   boolean ? setTimeout(function () {
     body.classList.add('dark');
   }, 300) : body.classList.remove('dark');
-}
-
-var scrollButtons = document.querySelectorAll('.scroll__button');
-
-var _loop = function _loop(button) {
-  button.addEventListener('click', function (event) {
-
-    'use strict';
-
-    event.stopPropagation();
-    event.preventDefault();
-
-    if (event.target !== button) return;
-
-    var sectionID = event.target.dataset.id;
-
-    // let currentActiveLink = document.querySelector('.scroll__button.active');
-    // currentActiveLink.classList.remove('active');
-    // event.target.classList.add('active');
-
-    scrollIt(document.getElementById(sectionID), 100, 'easeInCubic'
-    // () => themeSwitcher(),
-    // () => themeSwitcher()
-    );
-  });
-};
-
-var _iteratorNormalCompletion3 = true;
-var _didIteratorError3 = false;
-var _iteratorError3 = undefined;
-
-try {
-  for (var _iterator3 = scrollButtons[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-    var button = _step3.value;
-
-    _loop(button);
-  }
-} catch (err) {
-  _didIteratorError3 = true;
-  _iteratorError3 = err;
-} finally {
-  try {
-    if (!_iteratorNormalCompletion3 && _iterator3.return) {
-      _iterator3.return();
-    }
-  } finally {
-    if (_didIteratorError3) {
-      throw _iteratorError3;
-    }
-  }
 }

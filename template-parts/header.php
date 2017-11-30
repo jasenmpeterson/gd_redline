@@ -65,9 +65,9 @@
             </svg>
             <nav>
                 <ul>
-                    <li class="active scroll__button" data-id="introduction">Introduction</li>
-                    <li class="scroll__button" data-id="construction">Construction</li>
-                    <li class="scroll__button" data-id="durability">Durability</li>
+                    <li class="active scroll__button" data-id="1">Introduction</li>
+                    <li class="scroll__button" data-id="2">Construction</li>
+                    <li class="scroll__button" data-id="3">Durability</li>
                     <li class="scroll__button">Service</li>
                     <li class="scroll__button">Contact</li>
                 </ul>
