@@ -68,7 +68,7 @@
                     <li class="active scroll__button" data-id="1">Introduction</li>
                     <li class="scroll__button" data-id="2">Construction</li>
                     <li class="scroll__button" data-id="3">Durability</li>
-                    <li class="scroll__button">Service</li>
+                    <li class="scroll__button" data-id="4">Service</li>
                     <li class="scroll__button">Contact</li>
                 </ul>
             </nav>

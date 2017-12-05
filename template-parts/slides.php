@@ -32,40 +32,61 @@ $contact = get_field('contact', $page_id);
                 <img class="product__shot" src="<?php echo $introduction['image']['sizes']['large']; ?>" alt="<?php echo $introduction['alt']; ?>">
             </div>
         </div>
+        <div class="mousey">
+            <div class="scroller"></div>
+        </div>
     </div>
     <div class="construction__wrap section__wrap dark__theme section interior" id="construction" data-id="2">
         <div class="section__title__wrap section__title__construction">
             <div class="wrap">
                 <h1 class="scroll__button" data-id="construction">
-                    <span class="visible"><?php echo $construction['title']; ?></span>
+                    <span class="visible">
+                        <?php echo $construction['title']; ?>
+                    </span>
                 </h1>
             </div>
         </div>
         <div class="grid__wrap">
-            <div class="cell title__cell">
-                <h5>
-                    <?php echo $construction['title']; ?>
-                </h5>
-                <span class="line"></span>
-                <div class="content__wrap">
-                    <?php echo $construction['content']; ?>
+            <div class="cell content__cell">
+                <div class="cell__wrap">
+                    <h5>
+                        <?php echo $construction['title']; ?>
+                    </h5>
+                    <span class="line"></span>
+                    <div class="content__wrap">
+                        <?php echo $construction['content']; ?>
+                    </div>
+                    <div class="attachment__wrap">
+                        <a href="">
+                            <div class="cell">
+                                <span class="line"></span>
+                                <img src="<?php echo get_template_directory_uri() ;?>/assets/img/file-icon.svg" alt="">
+                            </div>
+                            <div class="cell">
+                                <p>GD Packing Spec Sheet</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="cell image__cell">
-                <img class="product__shot" src="<?php echo $construction['image']['sizes']['medium']; ?>" alt="<?php echo $construction['alt']; ?>">
+                <img class="product__shot" src="<?php echo $construction['image']['url']; ?>" alt="<?php echo $construction['alt']; ?>">
             </div>
         </div>
     </div>
-    <div class="durability__wrap section__wrap dark__theme section interior background__image" style="background: url('<?php echo $durability['image']['url']; ?>')" id="durability" data-id="3">
+    <div class="durability__wrap section__wrap dark__theme section interior" id="durability" data-id="3">
+        <div class="background__image" style="background: url('<?php echo $durability['image']['url']; ?>')"></div>
         <div class="section__title__wrap section__title__construction">
             <div class="wrap">
                 <h1 class="scroll__button" data-id="construction">
-                    <span class="visible"><?php echo $durability['title']; ?></span>
+                    <span class="visible">
+                        <?php echo $durability['title']; ?>
+                    </span>
                 </h1>
             </div>
         </div>
-        <div class="grid__wrap">
-            <div class="cell title__cell">
+        <div class="grid__wrap content__only">
+            <div class="cell content__cell">
                 <h5>
                     <?php echo $durability['title']; ?>
                 </h5>
@@ -76,16 +97,19 @@ $contact = get_field('contact', $page_id);
             </div>
         </div>
     </div>
-    <div class="service__wrap section__wrap dark__theme section interior background__image" style="background: url('<?php echo $service['image']['url']; ?>')" id="service" data-id="4">
+    <div class="service__wrap section__wrap dark__theme section interior" id="service" data-id="4">
+        <div class="background__image" style="background: url('<?php echo $service['image']['url']; ?>')"></div>
         <div class="section__title__wrap section__title__construction">
             <div class="wrap">
                 <h1 class="scroll__button" data-id="construction">
-                    <span class="visible"><?php echo $service['title']; ?></span>
+                    <span class="visible">
+                        <?php echo $service['title']; ?>
+                    </span>
                 </h1>
             </div>
         </div>
-        <div class="grid__wrap">
-            <div class="cell title__cell">
+        <div class="grid__wrap content__only">
+            <div class="cell content__cell">
                 <h5>
                     <?php echo $service['title']; ?>
                 </h5>
