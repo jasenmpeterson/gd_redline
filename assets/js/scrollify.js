@@ -22,7 +22,7 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
           // don't bother using the themeSwitcher function if it's the first slide
           // -- the theme switcher bascially swaps dark/light color schemes via a class injected into the body tag
 
-          index !== 0 ? themeSwitcher(true) : themeSwitcher(false);
+          index !== 0 && index !== 4 ? themeSwitcher(true) : themeSwitcher(false);
 
           // get next section
 
@@ -52,8 +52,9 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
         afterRender: function afterRender() {
 
           // pagination
-          jQuery('nav li.scroll__button').on('click', function () {
+          jQuery('.scroll__button').on('click', function (event) {
             var ID = jQuery(this).data('id') - 1;
+            console.log(event.target);
             jQuery.scrollify.move(ID);
           });
 

@@ -69,7 +69,7 @@
                     <li class="scroll__button" data-id="2">Construction</li>
                     <li class="scroll__button" data-id="3">Durability</li>
                     <li class="scroll__button" data-id="4">Service</li>
-                    <li class="scroll__button">Contact</li>
+                    <li class="scroll__button" data-id="5">Contact</li>
                 </ul>
             </nav>
 		</div>

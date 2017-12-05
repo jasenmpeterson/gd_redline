@@ -36,14 +36,13 @@ $contact = get_field('contact', $page_id);
             <div class="scroller"></div>
         </div>
     </div>
+
     <div class="construction__wrap section__wrap dark__theme section interior" id="construction" data-id="2">
-        <div class="section__title__wrap section__title__construction">
+        <div class="section__title__wrap">
             <div class="wrap">
-                <h1 class="scroll__button" data-id="construction">
-                    <span class="visible">
-                        <?php echo $construction['title']; ?>
-                    </span>
-                </h1>
+                <span class="visible scroll__button" data-id="2">
+                    <?php echo $construction['title']; ?>
+                </span>
             </div>
         </div>
         <div class="grid__wrap">
@@ -74,15 +73,14 @@ $contact = get_field('contact', $page_id);
             </div>
         </div>
     </div>
+
     <div class="durability__wrap section__wrap dark__theme section interior" id="durability" data-id="3">
         <div class="background__image" style="background: url('<?php echo $durability['image']['url']; ?>')"></div>
-        <div class="section__title__wrap section__title__construction">
+        <div class="section__title__wrap">
             <div class="wrap">
-                <h1 class="scroll__button" data-id="construction">
-                    <span class="visible">
-                        <?php echo $durability['title']; ?>
-                    </span>
-                </h1>
+                <span class="visible scroll__button" data-id="3">
+                    <?php echo $durability['title']; ?>
+                </span>
             </div>
         </div>
         <div class="grid__wrap content__only">
@@ -97,6 +95,7 @@ $contact = get_field('contact', $page_id);
             </div>
         </div>
     </div>
+
     <div class="service__wrap section__wrap dark__theme section interior" id="service" data-id="4">
         <?php 
             $index = 0;
@@ -108,13 +107,11 @@ $contact = get_field('contact', $page_id);
             }
         ?>
 
-            <div class="section__title__wrap section__title__construction">
+            <div class="section__title__wrap">
                 <div class="wrap">
-                    <h1 class="scroll__button" data-id="construction">
-                        <span class="visible">
-                            <?php echo $service['title']; ?>
-                        </span>
-                    </h1>
+                    <span class="visible scroll__button" data-id="4">
+                        <?php echo $service['title']; ?>
+                    </span>
                 </div>
             </div>
             <div class="grid__wrap content__only">
@@ -128,4 +125,28 @@ $contact = get_field('contact', $page_id);
                     </div>
                 </div>
             </div>
+    </div>
+
+    <div class="contact__wrap section__wrap section interior" id="service" data-id="5">
+        <div class="section__title__wrap">
+            <div class="wrap">
+                <span class="visible scroll__button" data-id="5">
+                    <?php echo $contact['title']; ?>
+                </span>
+            </div>
+        </div>
+        <div class="grid__wrap">
+            <div class="cell">
+                <h5>
+                    <?php echo $contact['title']; ?>
+                </h5>
+                <span class="line"></span>
+                <div class="content__wrap">
+                    <?php echo $contact['content']; ?>
+                </div>
+            </div>
+            <div class="cell">
+                <?php echo do_shortcode( '[contact-form-7 id="4" title="Contact form 1"]' ); ?>
+            </div>
+        </div>
     </div>
