@@ -89,8 +89,6 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
 
       // trigger section animations via a new instance of a class that does the GSAP magic.
 
-      console.log(sectionName)
-
       switch (sectionName) {
         case 'introduction':
           break;

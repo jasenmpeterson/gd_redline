@@ -98,25 +98,34 @@ $contact = get_field('contact', $page_id);
         </div>
     </div>
     <div class="service__wrap section__wrap dark__theme section interior" id="service" data-id="4">
-        <div class="background__image" style="background: url('<?php echo $service['image']['url']; ?>')"></div>
-        <div class="section__title__wrap section__title__construction">
-            <div class="wrap">
-                <h1 class="scroll__button" data-id="construction">
-                    <span class="visible">
-                        <?php echo $service['title']; ?>
-                    </span>
-                </h1>
-            </div>
-        </div>
-        <div class="grid__wrap content__only">
-            <div class="cell content__cell">
-                <h5>
-                    <?php echo $service['title']; ?>
-                </h5>
-                <span class="line"></span>
-                <div class="content__wrap">
-                    <?php echo $service['content']; ?>
+        <?php 
+            $index = 0;
+            foreach($service['images'] as $image) {
+                ?>
+        <div class="background__image" style="background: url('<?php echo $image['image']; ?>');"></div>
+        <?php
+            $index++;
+            }
+        ?>
+
+            <div class="section__title__wrap section__title__construction">
+                <div class="wrap">
+                    <h1 class="scroll__button" data-id="construction">
+                        <span class="visible">
+                            <?php echo $service['title']; ?>
+                        </span>
+                    </h1>
                 </div>
             </div>
-        </div>
+            <div class="grid__wrap content__only">
+                <div class="cell content__cell">
+                    <h5>
+                        <?php echo $service['title']; ?>
+                    </h5>
+                    <span class="line"></span>
+                    <div class="content__wrap">
+                        <?php echo $service['content']; ?>
+                    </div>
+                </div>
+            </div>
     </div>
