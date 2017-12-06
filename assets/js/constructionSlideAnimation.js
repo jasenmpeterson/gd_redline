@@ -2,7 +2,7 @@ define(function () {
 
     return class ConstructionAnimation {
 
-        constructor(timeline, sub__header, sub__header__line, header, product__shot, content, attachment) {
+        constructor(timeline, sub__header, sub__header__line, header, product__shot, content, attachment, nav) {
 
             this.timeline = new TimelineMax({
                 id: 'Construction Section Timeline',
@@ -13,9 +13,9 @@ define(function () {
             this.sub__header = document.querySelector('.construction__wrap .content__cell h5');
             this.sub__header__line = document.querySelector('.construction__wrap .line');
             this.header = document.querySelector('.construction__wrap .content__cell h1');
-            this.product__shot = document.querySelector('.construction__wrap .product__shot');
             this.content = document.querySelector('.construction__wrap .content__wrap p');
             this.attachment = document.querySelector('.construction__wrap .attachment__wrap');
+            this.nav = document.querySelectorAll('nav ul li.scroll__button');
 
             // sub header
 
@@ -35,14 +35,6 @@ define(function () {
             // header
 
             TweenMax.set(this.header, {
-                y: '100',
-                autoAlpha: 0
-            });
-
-
-            // product shot
-
-            TweenMax.set(this.product__shot, {
                 y: '100',
                 autoAlpha: 0
             });
@@ -102,15 +94,7 @@ define(function () {
                 autoAlpha: 1,
                 ease: Power4.easeInOut
             }, '-=0.8');
-
-            // product shot
-
-            this.timeline.to(this.product__shot, 1.5, {
-                y: 0,
-                autoAlpha: 1,
-                ease: Power4.easeInOut
-            }, '-=0.5');
-
+            
             this.timeline.play();
 
         }

@@ -12,22 +12,42 @@ header .grid__wrap {
   padding: 6.25rem 3rem 0 3rem;
 }
 header .grid__wrap .cell:first-of-type {
-  width: 25%;
+  @media screen and (min-width: 40rem) {
+    width: 25%;
+  }
+  @media screen and (min-width: 18.75rem) {
+    width: 8.75rem;
+  }
 }
 header .grid__wrap .cell:last-of-type {
-  width: 12.5rem;
+  
+  @media screen and (min-width: 40rem) {
+    width: 12.5rem;
+  }
+  @media screen and (min-width: 18.75rem) {
+    width: auto;
+  }
 }
 header div.contact__btn {
   text-align: center;
   display: block;
-  max-width: 12.5rem;
-  color: #fff;
   border: 0.0625rem solid #ED0B35;
   font-weight: 700;
-  padding: 0.8rem 0;
   cursor: pointer;
   pointer-events: auto;
   position: relative;
+  @media screen and (min-width: 49.9375rem) {
+    color: #fff;
+    max-width: 12.5rem;
+    padding: 0.8rem 0;
+    margin-left: 0;
+  }
+  @media screen and (min-width: 18.75rem) {
+    color: #4b4b4b;
+    max-width: 8.5rem;
+    padding: 0.5rem;
+    margin-left: auto;
+  }
 }
 header div.contact__btn span {
   display: inline-block;
@@ -53,8 +73,13 @@ header ul {
   margin: 1.5rem 0;
 }
 header nav {
-  display: inline-block;
   margin-top: 1.2rem;
+  @media screen and (min-width: 40rem) {
+    display: inline-block;
+  }
+  @media screen and (min-width: 18.75rem) {
+    display: none;
+  }
 }
 header nav li {
   cursor: pointer;
@@ -101,6 +126,12 @@ header ul li:not(:last-child) {
 }
 .social__icon__wrap {
   margin-top: 6.25rem;
+  @media screen and (min-width: 40rem) {
+    display: block;
+  }
+  @media screen and (min-width: 18.75rem) {
+    display: none;
+  }
 }
 .social__icon__wrap a {
   color: #A41E37;
@@ -118,6 +149,14 @@ header ul li:not(:last-child) {
   position: relative;
   padding: 0.3125rem;
   pointer-events: auto;
+  @media screen and (min-width: 49.9375rem) {
+    color: #A41E37;
+    background: #fff;
+  }
+  @media screen and (min-width: 18.75rem) {
+    background: #A41E37;
+    color: #ffffff;
+  }
 }
 .social__icon__wrap a:hover {
   background: none;
@@ -127,7 +166,6 @@ header ul li:not(:last-child) {
   z-index: 2;
 }
 .social__icon__wrap a span {
-  background-color: #ffffff;
   position: absolute;
   top: 0.05rem;
   right: 0;
@@ -140,6 +178,12 @@ header ul li:not(:last-child) {
   display: block;
   width: 100%;
   height: 100%;
+  @media screen and (min-width: 49.9375rem) {
+    background-color: #ffffff;
+  }
+  @media screen and (min-width: 18.75rem) {
+    background-color: #A41E37;
+  }
 }
 .social__icon__wrap a:hover span {
   width: 86%;
@@ -149,14 +193,18 @@ header ul li:not(:last-child) {
 // logo
 
 .redline__logo {
-  transition: 300ms ease-out;
+  transition: 700ms ease-in-out;
   display: block;
   width: 100%;
   height: auto;
 }
 
 .redline__logo.shrink {
-  width: 40%;
+  width: 8.75rem;
+}
+
+.redline__logo path.black {
+  transition: 700ms ease-in-out;
 }
 
 .redline__logo path.red {
@@ -170,4 +218,7 @@ header ul li:not(:last-child) {
 }
 .dark header nav li {
   color: #ffffff;
+}
+.dark header div.contact__btn {
+  color: #ffffff !important;
 }

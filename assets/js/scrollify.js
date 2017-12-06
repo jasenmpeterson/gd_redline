@@ -12,6 +12,7 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
     jQuery(function () {
       jQuery.scrollify({
         section: '.section__wrap',
+        setHeights: false,
         sectionName: 'id',
         scrollbars: false,
         easing: 'easeOutExpo',
@@ -94,9 +95,13 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
         case 'introduction':
           break;
         case 'construction':
+          const video = document.querySelector('.construction__video video');
+          video.play();
           constructionAnimation.play();
           break;
         case 'durability':
+          const durability__video = document.querySelector('.durability__wrap video');
+          durability__video.play();
           durabilityAnimation.play();
           break;
         case 'service':
