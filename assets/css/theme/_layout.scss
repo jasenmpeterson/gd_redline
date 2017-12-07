@@ -1,7 +1,12 @@
 body {
   font-family: 'Open Sans', Helvetica;
   font-weight: 400;
-  overflow-x: hidden;
+  @media screen and (min-width: 40rem) {
+    overflow-y: hidden;
+  }
+  @media screen and (min-width: 18.75rem) {
+    overflow-y: scroll !important;
+  }
 }
 span.line {
   display: block;
@@ -57,7 +62,7 @@ h5 {
   text-transform: uppercase;
   color: #A5A5A5;
 }
-.dark h5 {
+.dark .dark__theme h5 {
   color: #ffffff;
 }
 p {

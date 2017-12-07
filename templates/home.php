@@ -18,7 +18,7 @@ get_header();
         </div>
     </div>
     <?php get_template_part( 'template-parts/header' ); ?>
-	<?php get_template_part( 'template-parts/slides' ); ?>
+    <?php get_template_part( 'template-parts/slides' ); ?>
 </main>
 
 <?php

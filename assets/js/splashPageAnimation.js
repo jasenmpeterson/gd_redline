@@ -45,5 +45,5 @@ define(function () {
 
         splashPageTimline.add(SplashPageAnimation());
     }
-    
+
 });

@@ -16,10 +16,10 @@ define(function () {
             scale: 0.5
         });
 
-        timeline.to(logo, 1.2, {
+        timeline.to(logo, 0.5, {
             autoAlpha: 1,
             scale: 1,
-            ease: Elastic.easeInOut.config(0.5, 0.3)
+            ease: Power4.easeOut
         });
 
 

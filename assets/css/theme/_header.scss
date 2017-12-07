@@ -71,6 +71,7 @@ header ul {
   padding: 0;
   list-style-type: none;
   margin: 1.5rem 0;
+  transition: opacity 300ms ease-out;
 }
 header nav {
   margin-top: 1.2rem;
@@ -112,7 +113,7 @@ header nav li.active {
 }
 header nav li:hover,
 header nav li.active {
-  color: #A41E37;
+  color: #A41E37 !important;
 }
 header nav li:not(.active):hover:before,
 header nav li:not(.active):hover:after,
@@ -209,6 +210,39 @@ header ul li:not(:last-child) {
 
 .redline__logo path.red {
   fill:  #a32035;
+}
+
+.gd__faded__logo {
+  opacity: .1;
+  position: absolute;
+  left: 2rem;
+  bottom: 10rem;
+  @media screen and (min-width: 40rem) {
+    bottom: 10rem;
+    top: auto;
+  }
+  @media screen and (min-width: 18.75rem) {
+    bottom: auto;
+    top: 2rem;
+  }
+}
+
+.section__wrap:not(.introduction__wrap) .gd__faded__logo {
+  @media screen and (min-width: 40rem) {
+    visibility: visible;
+  }
+  @media screen and (min-width: 18.75rem) {
+    visibility: hidden;
+  }
+}
+
+.construction__video {
+  @media screen and (min-width: 40rem) {
+    display: block;
+  }
+  @media screen and (min-width: 18.75rem) {
+    display: none;
+  }
 }
 
 // dark theme

@@ -3,11 +3,21 @@
 define(['./constructionSlideAnimation', './durabilitySlideAnimation', './serviceSlideAnimation'], function (constructionSlideAnimation, durabilitySlideAnimation, serviceSlideAnimation) {
   return function () {
 
+    function RemoveSectionLabel(label) {
+
+      let current__label = jQuery('.section__title__wrap .scroll__button[data-id="' + label + '"]');
+
+      TweenMax.to( current__label, 0.5, {
+        autoAlpha: 0.3
+      })
+
+    }
+
     // animations 
 
-    let constructionAnimation = new constructionSlideAnimation();
-    let durabilityAnimation = new durabilitySlideAnimation();
-    let serviceAnimation = new serviceSlideAnimation();
+    const constructionAnimation = new constructionSlideAnimation();
+    const durabilityAnimation = new durabilitySlideAnimation();
+    const serviceAnimation = new serviceSlideAnimation();
 
     jQuery(function () {
       jQuery.scrollify({
@@ -49,8 +59,18 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
           var currSection = index + 1;
           sectionOnEnter(currSection);
 
+          // remove section label
+
+          RemoveSectionLabel(currSection);
+
         },
         afterRender: function afterRender() {
+
+          // scroll to top of page
+
+          window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+          }
 
           // pagination
           jQuery('.scroll__button').on('click', function (event) {
@@ -74,6 +94,14 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
       // set the current section to active
 
       section.addClass('active__section');
+
+      // active/inative button states
+
+      let current__section__button = jQuery('nav .scroll__button.active');
+      current__section__button.removeClass('active');
+
+      let next__section__button = jQuery('nav .scroll__button[data-id="' + currSection + '"]');
+      next__section__button.addClass('active');
 
     };
 
