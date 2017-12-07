@@ -1,6 +1,7 @@
 body {
   font-family: 'Open Sans', Helvetica;
   font-weight: 400;
+  max-width: 100%;
   @media screen and (min-width: 40rem) {
     overflow-y: hidden;
   }
@@ -13,9 +14,9 @@ span.line {
   height: 0.0625rem;
   background: #981B31;
 }
-main {
+.main {
   position: relative;
-  height: 100%;
+  overflow-x: hidden;
 }
 .curtain {
   background: #981B31;
@@ -88,6 +89,12 @@ p {
   right: 0;
   bottom: 10rem;
   margin: 0 auto;
+  @media screen and (min-width: 48rem) {
+    display: block;
+  }
+  @media screen and (min-width: 18.75rem) {
+    display: none;
+  }
 }
 .scroller {
   width: 6px;

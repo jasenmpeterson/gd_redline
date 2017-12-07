@@ -1,5 +1,5 @@
 <div class="gd__faded__logo">
-    <svg xmlns="http://www.w3.org/2000/svg" width="143.1" height="40.76">
+    <svg xmlns="http://www.w3.org/2000/svg" width="143.1" height="40.76" viewbox="0 0 143.1 40.76">
         <defs>
             <clipPath id="a" transform="translate(-247.9 -219.24)">
                 <path fill="none" d="M248 219h143v41H248z" />

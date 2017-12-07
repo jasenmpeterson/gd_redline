@@ -1,11 +1,16 @@
 header {
-  position: fixed;
   z-index: 100;
   top: 0;
   left: 0;
   width: 100%;
   pointer-events: none;
   padding-top: 6.25rem;
+  @media screen and (min-width: 40rem) {
+    position: fixed;
+  }
+  @media screen and (min-width: 18.75rem) {
+    position: absolute;
+  }
 }
 header .grid__wrap {
   justify-content: space-between;
@@ -36,14 +41,15 @@ header div.contact__btn {
   cursor: pointer;
   pointer-events: auto;
   position: relative;
+  transition: color 300ms ease-in-out;
   @media screen and (min-width: 49.9375rem) {
-    color: #fff;
+    color: #fff !important;
     max-width: 12.5rem;
     padding: 0.8rem 0;
     margin-left: 0;
   }
   @media screen and (min-width: 18.75rem) {
-    color: #4b4b4b;
+    color: #4b4b4b !important;
     max-width: 8.5rem;
     padding: 0.5rem;
     margin-left: auto;
@@ -220,10 +226,21 @@ header ul li:not(:last-child) {
   @media screen and (min-width: 40rem) {
     bottom: 10rem;
     top: auto;
+    width: 100%;
   }
   @media screen and (min-width: 18.75rem) {
     bottom: auto;
     top: 2rem;
+    width: 5rem;
+  }
+}
+
+.gd__faded__logo svg {
+  @media screen and (min-width: 40rem) {
+    width: 100%;
+  }
+  @media screen and (min-width: 18.75rem) {
+    width: 5rem;
   }
 }
 
@@ -233,15 +250,6 @@ header ul li:not(:last-child) {
   }
   @media screen and (min-width: 18.75rem) {
     visibility: hidden;
-  }
-}
-
-.construction__video {
-  @media screen and (min-width: 40rem) {
-    display: block;
-  }
-  @media screen and (min-width: 18.75rem) {
-    display: none;
   }
 }
 

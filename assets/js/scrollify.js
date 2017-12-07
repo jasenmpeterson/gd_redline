@@ -8,7 +8,7 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
       let current__label = jQuery('.section__title__wrap .scroll__button[data-id="' + label + '"]');
 
       TweenMax.to( current__label, 0.5, {
-        autoAlpha: 0.3
+        autoAlpha: 0.1
       })
 
     }
@@ -124,12 +124,16 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
           break;
         case 'construction':
           const video = document.querySelector('.construction__video video');
-          video.play();
+          if (window.matchMedia('(min-width: 48rem)').matches) {
+            video.play();
+          }
           constructionAnimation.play();
           break;
         case 'durability':
           const durability__video = document.querySelector('.durability__wrap video');
-          durability__video.play();
+          if (window.matchMedia('(min-width: 48rem)').matches) {
+            durability__video.play();
+          }
           durabilityAnimation.play();
           break;
         case 'service':

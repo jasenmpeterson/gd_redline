@@ -11,7 +11,7 @@ get_header();
 
 ?>
 
-<main>
+<div class="main">
     <div class="curtain">
         <div class="square">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/gd-logo.svg" alt="">
@@ -19,7 +19,7 @@ get_header();
     </div>
     <?php get_template_part( 'template-parts/header' ); ?>
     <?php get_template_part( 'template-parts/slides' ); ?>
-</main>
+</div>
 
 <?php
 

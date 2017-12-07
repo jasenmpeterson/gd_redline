@@ -81,7 +81,8 @@ $contact = get_field('contact', $page_id);
         </div>
 
         <div class="durability__wrap section__wrap dark__theme section interior" id="durability" data-id="3">
-            <div class="background__image">
+        <div class="background__image image" style="background: url('<?php echo $durability['image']['url']; ?>')"></div>
+            <div class="background__image background__video">
                 <video loop>
                     <source src="<?php echo get_template_directory_uri() ;?>/assets/mp4/GD_PACKING_VIDEO.mp4">
                 </video>
