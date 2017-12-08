@@ -36,12 +36,9 @@ span.line {
   margin: auto;
   width: 6.25rem;
   height: 4.6875rem;
-  background-color: #fff;
-  border-radius: 0.1875rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  @include box-shadow-all('rgba(0,0,0,.5)');
 }
 .curtain .square img {
   @media screen and (min-width: 18.75rem) {

@@ -36,10 +36,15 @@
 }
 
 .section__title__wrap {
-  display: flex;
   flex-direction: column;
   width: 100%;
   z-index: 10;
+  @media screen and (min-width: 40rem) {
+    display: flex;
+  }
+  @media screen and (min-width: 18.75rem) {
+    display: none;
+  }
 }
 
 .product__shot {
@@ -93,7 +98,7 @@
   position: relative;
   z-index: 2;
   @media screen and (min-width: 73.75rem) {
-    padding-top: 0;
+    padding: 0;
     margin-left: 20.25rem;
     margin-top: 3rem;
   }
@@ -104,7 +109,7 @@
     margin-left: 13rem;
   }
   @media screen and (min-width: 18.75rem) {
-    padding-top: 5rem;
+    padding: 5rem 0;
     margin-top: 0;
   }
 }
@@ -143,7 +148,7 @@
 }
 
 .construction__video {
-  @media screen and (min-width: 64rem) {
+  @media screen and (min-width: 80rem) {
     display: block;
   }
   @media screen and (min-width: 18.75rem) {
@@ -241,6 +246,20 @@
   position: relative;
 }
 
+.contact__section header div.contact__btn {
+  color:#4b4b4b;
+}
+
+.contact__section .social__icon__wrap a {
+  background: #a41e37;
+  border-color: #a41e37;
+  color: #fff;
+}
+
+.contact__section .social__icon__wrap a span {
+  background-color: #a41e37;
+}
+
 .contact__wrap {
   @media screen and (min-width: 64rem) {
     padding: 0;
@@ -330,8 +349,7 @@ span.scroll__button {
   }
 }
 
-.active__section:not(.service__wrap) .background__image,
-.active__section:not(.durability__wrap) .background__image {
+.background__image {
   animation: 115s ppb_kenburns linear infinite alternate;
 }
 
@@ -457,10 +475,9 @@ input[type="submit"]:hover {
 .introduction__wrap:before {
   @media screen and (min-width: 100rem){
     width: 33%;
-    display: block;
   }
-  @media screen and (min-width: 64rem){
-    width: 15%;
+  @media screen and (min-width: 80rem){
+    width: 20%;
     display: block;
   }
   @media screen and (min-width: 18.75rem){
@@ -469,11 +486,11 @@ input[type="submit"]:hover {
 }
 
 .introduction__wrap:after {
-  @media screen and (min-width: 80rem){
+  @media screen and (min-width: 100rem){
     right: -45rem;
   }
-  @media screen and (min-width: 64rem){
-    right: -35rem;
+  @media screen and (min-width: 80rem){
+    right: -45rem;
     display: block;
   }
   @media screen and (min-width: 18.75rem){

@@ -7,7 +7,7 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
 
       let current__label = jQuery('.section__title__wrap .scroll__button[data-id="' + label + '"]');
 
-      TweenMax.to( current__label, 0.5, {
+      TweenMax.to(current__label, 0.5, {
         autoAlpha: 0.1
       })
 
@@ -75,7 +75,6 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
           // pagination
           jQuery('.scroll__button').on('click', function (event) {
             var ID = jQuery(this).data('id') - 1;
-            console.log(event.target);
             jQuery.scrollify.move(ID);
           });
 
@@ -109,6 +108,11 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
 
     function sectionBeforeEnter(nextSection) {
 
+      var body = document.getElementsByTagName('body')[0];
+
+      // remove contact__section class -- if applicable -- this is a one off to darken the button text
+      body.classList.remove('contact__section')
+
       // ge the data ID from the next slide - this is passed in from the scrollify before callback function 
 
       let section = jQuery('.section__wrap[data-id="' + nextSection + '"]');
@@ -138,6 +142,9 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
           break;
         case 'service':
           serviceAnimation.play();
+          break;
+        case 'contact':
+          body.classList.add('contact__section')
           break;
       }
 

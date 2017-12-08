@@ -140,7 +140,7 @@ $contact = get_field('contact', $page_id);
                 <?php include('logo.php'); ?>
         </div>
 
-        <div class="contact__wrap section__wrap section interior" id="service" data-id="5">
+        <div class="contact__wrap section__wrap section interior dark" id="contact" data-id="5">
             <div class="section__title__wrap">
                 <div class="wrap">
                     <span class="visible scroll__button" data-id="5">
@@ -164,6 +164,5 @@ $contact = get_field('contact', $page_id);
                     </div>
                 </div>
             </div>
-            <?php include('logo.php'); ?>
         </div>
     </div>

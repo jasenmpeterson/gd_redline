@@ -2,7 +2,7 @@ define(function () {
 
     let timeline = new TimelineMax({
         id: 'Intro Section Timeline',
-        delay: '2'
+        delay: 0.5
     });
 
     return function () {

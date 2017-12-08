@@ -38,23 +38,27 @@ header .grid__wrap .cell:last-of-type {
 
 header div.contact__btn {
   text-align: center;
-  color: #fff;
   display: block;
-  border: 0.0625rem solid #ED0B35;
   font-weight: 700;
   cursor: pointer;
   pointer-events: auto;
   position: relative;
+  color: #fff;
   transition: color 300ms ease-in-out;
-  @media screen and (min-width: 49.9375rem) {
+  opacity: 0;
+  transform: translateY(50px);
+  @media screen and (min-width: 80rem) {
     max-width: 12.5rem;
     padding: 0.8rem 0;
     margin-left: 0;
+    background: none;
+    border: 0.0625rem solid #ED0B35;
   }
   @media screen and (min-width: 18.75rem) {
     max-width: 8.5rem;
     padding: 0.5rem;
     margin-left: auto;
+    background: #a41e37;
   }
 }
 
@@ -105,6 +109,8 @@ header nav li {
   margin-left: -0.9rem;
   text-transform: uppercase;
   font-size: 0.9rem;
+  opacity: 0;
+  transform: translateX(125px);
 }
 
 header nav li:before,
@@ -173,7 +179,9 @@ header ul li:not(:last-child) {
   position: relative;
   padding: 0.3125rem;
   pointer-events: auto;
-  @media screen and (min-width: 64rem) {
+  opacity: 0;
+  transform: scale(0.5);
+  @media screen and (min-width: 80rem) {
     color: #A41E37;
     background: #fff;
   }
@@ -205,7 +213,7 @@ header ul li:not(:last-child) {
   display: block;
   width: 100%;
   height: 100%;
-  @media screen and (min-width: 64rem) {
+  @media screen and (min-width: 80rem) {
     background-color: #ffffff;
   }
   @media screen and (min-width: 50rem) {
@@ -224,6 +232,8 @@ header ul li:not(:last-child) {
   display: block;
   width: 100%;
   height: auto;
+  opacity: 0;
+  transform: scale(0.5);
 }
 
 .redline__logo.shrink {

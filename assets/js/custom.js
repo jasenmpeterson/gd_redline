@@ -17,12 +17,6 @@ require.config({
   }
 });
 
-// splash page animation
-
-require(['splashPageAnimation'], function (splashPageAnimation) {
-  splashPageAnimation();
-});
-
 // intro animation
 
 require(['introAnimation'], function (introAnimation) {
