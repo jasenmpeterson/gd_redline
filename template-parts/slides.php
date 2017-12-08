@@ -112,9 +112,8 @@ $contact = get_field('contact', $page_id);
             <?php 
             $index = 0;
             foreach($service['images'] as $image) {
-                ?>
-            <div class="background__image" style="background: url('<?php echo $image['image']; ?>');"></div>
-            <?php
+                 echo $index == 0 ? '<div class="background__image" style="background: url('.$image['image'].');"></div>' : '';
+  
             $index++;
             }
         ?>

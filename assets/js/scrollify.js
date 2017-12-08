@@ -22,7 +22,6 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
     jQuery(function () {
       jQuery.scrollify({
         section: '.section__wrap',
-        setHeights: false,
         sectionName: 'id',
         scrollbars: false,
         easing: 'easeOutExpo',
