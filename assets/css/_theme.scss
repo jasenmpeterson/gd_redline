@@ -55,11 +55,15 @@ html {
     }
 }
 
+.column {
+    position: relative;
+}
+
 .section__wrap {
     display: flex;
     height: 100vh;
-    align-items: center;
     position: relative;
+    align-items: center;
     @media screen and (min-width: 48rem) {
         padding: 4rem;
     }
@@ -167,16 +171,8 @@ header nav li {
     padding: .3125rem;
     pointer-events: auto;
     text-decoration: none;
-    @media screen and (min-width: 48rem) {
-        width: 4rem;
-        height: 4rem;
-        margin-bottom: 0;
-    }
-    @media screen and (min-width: 18.75rem) {
-        width: 2rem;
-        height: 2rem;
-        margin-bottom: 0.5rem;
-    }
+    width: 2rem;
+    height: 2rem;
 }
 
 // sections
@@ -190,14 +186,34 @@ header nav li {
     color: #4b4b4b;
 }
 
+.section__wrap.first .grid {
+    @media screen and (min-width: 61.875rem) {
+        display: flex;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: block;
+    }
+}
+
+.section__wrap.first .column {
+    @media screen and (min-width: 61.875rem) {
+        display: flex;
+    }
+    @media screen and (min-width: 18.75rem) {
+        width: 70%;
+        margin: 0 auto;
+    }
+}
+
 // second section 
 .section__wrap.second {
     background-color: #282828;
     color: #ffffff;
 }
 
-.section__wrap.second img {
-    @media screen and (min-width: 48rem) {
+
+.section__wrap.second .product__shot {
+    @media screen and (min-width:61.875rem) {
         display: none;
     }
     @media screen and (min-width: 18.75rem) {
@@ -207,7 +223,7 @@ header nav li {
 
 // third section
 .section__wrap.third .bg {
-    @media screen and (min-width: 48rem) {
+    @media screen and (min-width: 64rem) {
         display: none;
     }
     @media screen and (min-width: 18.75rem) {
@@ -264,7 +280,7 @@ header nav li {
 }
 
 video {
-    @media screen and (min-width: 48rem) {
+    @media screen and (min-width: 64rem) {
         display: block;
     }
     @media screen and (min-width: 18.75rem) {
@@ -410,8 +426,8 @@ input[type="submit"]:hover {
 
 // mobile menu - menu button
 .mobile__menu__button {
-    position: relative;
-    z-index: 1000;
+    position: fixed;
+    z-index: 10002;
     padding: 0;
     width: 2.5em;
     height: 2.25em;
@@ -421,8 +437,14 @@ input[type="submit"]:hover {
     color: transparent;
     background: transparent;
     display: block;
-    margin-left: auto;
-    top: -1rem;
+    right: 0;
+    top: 1rem;
+    @media screen and (min-width: 48rem) {
+        display: none;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: block;
+    }
 }
 
 .mobile__menu__button:before {
@@ -463,7 +485,7 @@ input[type="submit"]:hover {
 	height: 100%;
 	top: 0;
 	left: 50%;
-	background: #95a5a6;
+	background: #ffffff;
 }
 
 .close__button:before {
@@ -478,7 +500,9 @@ input[type="submit"]:hover {
 
 // mobile menu - menu
 .mobile__menu__wrap {
-	position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
 	z-index: 1001;
 	width: 300px;
 	height: 100%;
@@ -488,10 +512,16 @@ input[type="submit"]:hover {
 }
 
 .mobile__menu__wrap nav {
-    background: #373a47;
+    background: #981b31;
 	width: calc(100% - 120px);
 	height: 100%;
 	padding: 2em 1em;
+}
+
+.mobile__menu__wrap li {
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: 700;
 }
 
 // mobile menu - morph shape
@@ -501,7 +531,7 @@ input[type="submit"]:hover {
 	height: 100%;
 	top: 0;
 	right: 0;
-	fill: #373a47;
+	fill: #981b31;
 	z-index: 1000;
 }
 
@@ -519,4 +549,8 @@ input[type="submit"]:hover {
     opacity: 1;
 	transition: opacity 0.3s;
 	transform: translate3d(0,0,0);
+}
+
+.show__menu header {
+    @include box-shadow-bottom();
 }

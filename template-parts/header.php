@@ -1,3 +1,4 @@
+<button class="mobile__menu__button">Open Menu</button>
 <header class="header">
     <div class="grid">
         <div class="column">
@@ -74,7 +75,6 @@
             </nav>
         </div>
         <div class="column">
-            <button class="mobile__menu__button">Open Menu</button>
             <div class="social__icon__wrap">
                 <ul>
                     <li>
