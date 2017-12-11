@@ -10,12 +10,13 @@
 get_header();
 
 ?>
-
-<div class="main">
     <?php get_template_part( 'template-parts/header' ); ?>
-    <?php get_template_part( 'template-parts/slides' ); ?>
-</div>
+    <div class="main__wrap">
+        <div class="main">
+            <?php get_template_part( 'template-parts/slides' ); ?>
+        </div>
+    </div>
 
-<?php
+    <?php
 
 get_footer();

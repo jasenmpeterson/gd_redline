@@ -1,6 +1,6 @@
 <header class="header">
-	<div class="grid__wrap">
-		<div class="cell">
+    <div class="grid">
+        <div class="column">
             <svg class="redline__logo" xmlns="http://www.w3.org/2000/svg" viewBox="120 122 360 73.382">
                 <g id="Group_14" data-name="Group 14">
                     <g id="Group_7" data-name="Group 7">
@@ -72,9 +72,9 @@
                     <li class="scroll__button" data-id="5">Contact</li>
                 </ul>
             </nav>
-		</div>
-		<div class="cell">
-			<div class="contact__btn"><span>Contact</span></div>
+        </div>
+        <div class="column">
+            <button class="mobile__menu__button">Open Menu</button>
             <div class="social__icon__wrap">
                 <ul>
                     <li>
@@ -103,6 +103,23 @@
                     </li>
                 </ul>
             </div>
-		</div>
+        </div>
     </div>
 </header>
+<div class="mobile__menu__wrap">
+<nav>
+    <ul>
+        <li class="active scroll__button" data-id="1">Introduction</li>
+        <li class="scroll__button" data-id="2">Construction</li>
+        <li class="scroll__button" data-id="3">Durability</li>
+        <li class="scroll__button" data-id="4">Service</li>
+        <li class="scroll__button" data-id="5">Contact</li>
+    </ul>
+</nav>
+<button class="close__button" id="close__button">Close Menu</button>
+<div class="morph__shape" id="morph__shape" data-morph-open="M-1,0h101c0,0,0-1,0,395c0,404,0,405,0,405H-1V0z">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+        <path d="M-1,0h101c0,0-97.833,153.603-97.833,396.167C2.167,627.579,100,800,100,800H-1V0z" />
+    </svg>
+</div>
+</div>

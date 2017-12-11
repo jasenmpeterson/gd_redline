@@ -1,0 +1,522 @@
+@import "normalize";
+@import "bourbon/bourbon";
+// misc. layout rules
+body {
+    font-family: 'Open Sans', Helvetica;
+    font-weight: 400;
+    background: #ffffff;
+}
+
+// typography
+h5 {
+    color: #a5a5a5;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+p,
+li {
+    @media screen and (min-width: 48rem) {
+        font-size: 1rem;
+    }
+    @media screen and (min-width: 18.75rem) {
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+    }
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+// box sizing
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+// grid
+.grid {
+    @media screen and (min-width: 48rem) {
+        display: flex;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: block;
+    }
+}
+
+.section__wrap {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    position: relative;
+    @media screen and (min-width: 48rem) {
+        padding: 4rem;
+    }
+    @media screen and (min-width: 18.75rem) {
+        padding: 2rem;
+    }
+}
+
+// header
+
+header {
+    overflow: hidden;
+}
+
+header .grid {
+    display: flex;
+    @media screen and (min-width: 48rem) {
+        padding: 4rem;
+    }
+    @media screen and (min-width: 18.75rem) {
+        padding: 2rem;
+    }
+}
+
+header .column {
+    width: 50%;
+}
+
+// nav
+header nav ul {
+    padding: 0;
+    @media screen and (min-width: 48rem) {
+        display: block;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: none;
+    }
+}
+
+header nav li {
+    cursor: pointer;
+    color: #2B2B2B;
+    font-weight: 900;
+    pointer-events: auto;
+    transition: color 300ms ease-out;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    @media screen and (min-width: 48rem) {
+        margin-bottom: 0;
+    }
+    @media screen and (min-width: 18.75rem) {
+        margin-bottom: 0.5rem;
+    }
+}
+
+// logo
+.redline__logo {
+    @media screen and (min-width: 48rem) {
+        width: 14rem;
+    }
+    @media screen and (min-width: 18.75rem) {
+        width: 10rem;
+    }
+}
+
+// product shot
+.product__shot {
+    margin: 0 auto;
+    display: block;
+    @media screen and (min-width: 48rem) {
+        width: 14rem;
+    }
+    @media screen and (min-width: 18.75rem) {
+        width: 10rem;
+    }
+}
+
+// social icons
+.social__icon__wrap ul {
+    margin: 1.5rem 0;
+    @media screen and (min-width: 48rem) {
+        display: block;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: none;
+    }
+}
+
+.social__icon__wrap ul li {
+    list-style-type: none;
+    text-align: right;
+}
+
+.social__icon__wrap a {
+    color: #ffffff;
+    border-radius: 100%;
+    border: .125rem solid #a41e37;
+    background: #a41e37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    margin-left: auto;
+    position: relative;
+    padding: .3125rem;
+    pointer-events: auto;
+    text-decoration: none;
+    @media screen and (min-width: 48rem) {
+        width: 4rem;
+        height: 4rem;
+        margin-bottom: 0;
+    }
+    @media screen and (min-width: 18.75rem) {
+        width: 2rem;
+        height: 2rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+// sections
+.section__wrap:not(.first) h1 {
+    font-weight: 400;
+}
+
+// first section
+.section__wrap.first h1 {
+    font-style: italic;
+    color: #4b4b4b;
+}
+
+// second section 
+.section__wrap.second {
+    background-color: #282828;
+    color: #ffffff;
+}
+
+.section__wrap.second img {
+    @media screen and (min-width: 48rem) {
+        display: none;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: block;
+    }
+}
+
+// third section
+.section__wrap.third .bg {
+    @media screen and (min-width: 48rem) {
+        display: none;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: block;
+    }
+}
+
+.section__wrap.third .grid {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+}
+
+.section__wrap.third li:after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 3rem;
+    background: #981b31;
+    margin: 1rem 0;
+}
+
+// fourth section
+.section__wrap.fourth .grid {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+}
+
+.section__wrap.fourth .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+// fifth section
+.section__wrap.fifth {
+    height: auto;
+}
+
+// backgrounds
+.video__bg,
+.bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bg {
+    background-size: cover !important;
+    background-position: center center !important;
+}
+
+video {
+    @media screen and (min-width: 48rem) {
+        display: block;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: none;
+    }
+}
+
+// attachment wrap
+.attachment__wrap a {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.attachment__wrap a .line {
+    margin-bottom: 0.5rem;
+}
+
+.attachment__wrap a .cell:first-of-type {
+    max-width: 4rem;
+    padding-right: 1rem;
+}
+
+.attachment__wrap img {
+    width: 1.875rem;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+// line
+span.line {
+    display: block;
+    height: .0625rem;
+    background: #981b31;
+}
+
+// contact 7 form
+.wpcf7-form-control-wrap,
+.wpcf7-form-control-wrap input,
+.wpcf7-form-control-wrap textarea {
+    display: block;
+    width: 100%;
+    border: 0;
+    box-sizing: border-box;
+    outline: 0;
+    color: #4b4b4b;
+}
+
+.wpcf7-form-control-wrap input,
+.wpcf7-form-control-wrap textarea {
+    background: transparent;
+    margin-bottom: 2rem;
+    padding: .4rem;
+    border-bottom: 1px solid #a5a5a5;
+    font-size: 0.8rem;
+}
+
+input[type="submit"] {
+    background: #a41e37;
+    color: #fff;
+    border-radius: 0;
+    border: 0;
+    min-width: 12.5rem;
+    text-align: center;
+    font-size: .8rem;
+    font-weight: 900;
+    padding: .8rem 0;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+    border: 1px solid transparent;
+}
+
+input[type="submit"]:hover {
+    background: #4b4b4b;
+}
+
+::-webkit-input-placeholder {
+    color: #4b4b4b;
+}
+
+ ::-moz-placeholder {
+    color: #4b4b4b;
+}
+
+ :-ms-input-placeholder {
+    color: #4b4b4b;
+}
+
+ :-moz-placeholder {
+    color: #4b4b4b;
+}
+
+// redline logo
+.redline__logo path.red {
+    fill: #a32035;
+}
+
+// contact button
+.contact__button {
+    border: .0625rem solid #ed0b35;
+    text-align: center;
+    @media screen and (min-width: 48rem) {
+        width: 12rem;
+        padding: .8rem;
+    }
+    @media screen and (min-width: 18.75rem) {
+        width: 5rem;
+        padding: .5rem;
+        margin-left: auto;
+    }
+}
+
+// .main 
+.main__wrap {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    transition: transform 0.3s;
+}
+
+.main {
+    position: relative;
+
+}
+
+.main::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    content: '';
+    opacity: 0;
+    transition: opacity 0.3s, transform 0s 0.3s;
+    transform: translate3d(100%, 0, 0);
+}
+
+// mobile menu - menu button
+.mobile__menu__button {
+    position: relative;
+    z-index: 1000;
+    padding: 0;
+    width: 2.5em;
+    height: 2.25em;
+    border: none;
+    text-indent: 2.5em;
+    font-size: 1.5em;
+    color: transparent;
+    background: transparent;
+    display: block;
+    margin-left: auto;
+    top: -1rem;
+}
+
+.mobile__menu__button:before {
+    position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	bottom: 0.5em;
+	left: 0.5em;
+	background: linear-gradient(#373a47 20%, transparent 20%, transparent 40%, #373a47 40%, #373a47 60%, transparent 60%, transparent 80%, #373a47 80%);
+	content: '';
+}
+
+
+.mobile__menu__button:hover {
+	opacity: 0.6;
+}
+
+// mobile menu - close button
+.close__button {
+    width: 16px;
+	height: 16px;
+	position: absolute;
+	right: 1em;
+	top: 1em;
+	overflow: hidden;
+	text-indent: 16px;
+	border: none;
+	z-index: 1001;
+	background: transparent;
+	color: transparent;
+}
+
+.close__button:before,
+.close__button:after {
+	content: '';
+	position: absolute;
+	width: 2px;
+	height: 100%;
+	top: 0;
+	left: 50%;
+	background: #95a5a6;
+}
+
+.close__button:before {
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.close__button:after {
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+// mobile menu - menu
+.mobile__menu__wrap {
+	position: absolute;
+	z-index: 1001;
+	width: 300px;
+	height: 100%;
+	font-size: 1.15em;
+	transform: translate3d(-300px,0,0);
+	transition: transform 0.3s;
+}
+
+.mobile__menu__wrap nav {
+    background: #373a47;
+	width: calc(100% - 120px);
+	height: 100%;
+	padding: 2em 1em;
+}
+
+// mobile menu - morph shape
+.morph__shape {
+    position: absolute;
+	width: 120px;
+	height: 100%;
+	top: 0;
+	right: 0;
+	fill: #373a47;
+	z-index: 1000;
+}
+
+// mobile menu - shown
+.show__menu  .mobile__menu__wrap {
+    transform: translate3d(0,0,0)
+}
+
+.show__menu .main__wrap {
+	transition-delay: 0.1s;
+	transform: translate3d(100px,0,0);
+}
+
+.show__menu .main:before {
+    opacity: 1;
+	transition: opacity 0.3s;
+	transform: translate3d(0,0,0);
+}

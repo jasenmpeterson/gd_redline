@@ -7,32 +7,22 @@
 require.config({
   baseUrl: pageParams.javascriptDirectory,
   paths: {
-    splashPageAnimation: 'splashPageAnimation',
-    introAnimation: 'introAnimation',
-    introSlideAnimation: 'introSlideAnimation',
-    constructionSlideAnimation: 'constructionSlideAnimation',
-    durabilitySlideAnimation: 'durabilitySlideAnimation',
-    serviceSlideAnimation: 'serviceSlideAnimation',
-    scrollify: 'scrollify'
+    scrollify: 'scrollify',
+    mobilemenu: 'mobilemenu',
+    snap: 'snap'
   }
-});
-
-// intro animation
-
-require(['introAnimation'], function (introAnimation) {
-  introAnimation();
-});
-
-// intro slide animation
-
-require(['introSlideAnimation'], function (introSlideAnimation) {
-  introSlideAnimation();
 });
 
 // scrollify
 
 require(['scrollify'], function (scrollify) {
   scrollify();
+});
+
+// scrollify
+
+require(['mobilemenu'], function (mobilemenu) {
+  mobilemenu();
 });
 
 // GSDevTools.create({
