@@ -1,24 +1,18 @@
 define(function () {
 
     let timeline = new TimelineMax({
-        id: 'Intro Section Timeline',
-        delay: 0.5
+        id: 'Intro Section Timeline'
     });
 
     return function () {
 
-        let sub__header = document.querySelector('.introduction__wrap h5');
-        let sub__header__line = document.querySelector('.introduction__wrap .line');
-        let header = document.querySelector('.introduction__wrap h1');
-        let product__shot = document.querySelector('.introduction__wrap .product__shot');
+        let sub__header = document.querySelector('.section__wrap.first h5');
+        let sub__header__line = document.querySelector('.section__wrap.first .line');
+        let header = document.querySelector('.section__wrap.first h1');
+        let product__shot = document.querySelector('.section__wrap.first .product__shot');
         let mousey = document.querySelector('.mousey');
 
         // sub header
-
-        TweenMax.set( sub__header, {
-            x: 100,
-            autoAlpha: 0
-        });
 
         timeline.to( sub__header, 1, {
             x: 0,
@@ -27,11 +21,6 @@ define(function () {
         });
 
         // sub header line
-
-        TweenMax.set( sub__header__line, {
-            x: '-100',
-            autoAlpha: 0
-        });
 
         timeline.to( sub__header__line, 1, {
             x: 0,
@@ -42,11 +31,6 @@ define(function () {
 
         // header
 
-        TweenMax.set( header, {
-            y: '100',
-            autoAlpha: 0
-        });
-
         timeline.to( header, 1, {
             y: 0,
             autoAlpha: 1,
@@ -54,11 +38,6 @@ define(function () {
         }, '-=1.2');
 
         // product shot
-
-        TweenMax.set( product__shot, {
-            y: '100',
-            autoAlpha: 0
-        });
 
         timeline.to( product__shot, 1.5, {
             y: 0,
@@ -69,18 +48,13 @@ define(function () {
 
         // mousey
 
-        TweenMax.set( mousey, {
-            y: '100',
-            autoAlpha: 0
-        });
-
         timeline.to( mousey, 1.5, {
             y: 0,
             autoAlpha: 1,
             ease: Power4.easeInOut
         }, '-=1.32');
 
-        return timeline
+        return timeline;
 
     }
 })

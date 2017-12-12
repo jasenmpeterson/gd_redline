@@ -9,8 +9,16 @@ require.config({
   paths: {
     scrollify: 'scrollify',
     mobilemenu: 'mobilemenu',
-    snap: 'snap'
+    snap: 'snap',
+    introSlideAnimation: 'introSlideAnimation',
+    constructionSlideAnimation: 'constructionSlideAnimation'
   }
+});
+
+// intro slide animation
+
+require(['introSlideAnimation'], function (introSlideAnimation) {
+  introSlideAnimation();
 });
 
 // scrollify

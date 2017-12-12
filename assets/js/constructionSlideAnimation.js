@@ -1,101 +1,97 @@
 define(function () {
 
+    var timelineHasPlayed;
+
     return class ConstructionAnimation {
 
-        constructor(timeline, sub__header, sub__header__line, header, product__shot, content, attachment, nav) {
+        constructor(timeline, sub__header, sub__header__line, header, content, attachment, attachmentText, video) {
 
             this.timeline = new TimelineMax({
-                id: 'Construction Section Timeline',
-                delay: 2.5,
-                paused: true
+                id: 'Construction Section Timeline'
             });
 
-            this.sub__header = document.querySelector('.construction__wrap .content__cell h5');
-            this.sub__header__line = document.querySelector('.construction__wrap .line');
-            this.header = document.querySelector('.construction__wrap .content__cell h1');
-            this.content = document.querySelector('.construction__wrap .content__wrap p');
-            this.attachment = document.querySelector('.construction__wrap .attachment__wrap');
-            this.nav = document.querySelectorAll('nav ul li.scroll__button');
-
-            // sub header
-
-            TweenMax.set(this.sub__header, {
-                x: 100,
-                autoAlpha: 0
-            });
-
-
-            // sub header line
-
-            TweenMax.set(this.sub__header__line, {
-                x: '-100',
-                autoAlpha: 0
-            });
-
-            // header
-
-            TweenMax.set(this.header, {
-                y: '100',
-                autoAlpha: 0
-            });
-
-            // content
-
-            TweenMax.set(this.content, {
-                y: '100',
-                autoAlpha: 0
-            });
-
-            TweenMax.set(this.attachment, {
-                y: '100',
-                autoAlpha: 0
-            });
-
+            this.sub__header = document.querySelector('.section__wrap.second h5');
+            this.sub__header__line = document.querySelector('.section__wrap.second .line');
+            this.header = document.querySelector('.section__wrap.second h1');
+            this.content = document.querySelector('.section__wrap.second p:first-of-type');
+            this.attachment = document.querySelector('.section__wrap.second .attachment__wrap');
+            this.attachmentText = document.querySelector('.section__wrap.second .attachment__wrap p');
+            this.video = document.querySelector('.section__wrap.second video');
         }
 
         play() {
 
-            // sub header
+            console.log(timelineHasPlayed);
 
-            this.timeline.to(this.sub__header, 1, {
-                x: 0,
-                autoAlpha: 1,
-                ease: Power4.easeInOut
-            });
+            if (!timelineHasPlayed) {
 
-            // sub header line
+                // sub header
 
-            this.timeline.to(this.sub__header__line, 1, {
-                x: 0,
-                autoAlpha: 1,
-                delay: 1,
-                ease: Power4.easeInOut
-            }, '-=2');
+                this.timeline.to(this.sub__header, 1, {
+                    x: 0,
+                    autoAlpha: 1,
+                    ease: Power4.easeInOut
+                });
 
-            // header
+                // sub header line
 
-            this.timeline.to(this.header, 1, {
-                y: 0,
-                autoAlpha: 1,
-                ease: Power4.easeInOut
-            }, '-=0.95');
+                this.timeline.to(this.sub__header__line, 1, {
+                    x: 0,
+                    autoAlpha: 1,
+                    delay: 1,
+                    ease: Power4.easeInOut
+                }, '-=1.71');
+
+                // header
+
+                this.timeline.to(this.header, 1, {
+                    y: 0,
+                    autoAlpha: 1,
+                    ease: Power4.easeInOut
+                }, '-=1.2');
 
 
-            this.timeline.to(this.content, 1, {
-                y: 0,
-                autoAlpha: 1,
-                ease: Power4.easeInOut
-            }, '-=0.8');
+                this.timeline.to(this.video, 1, {
+                    y: 0,
+                    autoAlpha: 1,
+                    delay: 0.6,
+                    ease: Power4.easeInOut,
+                    onComplete: function () {
 
-            // attachment
+                        const video = document.querySelector('.section__wrap.second video');
+                        if (window.matchMedia('(min-width: 64rem)').matches) {
+                            video.play();
+                        }
 
-            this.timeline.to(this.attachment, 1.5, {
-                y: 0,
-                autoAlpha: 1,
-                ease: Power4.easeInOut
-            }, '-=0.8');
-            
-            this.timeline.play();
+                    }
+                }, '-=1.2');
+
+
+                this.timeline.to(this.content, 1, {
+                    y: 0,
+                    autoAlpha: 1,
+                    delay: 0.3,
+                    ease: Power4.easeInOut
+                }, '-=0.8');
+
+                this.timeline.to(this.attachment, 1, {
+                    y: 0,
+                    autoAlpha: 1,
+                    delay: 0.2,
+                    ease: Power4.easeInOut
+                }, '-=0.8');
+
+                this.timeline.to(this.attachmentText, 1, {
+                    y: 0,
+                    autoAlpha: 1,
+                    delay: 0.4,
+                    ease: Power4.easeInOut
+                }, '-=0.8');
+
+                this.timeline.play();
+            }
+
+            timelineHasPlayed = true;
 
         }
 

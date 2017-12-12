@@ -78,7 +78,7 @@
             <div class="social__icon__wrap">
                 <ul>
                     <li>
-                        <a href="<?php echo get_field('linkedin', 'option');?>">
+                        <a class="active" href="<?php echo get_field('linkedin', 'option');?>">
                             <i class="fa fa-linkedin"></i>
                             <span></span>
                         </a>
