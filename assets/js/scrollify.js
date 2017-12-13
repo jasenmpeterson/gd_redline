@@ -6,6 +6,8 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
     // animations 
 
     const constructionAnimation = new constructionSlideAnimation();
+    const durabilityAnimation = new durabilitySlideAnimation();
+    const serviceAnimation = new serviceSlideAnimation();
 
     jQuery(function () {
       jQuery.scrollify({
@@ -43,22 +45,18 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
 
         switch (sectionName) {
 
-          case 'introduction':
-            break;
-
           case 'construction':
             constructionAnimation.play();
             break;
 
           case 'durability':
+            durabilityAnimation.play();
             break;
 
           case 'service':
+            serviceAnimation.play();
             break;
 
-          case 'contact':
-            break;
-        
           }
 
       }

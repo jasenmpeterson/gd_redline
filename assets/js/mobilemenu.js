@@ -5,6 +5,7 @@ define(['./snap'], function (snap) {
         let bodyEl = document.getElementsByTagName('body')[0];
         let content = document.querySelector('.main');
         let open__button = document.querySelector('.mobile__menu__button');
+        let menu__bar = document.querySelector('.bar');
         let close__button = document.querySelector('.close__button');
         var isOpen = false;
         let morphEl = document.querySelector('.morph__shape');
@@ -38,6 +39,8 @@ define(['./snap'], function (snap) {
         }
 
         function toggleMenu () {
+
+            classie.toggle( menu__bar, 'animate');
             
             if( isAnimating ) {
                 return false;

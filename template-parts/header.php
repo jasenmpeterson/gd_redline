@@ -1,4 +1,6 @@
-<button class="mobile__menu__button">Open Menu</button>
+<button class="mobile__menu__button">
+    <div class="bar"></div>
+</button>
 <header class="header">
     <div class="grid">
         <div class="column">

@@ -11,7 +11,9 @@ require.config({
     mobilemenu: 'mobilemenu',
     snap: 'snap',
     introSlideAnimation: 'introSlideAnimation',
-    constructionSlideAnimation: 'constructionSlideAnimation'
+    constructionSlideAnimation: 'constructionSlideAnimation',
+    durabilitySlideAnimation: 'durabilitySlideAnimation',
+    serviceSlideAnimation: 'serviceSlideAnimation'
   }
 });
 

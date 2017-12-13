@@ -74,13 +74,18 @@ html {
     }
 }
 
-.section__wrap h1,
+.section__wrap:not(.fifth) h1,
 .section__wrap .product__shot,
 .section__wrap .mousey,
-.section__wrap p,
+.section__wrap:not(.fifth) p,
 .attachment__wrap,
 .section__wrap.second video {
     transform: translateY(100px);
+    opacity: 0;
+}
+
+.section__wrap.third li {
+    transform: translateX(100px);
     opacity: 0;
 }
 
@@ -207,7 +212,7 @@ header nav li.active {
     font-weight: 400;
 }
 
-.section__wrap:not(.first){
+.section__wrap:not(.first) {
     @media screen and (min-width: 64rem) {
         margin-top: -6rem;
     }
@@ -267,25 +272,22 @@ header nav li.active {
     }
 }
 
-
 .section__wrap.second video {
     margin: auto;
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
-    @media screen and (min-width: 100rem) { 
+    @media screen and (min-width: 100rem) {
         width: 1120px;
         height: 630px;
     }
-    @media screen and (min-width: 71.25rem) { 
+    @media screen and (min-width: 71.25rem) {
         width: 864px;
         height: 486px;
     }
-    @media screen and (min-width: 18.75rem) { 
-        width: 512px;
-        height: 288px;
-        display: block;
+    @media screen and (min-width: 18.75rem) {
+        display: none;
     }
 }
 
@@ -313,7 +315,7 @@ header nav li.active {
     z-index: 2;
     color: #ffffff;
     @media screen and (min-width: 64rem) {
-       width: 34rem;
+        width: 34rem;
     }
 }
 
@@ -333,13 +335,40 @@ header nav li.active {
     color: #ffffff;
     @media screen and (min-width: 64rem) {
         width: 34rem;
-     }
+    }
 }
 
 .section__wrap.fourth .bg {
     position: absolute;
     top: 0;
     left: 0;
+    backface-visibility: hidden;
+    animation: CrossFade 24s infinite;
+}
+
+.section__wrap.fourth .bg:nth-of-type(4) {
+    animation-delay: 6s;
+}
+
+.section__wrap.fourth .bg:nth-of-type(3) {
+    animation-delay: 12s;
+}
+
+.section__wrap.fourth .bg:nth-of-type(2) {
+    animation-delay: 18s;
+}
+
+.section__wrap.fourth .bg:nth-of-type(1) {
+    animation-delay: 24s;
+}
+
+@keyframes CrossFade {
+    25% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0;
+    }
 }
 
 // fifth section
@@ -448,7 +477,7 @@ span.line {
     background: #981b31;
 }
 
-h5 ~ span.line {
+h5~span.line {
     width: 2.75rem;
     transform: translateX(-100px);
     opacity: 0;
@@ -562,8 +591,8 @@ input[type="submit"]:hover {
     position: fixed;
     z-index: 10002;
     padding: 0;
-    width: 2.5em;
-    height: 2.25em;
+    width: 100px;
+    height: 60px;
     border: none;
     text-indent: 2.5em;
     font-size: 1.5em;
@@ -578,24 +607,52 @@ input[type="submit"]:hover {
     outline: 0;
 }
 
-.mobile__menu__button:before {
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-    bottom: 0.5em;
-    left: 0.5em;
-    content: '';
-    @media screen and (min-width: 64rem) {
-        background: linear-gradient(#ffffff 20%, transparent 20%, transparent 40%, #ffffff 40%, #ffffff 60%, transparent 60%, transparent 80%, #ffffff 80%);
-    }
-    @media screen and (min-width: 18.75rem) {
-        background: linear-gradient(#373a47 20%, transparent 20%, transparent 40%, #373a47 40%, #373a47 60%, transparent 60%, transparent 80%, #373a47 80%);
-    }
+.bar,
+.bar:after,
+.bar:before {
+    width: 100px;
+    height: 10px;
 }
 
-.mobile__menu__button:hover {
-    opacity: 0.6;
+.bar {
+    position: relative;
+    transform: translateY(25px);
+    background: white;
+    transition: all 0ms 300ms;
 }
+
+.bar.animate {
+    background: rgba(255, 255, 255, 0);
+}
+
+.bar:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 25px;
+    background: white;
+    transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.bar:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 25px;
+    background: white;
+    transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .bar.animate:after {
+    top: 0;
+    transform: rotate(45deg);
+    transition: top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .bar.animate:before {
+    bottom: 0;
+    transform: rotate(-45deg);
+    transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
 
 // mobile menu - close button
 .close__button {
@@ -691,9 +748,7 @@ input[type="submit"]:hover {
 }
 
 // mouse scroll icon
-
 // thanks! - https://codepen.io/2xsamurai/pen/WwmjKQ?q=animated+scroll&limit=all&type=type-pens
-
 .mousey {
     width: 6px;
     padding: 10px 15px;
@@ -710,25 +765,34 @@ input[type="submit"]:hover {
     bottom: 10rem;
     margin: 0 auto;
     @media screen and (min-width: 48rem) {
-      display: block;
+        display: block;
     }
     @media screen and (min-width: 18.75rem) {
-      display: none;
+        display: none;
     }
-  }
-  .scroller {
+}
+
+.scroller {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background-color: #ABA5A5;
     animation-name: scroll;
     animation-duration: 2.2s;
-    animation-timing-function: cubic-bezier(.15,.41,.69,.94);
+    animation-timing-function: cubic-bezier(.15, .41, .69, .94);
     animation-iteration-count: infinite;
-  }
-  
-  @keyframes scroll {
-    0% { opacity: 0; }
-    10% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(35px); opacity: 0;}
-  }
+}
+
+@keyframes scroll {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(35px);
+        opacity: 0;
+    }
+}

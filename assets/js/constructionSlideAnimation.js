@@ -21,8 +21,6 @@ define(function () {
 
         play() {
 
-            console.log(timelineHasPlayed);
-
             if (!timelineHasPlayed) {
 
                 // sub header

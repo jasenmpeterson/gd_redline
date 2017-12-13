@@ -70,7 +70,6 @@ $contact = get_field('contact', $page_id);
                         </div>
                     </a>
                 </div>
-                <img class="product__shot" src="<?php echo $construction['image']['sizes']['large']; ?>" alt="<?php echo $construction['alt']; ?>">
             </div>
         </div>
     </div>
