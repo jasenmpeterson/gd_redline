@@ -1,5 +1,7 @@
+// TODO: SOCIAL MEDIA ICONS
+
 @import "normalize";
-@import "bourbon/bourbon";
+
 // misc. layout rules
 body {
     font-family: 'Open Sans', Helvetica;
@@ -92,17 +94,15 @@ html {
 // header
 header {
     overflow: hidden;
-    @media screen and (min-width: 64em) {
-        position: fixed;
-        width: 100%;
-        z-index: 2;
-    }
+    width: 100%;
+    z-index: 2;
 }
 
 header .grid {
     display: flex;
     @media screen and (min-width: 48rem) {
         padding: 4rem;
+        top: 2rem;
     }
     @media screen and (min-width: 18.75rem) {
         padding: 2rem;
@@ -140,13 +140,30 @@ header nav li.active {
 }
 
 // logo
+
 .redline__logo {
-    @media screen and (min-width: 48rem) {
+    position: absolute;
+    z-index: 2000;
+    @media screen and (min-width: 64rem) {
         width: 14rem;
+    }
+    @media screen and (min-width: 48rem) {
+        top: 10.5rem;
+        left: 5rem;
     }
     @media screen and (min-width: 18.75rem) {
         width: 10rem;
+        top: 6.5rem;
+        left: 2rem;
     }
+}
+
+.redline__logo.dark path {
+    transition: all 600ms ease-in-out;
+}
+
+.redline__logo.dark path {
+    fill: #ffffff;
 }
 
 .gd__redline__watermark {
@@ -179,7 +196,6 @@ header nav li.active {
 
 .social__icon__wrap ul li {
     list-style-type: none;
-    text-align: right;
 }
 
 .social__icon__wrap a {
@@ -285,6 +301,7 @@ header nav li.active {
     @media screen and (min-width: 71.25rem) {
         width: 864px;
         height: 486px;
+        display: block;
     }
     @media screen and (min-width: 18.75rem) {
         display: none;
@@ -591,7 +608,7 @@ input[type="submit"]:hover {
     position: fixed;
     z-index: 10002;
     padding: 0;
-    width: 100px;
+    width: 40px;
     height: 60px;
     border: none;
     text-indent: 2.5em;
@@ -599,60 +616,71 @@ input[type="submit"]:hover {
     color: transparent;
     background: transparent;
     display: block;
-    right: 1rem;
-    top: 1rem;
-    @media screen and (min-width: 18.75rem) {
-        display: block;
-    }
+    top: 1.4rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 300ms ease-out;
     outline: 0;
+    @media screen and (min-width: 48rem) {
+        left: 0.9rem;
+        right: auto;
+    }
+    @media screen and (min-width: 18.75rem) {
+        width: 5rem;
+        padding: .5rem;
+        right: 0.9rem;
+        left: auto;
+    }
+}
+
+.mobile__menu__button:hover {
+    opacity: 1;
 }
 
 .bar,
 .bar:after,
 .bar:before {
-    width: 100px;
-    height: 10px;
+    width: 40px;
+    height: 5px;
+    background: #4b4b4b;
 }
 
 .bar {
     position: relative;
-    transform: translateY(25px);
-    background: white;
     transition: all 0ms 300ms;
 }
 
 .bar.animate {
-    background: rgba(255, 255, 255, 0);
+    background: rgba(75, 75, 75, 0);
 }
 
 .bar:before {
     content: "";
     position: absolute;
     left: 0;
-    bottom: 25px;
-    background: white;
+    bottom: 10px;
     transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
 }
+
 .bar:after {
     content: "";
     position: absolute;
     left: 0;
-    top: 25px;
-    background: white;
+    top: 10px;
     transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  
-  .bar.animate:after {
+}
+
+.bar.animate:after {
     top: 0;
     transform: rotate(45deg);
     transition: top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  
-  .bar.animate:before {
+}
+
+.bar.animate:before {
     bottom: 0;
     transform: rotate(-45deg);
     transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);
-  }
+}
 
 // mobile menu - close button
 .close__button {
@@ -667,6 +695,8 @@ input[type="submit"]:hover {
     z-index: 1001;
     background: transparent;
     color: transparent;
+    cursor: pointer;
+    outline: 0;
 }
 
 .close__button:before,
@@ -677,17 +707,20 @@ input[type="submit"]:hover {
     height: 100%;
     top: 0;
     left: 50%;
-    background: #ffffff;
+    background: #981b31;
+    transition: all 0.25s ease-out;
+    transform: rotate(-45deg);
 }
 
-.close__button:before {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
 
 .close__button:after {
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    transform: rotate(-135deg);
+}
+
+.close__button:hover:before,
+.close__button:hover:after {
+    transform: rotate(90deg);
+    background: #4b4b4b;
 }
 
 // mobile menu - menu
@@ -695,37 +728,48 @@ input[type="submit"]:hover {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1001;
-    width: 300px;
+    z-index: 10005;
+    width: 18.75rem;
     height: 100%;
     font-size: 1.15em;
     transform: translate3d(-300px, 0, 0);
     transition: transform 0.3s;
 }
 
+.mobile__menu__wrap .social__icon__wrap ul {
+    justify-content: space-between;
+}
+
+.mobile__menu__wrap .social__icon__wrap a {
+    align-items: flex-start;
+    margin-left: 0;
+}
+
 .mobile__menu__wrap nav {
-    background: #981b31;
-    width: calc(100% - 120px);
+    width: 18.75rem;
     height: 100%;
     padding: 2em 1em;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255,255,255,1);
 }
 
 .mobile__menu__wrap li {
     text-transform: uppercase;
-    color: #ffffff;
+    color: #4b4b4b;
+    cursor: pointer;
+    font-size: 0.9rem;
     font-weight: 700;
+    transition: color 600ms ease-in-out;
+    border-bottom: 1px solid rgba(75,75,75,.2);
+    padding: 1rem 0;
+    margin: 0;
 }
 
-// mobile menu - morph shape
-.morph__shape {
-    position: absolute;
-    width: 120px;
-    height: 100%;
-    top: 0;
-    right: 0;
-    fill: #981b31;
-    z-index: 1000;
+.mobile__menu__wrap li:hover,
+.mobile__menu__wrap li.active {
+    color: #981b31;
 }
+
 
 // mobile menu - shown
 .show__menu .mobile__menu__wrap {
@@ -741,10 +785,6 @@ input[type="submit"]:hover {
     opacity: 1;
     transition: opacity 0.3s;
     transform: translate3d(0, 0, 0);
-}
-
-.show__menu header {
-    @include box-shadow-bottom();
 }
 
 // mouse scroll icon
@@ -795,4 +835,23 @@ input[type="submit"]:hover {
         transform: translateY(35px);
         opacity: 0;
     }
+}
+
+.section__title {
+    position: absolute;
+    top: 1rem;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    z-index: 100;
+    color: #fff;
+    @media screen and (min-width: 48rem) {
+        display: block;
+    }
+    @media screen and (min-width: 18.75rem) {
+        display: none;
+    }
+}
+
+.section__wrap.fifth .section__title {
+    color: #4b4b4b;
 }

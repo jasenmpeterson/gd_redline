@@ -46,7 +46,10 @@ $contact = get_field('contact', $page_id);
         </svg>
     </div>
 
-    <div class="section__wrap second" data-id="2" id="construction">
+    <div class="section__wrap second dark" data-id="2" id="construction">
+        <div class="section__title">
+            <h6><?php echo $construction['title']; ?></h6>
+        </div>
         <div class="video__bg">
             <video loop>
                 <source src="<?php echo get_template_directory_uri() ;?>/assets/mp4/GD_Rings_explode.mp4">
@@ -74,7 +77,12 @@ $contact = get_field('contact', $page_id);
         </div>
     </div>
 
-    <div class="section__wrap third" data-id="3" id="durability">
+    <div class="section__wrap third dark" data-id="3" id="durability">
+        <div class="section__title">
+            <h6>
+                <?php echo $durability['title']; ?>
+            </h6>
+        </div>
         <div class="video__bg">
             <video loop>
                 <source src="<?php echo get_template_directory_uri() ;?>/assets/mp4/GD_PACKING_VIDEO.mp4">
@@ -92,7 +100,12 @@ $contact = get_field('contact', $page_id);
         </div>
     </div>
 
-    <div class="section__wrap fourth" data-id="4" id="service">
+    <div class="section__wrap fourth dark" data-id="4" id="service">
+        <div class="section__title">
+            <h6>
+                <?php echo $service['title']; ?>
+            </h6>
+        </div>
         <?php 
             $index = 0;
             foreach($service['images'] as $image) {
@@ -112,6 +125,11 @@ $contact = get_field('contact', $page_id);
     </div>
 
     <div class="section__wrap fifth" data-id="5" id="contact">
+        <div class="section__title">
+            <h6>
+                <?php echo $contact['title']; ?>
+            </h6>
+        </div>
         <div class="grid">
             <div class="column">
                 <h5>

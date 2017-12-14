@@ -8,18 +8,19 @@ define(['./snap'], function (snap) {
         let menu__bar = document.querySelector('.bar');
         let close__button = document.querySelector('.close__button');
         var isOpen = false;
-        let morphEl = document.querySelector('.morph__shape');
-        let s = Snap( morphEl.querySelector( 'svg' ) );
-        let path = s.select( 'path' );
-        let initialPath = path.attr('d');
-        let pathOpen = morphEl.getAttribute( 'data-morph-open' );
         let isAnimating = false;
+        let mobile__menu = document.querySelectorAll('.mobile__menu__wrap li');
 
         function init () {
             initEvents();
         }
 
         function initEvents () {
+
+            // toggle the menu closed when a selection is made
+            for (var item of mobile__menu) {
+                item.addEventListener('click', toggleMenu);
+              }
             
             open__button.addEventListener( 'click', toggleMenu );
             
@@ -54,15 +55,12 @@ define(['./snap'], function (snap) {
                 //animate path
 
                 setTimeout( function () {
-                    // reset path
-                    path.attr( 'd', initialPath );
                     isAnimating = false;
                 }, 300);
             } else {
                 
                 classie.add( bodyEl, 'show__menu' );
-                path.animate( { 'path' : pathOpen }, 400, mina.easeinout, function() { isAnimating = false; } );
-
+                isAnimating = false
             }
 
             isOpen = !isOpen;

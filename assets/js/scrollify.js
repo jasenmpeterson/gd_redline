@@ -1,5 +1,9 @@
 // https://projects.lukehaas.me/scrollify/#home
 
+// TODO: ONE MORE ROUND OF RESPONSIVE TESTING
+// TODO: BROWSER TESTING
+// TODO: SHAW REVIEW
+
 define(['./constructionSlideAnimation', './durabilitySlideAnimation', './serviceSlideAnimation'], function (constructionSlideAnimation, durabilitySlideAnimation, serviceSlideAnimation) {
   return function () {
 
@@ -25,17 +29,54 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
 
           beforeScrollifyEnter(nextSection)
 
+        },
+        afterRender: function afterRender() {
+
+          // pagination:
+          jQuery('.mobile__menu__wrap li').on('click', function (event) {
+
+            var ID = jQuery(this).data('id') - 1;
+            jQuery.scrollify.move(ID);
+
+            // remove active state
+            jQuery('.mobile__menu__wrap li').removeClass('active');
+
+            // active state
+            jQuery(this).addClass('active');
+
+          });
+
         }
       });
     });
 
+
     // scrollify CB - before scrollify enters new frame
 
     function beforeScrollifyEnter(nextSection) {
-      
-      // ge the data ID from the next slide - this is passed in from the scrollify before callback function 
+
+      // get the data ID from the next slide - this is passed in from the scrollify before callback function 
 
       let section = jQuery('.section__wrap[data-id="' + nextSection + '"]');
+
+      // change color of logo (if necessary)
+
+      if (jQuery(section).hasClass('dark')) {
+        jQuery('.redline__logo, .mobile__menu__button').addClass('dark');
+      } else {
+        jQuery('.redline__logo, .mobile__menu__button').removeClass('dark');
+      }
+
+      // fade labels on entry
+
+      let section__title = section.find('.section__title');
+
+      TweenMax.to(section__title, 1.5, {
+        delay: 1,
+        autoAlpha: 0.2,
+        ease: Power4.easeInOut,
+        immediateRender: false
+      });
 
       // get the name via the ID attribute
 
@@ -57,7 +98,7 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
             serviceAnimation.play();
             break;
 
-          }
+        }
 
       }
 
