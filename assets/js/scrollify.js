@@ -1,6 +1,5 @@
 // https://projects.lukehaas.me/scrollify/#home
 
-// TODO: ONE MORE ROUND OF RESPONSIVE TESTING
 // TODO: BROWSER TESTING
 // TODO: SHAW REVIEW
 
