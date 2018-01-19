@@ -7,7 +7,6 @@
     "type": "git",
     "url": "https://github.com/ahmadawais/WPGulp"
   },
-  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -22,7 +21,7 @@
     "gulp-merge-media-queries": "^0.2.1",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.0",
-    "gulp-sass": "^2.2.0",
+    "gulp-sass": "3.0.0",
     "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.5.3",

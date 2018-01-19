@@ -20,13 +20,13 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
         sectionName: 'id',
         scrollbars: false,
         easing: 'easeOutExpo',
-        scrollSpeed: 1100,
+        scrollSpeed: 1500,
         updateHash: false,
         before: function before(index, panels) {
 
           var nextSection = index + 1;
 
-          beforeScrollifyEnter(nextSection)
+          beforeScrollifyEnter(nextSection);
 
         },
         afterRender: function afterRender() {
@@ -57,6 +57,11 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
       // get the data ID from the next slide - this is passed in from the scrollify before callback function 
 
       let section = jQuery('.section__wrap[data-id="' + nextSection + '"]');
+      let inactiveSection = jQuery('.mobile__menu__wrap li');
+      let activeSection = jQuery('.mobile__menu__wrap li[data-id="' + nextSection + '"]');
+
+      inactiveSection.removeClass('active');
+      activeSection.addClass('active');
 
       // change color of logo (if necessary)
 
