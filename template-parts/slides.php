@@ -25,6 +25,17 @@ $contact = get_field('contact', $page_id);
                 </h5>
                 <span class="line"></span>
                 <?php echo $introduction['content']; ?>
+                <a href="#" class="video__thumbnail">
+                    <div class="thumbnail">
+                        <img src="http://via.placeholder.com/320x225">
+                        <svg width="30" viewBox="0 0 20 20" class="play__button"><title>Play</title> <path d="M15 10l-9 5v-10l9 5z"></path>
+                    </div>
+                    <div class="content">
+                        <div class="content__title">
+                            Watch Overview
+                        </div>
+                    </div>
+                </a>
             </div>
             <div class="column">
                 <img class="product__shot" src="<?php echo $introduction['image']['sizes']['large']; ?>" alt="<?php echo $introduction['alt']; ?>">

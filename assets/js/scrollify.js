@@ -6,6 +6,8 @@
 define(['./constructionSlideAnimation', './durabilitySlideAnimation', './serviceSlideAnimation'], function (constructionSlideAnimation, durabilitySlideAnimation, serviceSlideAnimation) {
   return function () {
 
+    // Contact Button
+
     // animations 
 
     const constructionAnimation = new constructionSlideAnimation();
@@ -30,6 +32,11 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
 
         },
         afterRender: function afterRender() {
+
+          jQuery('.contact__button').on('click', function (event) {
+            var ID = jQuery(this).data('id') - 1;
+            jQuery.scrollify.move(ID);
+          });
 
           // pagination:
           jQuery('.mobile__menu__wrap li').on('click', function (event) {
@@ -66,21 +73,27 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
       // change color of logo (if necessary)
 
       if (jQuery(section).hasClass('dark')) {
-        jQuery('.redline__logo, .mobile__menu__button').addClass('dark');
+        jQuery('.redline__logo, .mobile__menu__button, .logo__wrap svg').addClass('dark');
       } else {
-        jQuery('.redline__logo, .mobile__menu__button').removeClass('dark');
+        jQuery('.redline__logo, .mobile__menu__button, .logo__wrap svg').removeClass('dark');
+      }
+
+      if (jQuery(section).hasClass('fifth')) {
+        jQuery('.contact__button').addClass('dim');
+      } else {
+        jQuery('.contact__button').removeClass('dim');
       }
 
       // fade labels on entry
 
-      let section__title = section.find('.section__title');
+      // let section__title = section.find('.section__title');
 
-      TweenMax.to(section__title, 1.5, {
-        delay: 1,
-        autoAlpha: 0.2,
-        ease: Power4.easeInOut,
-        immediateRender: false
-      });
+      // TweenMax.to(section__title, 1.5, {
+      //   delay: 1,
+      //   autoAlpha: 0.2,
+      //   ease: Power4.easeInOut,
+      //   immediateRender: false
+      // });
 
       // get the name via the ID attribute
 

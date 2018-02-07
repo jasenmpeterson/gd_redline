@@ -63,6 +63,9 @@
 <button class="mobile__menu__button">
     <div class="bar"></div>
 </button>
+<div class="contact__button" data-id="5">
+    Contact
+</div>
 <header class="header">
     <div class="grid">
         <div class="column">
@@ -130,7 +133,7 @@
             </svg>
             <nav>
                 <ul>
-                    <li class="active scroll__button" data-id="1">Introduction</li>
+                    <li class="active scroll__button" data-id="1">About</li>
                     <li class="scroll__button" data-id="2">Construction</li>
                     <li class="scroll__button" data-id="3">Durability</li>
                     <li class="scroll__button" data-id="4">Service</li>

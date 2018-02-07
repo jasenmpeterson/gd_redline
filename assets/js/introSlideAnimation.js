@@ -1,16 +1,17 @@
 define(function () {
 
-    let timeline = new TimelineMax({
+    var timeline = new TimelineMax({
         id: 'Intro Section Timeline'
     });
 
     return function () {
 
-        let sub__header = document.querySelector('.section__wrap.first h5');
-        let sub__header__line = document.querySelector('.section__wrap.first .line');
-        let header = document.querySelector('.section__wrap.first h1');
-        let product__shot = document.querySelector('.section__wrap.first .product__shot');
-        let mousey = document.querySelector('.mousey');
+        var sub__header = document.querySelector('.section__wrap.first h5');
+        var sub__header__line = document.querySelector('.section__wrap.first .line');
+        var header = document.querySelector('.section__wrap.first h1');
+        var product__shot = document.querySelector('.section__wrap.first .product__shot');
+        var mousey = document.querySelector('.mousey');
+        var videoThumbnail = document.querySelector(".video__thumbnail");
 
         // sub header
 
@@ -35,7 +36,15 @@ define(function () {
             y: 0,
             autoAlpha: 1,
             ease: Power4.easeInOut
-        }, '-=1.2');
+        }, '-=1.2')
+
+        // video thumbnail
+
+        timeline.to( videoThumbnail, 1, {
+            y: 0,
+            autoAlpha: 1,
+            ease: Power4.easeInOut
+        }, '-=1');
 
         // product shot
 
