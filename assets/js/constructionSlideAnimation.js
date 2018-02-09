@@ -17,6 +17,7 @@ define(function () {
             this.attachment = document.querySelector('.section__wrap.second .attachment__wrap');
             this.attachmentText = document.querySelector('.section__wrap.second .attachment__wrap p');
             this.video = document.querySelector('.section__wrap.second video');
+            this.list = document.querySelectorAll('.section__wrap.second li');
         }
 
         play() {
@@ -72,19 +73,28 @@ define(function () {
                     ease: Power4.easeInOut
                 }, '-=0.8');
 
+                // list
+
+                this.timeline.staggerTo(
+                    this.list, 1, {
+                        autoAlpha: 1,
+                        x: 0,
+                        ease: Power4.easeOut
+                    }, '0.2', '-=0.6'
+                );
+
+
                 this.timeline.to(this.attachment, 1, {
                     y: 0,
                     autoAlpha: 1,
-                    delay: 0.2,
                     ease: Power4.easeInOut
-                }, '-=0.8');
+                }, '-=0.6');
 
                 this.timeline.to(this.attachmentText, 1, {
                     y: 0,
                     autoAlpha: 1,
-                    delay: 0.4,
                     ease: Power4.easeInOut
-                }, '-=0.8');
+                }, '-=0.6');
 
                 this.timeline.play();
             }
