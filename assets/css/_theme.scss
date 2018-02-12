@@ -1118,9 +1118,30 @@ input[type="submit"]:hover {
   transition: all 300ms ease-out;
   text-transform: uppercase;
   background: none;
+    z-index: 99999;
 }
 
 .video__close__button:hover {
   color: #fff;
   background: #a5a5a5;
+}
+
+// YouTube Embed
+
+.videoWrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+    width: 100%;
+}
+.videoWrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 60%;
+    margin: auto;
 }

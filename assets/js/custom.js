@@ -35,20 +35,6 @@ require(['mobilemenu'], function (mobilemenu) {
     mobilemenu();
 });
 
-// lightbox
-
-var videoButton = document.querySelector(".video__thumbnail");
-var videoCloseButton = document.querySelector(".video__close__button");
-var videoModal = document.querySelector(".video__modal");
-
-videoButton.addEventListener("click", function () {
-    videoModal.classList.add("open");
-});
-
-videoCloseButton.addEventListener("click", function () {
-    videoModal.classList.remove("open");
-});
-
 // GSDevTools.create({
 //   css: {
 //     zIndex: 100
