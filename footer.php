@@ -3,7 +3,6 @@
         Close
     </button>
     <div class="videoWrapper">
-<!--        <iframe width="560" height="315" src="https://www.youtube.com/embed/M51Y87fXOyc" frameborder="0" allowfullscreen></iframe>-->
         <div id="player"></div>
     </div>
 </div>
@@ -44,21 +43,6 @@
         });
     }
 
-
-</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1226579-51"></script>
-
-<script>
-
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag(){dataLayer.push(arguments);}
-
-  gtag('js', new Date());
-
- 
-
-  gtag('config', 'UA-1226579-51');
 
 </script>
 </body>

@@ -1,4 +1,4 @@
-define(['./snap'], function (snap) {
+define( function () {
 
     return function () {
 
@@ -20,7 +20,7 @@ define(['./snap'], function (snap) {
             // toggle the menu closed when a selection is made
             for (var item of mobile__menu) {
                 item.addEventListener('click', toggleMenu);
-              }
+            }
             
             open__button.addEventListener( 'click', toggleMenu );
             

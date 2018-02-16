@@ -3805,6 +3805,189 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 }); if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); }
 /*!
+ * VERSION: 1.9.0
+ * DATE: 2017-06-19
+ * UPDATES AND DOCS AT: http://greensock.com
+ *
+ * @license Copyright (c) 2008-2017, GreenSock. All rights reserved.
+ * This work is subject to the terms at http://greensock.com/standard-license or for
+ * Club GreenSock members, the software agreement that was issued with your membership.
+ *
+ * @author: Jack Doyle, jack@greensock.com
+ **/
+var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(global) !== "undefined") ? global : this || window; //helps ensure compatibility with AMD/RequireJS and CommonJS/Node
+(_gsScope._gsQueue || (_gsScope._gsQueue = [])).push( function() {
+
+    "use strict";
+
+    var _doc = (_gsScope.document || {}).documentElement,
+        _window = _gsScope,
+        _max = function(element, axis) {
+            var dim = (axis === "x") ? "Width" : "Height",
+                scroll = "scroll" + dim,
+                client = "client" + dim,
+                body = document.body;
+            return (element === _window || element === _doc || element === body) ? Math.max(_doc[scroll], body[scroll]) - (_window["inner" + dim] || _doc[client] || body[client]) : element[scroll] - element["offset" + dim];
+        },
+        _unwrapElement = function(value) {
+            if (typeof(value) === "string") {
+                value = TweenLite.selector(value);
+            }
+            if (value.length && value !== _window && value[0] && value[0].style && !value.nodeType) {
+                value = value[0];
+            }
+            return (value === _window || (value.nodeType && value.style)) ? value : null;
+        },
+        _buildGetter = function(e, axis) { //pass in an element and an axis ("x" or "y") and it'll return a getter function for the scroll position of that element (like scrollTop or scrollLeft, although if the element is the window, it'll use the pageXOffset/pageYOffset or the documentElement's scrollTop/scrollLeft or document.body's. Basically this streamlines things and makes a very fast getter across browsers.
+            var p = "scroll" + ((axis === "x") ? "Left" : "Top");
+            if (e === _window) {
+                if (e.pageXOffset != null) {
+                    p = "page" + axis.toUpperCase() + "Offset";
+                } else if (_doc[p] != null) {
+                    e = _doc;
+                } else {
+                    e = document.body;
+                }
+            }
+            return function() {
+                return e[p];
+            };
+        },
+        _getOffset = function(element, container) {
+            var rect = _unwrapElement(element).getBoundingClientRect(),
+                isRoot = (!container || container === _window || container === document.body),
+                cRect = (isRoot ? _doc : container).getBoundingClientRect(),
+                offsets = {x: rect.left - cRect.left, y: rect.top - cRect.top};
+            if (!isRoot && container) { //only add the current scroll position if it's not the window/body.
+                offsets.x += _buildGetter(container, "x")();
+                offsets.y += _buildGetter(container, "y")();
+            }
+            return offsets;
+        },
+        _parseVal = function(value, target, axis) {
+            var type = typeof(value);
+            return !isNaN(value) ? parseFloat(value) : (type === "number" || (type === "string" && value.charAt(1) === "=")) ? value : (value === "max") ? _max(target, axis) : Math.min(_max(target, axis), _getOffset(value, target)[axis]);
+        },
+
+        ScrollToPlugin = _gsScope._gsDefine.plugin({
+            propName: "scrollTo",
+            API: 2,
+            global: true,
+            version:"1.9.0",
+
+            //called when the tween renders for the first time. This is where initial values should be recorded and any setup routines should run.
+            init: function(target, value, tween) {
+                this._wdw = (target === _window);
+                this._target = target;
+                this._tween = tween;
+                if (typeof(value) !== "object") {
+                    value = {y:value}; //if we don't receive an object as the parameter, assume the user intends "y".
+                    if (typeof(value.y) === "string" && value.y !== "max" && value.y.charAt(1) !== "=") {
+                        value.x = value.y;
+                    }
+                } else if (value.nodeType) {
+                    value = {y:value, x:value};
+                }
+                this.vars = value;
+                this._autoKill = (value.autoKill !== false);
+                this.getX = _buildGetter(target, "x");
+                this.getY = _buildGetter(target, "y");
+                this.x = this.xPrev = this.getX();
+                this.y = this.yPrev = this.getY();
+                if (value.x != null) {
+                    this._addTween(this, "x", this.x, _parseVal(value.x, target, "x") - (value.offsetX || 0), "scrollTo_x", true);
+                    this._overwriteProps.push("scrollTo_x");
+                } else {
+                    this.skipX = true;
+                }
+                if (value.y != null) {
+                    this._addTween(this, "y", this.y, _parseVal(value.y, target, "y") - (value.offsetY || 0), "scrollTo_y", true);
+                    this._overwriteProps.push("scrollTo_y");
+                } else {
+                    this.skipY = true;
+                }
+                return true;
+            },
+
+            //called each time the values should be updated, and the ratio gets passed as the only parameter (typically it's a value between 0 and 1, but it can exceed those when using an ease like Elastic.easeOut or Back.easeOut, etc.)
+            set: function(v) {
+                this._super.setRatio.call(this, v);
+
+                var x = (this._wdw || !this.skipX) ? this.getX() : this.xPrev,
+                    y = (this._wdw || !this.skipY) ? this.getY() : this.yPrev,
+                    yDif = y - this.yPrev,
+                    xDif = x - this.xPrev,
+                    threshold = ScrollToPlugin.autoKillThreshold;
+
+                if (this.x < 0) { //can't scroll to a position less than 0! Might happen if someone uses a Back.easeOut or Elastic.easeOut when scrolling back to the top of the page (for example)
+                    this.x = 0;
+                }
+                if (this.y < 0) {
+                    this.y = 0;
+                }
+                if (this._autoKill) {
+                    //note: iOS has a bug that throws off the scroll by several pixels, so we need to check if it's within 7 pixels of the previous one that we set instead of just looking for an exact match.
+                    if (!this.skipX && (xDif > threshold || xDif < -threshold) && x < _max(this._target, "x")) {
+                        this.skipX = true; //if the user scrolls separately, we should stop tweening!
+                    }
+                    if (!this.skipY && (yDif > threshold || yDif < -threshold) && y < _max(this._target, "y")) {
+                        this.skipY = true; //if the user scrolls separately, we should stop tweening!
+                    }
+                    if (this.skipX && this.skipY) {
+                        this._tween.kill();
+                        if (this.vars.onAutoKill) {
+                            this.vars.onAutoKill.apply(this.vars.onAutoKillScope || this._tween, this.vars.onAutoKillParams || []);
+                        }
+                    }
+                }
+                if (this._wdw) {
+                    _window.scrollTo((!this.skipX) ? this.x : x, (!this.skipY) ? this.y : y);
+                } else {
+                    if (!this.skipY) {
+                        this._target.scrollTop = this.y;
+                    }
+                    if (!this.skipX) {
+                        this._target.scrollLeft = this.x;
+                    }
+                }
+                this.xPrev = this.x;
+                this.yPrev = this.y;
+            }
+
+        }),
+        p = ScrollToPlugin.prototype;
+
+    ScrollToPlugin.max = _max;
+    ScrollToPlugin.getOffset = _getOffset;
+    ScrollToPlugin.buildGetter = _buildGetter;
+    ScrollToPlugin.autoKillThreshold = 7;
+
+    p._kill = function(lookup) {
+        if (lookup.scrollTo_x) {
+            this.skipX = true;
+        }
+        if (lookup.scrollTo_y) {
+            this.skipY = true;
+        }
+        return this._super._kill.call(this, lookup);
+    };
+
+}); if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); }
+
+//export to AMD/RequireJS and CommonJS/Node (precursor to full modular build system coming at a later date)
+(function(name) {
+    "use strict";
+    var getGlobal = function() {
+        return (_gsScope.GreenSockGlobals || _gsScope)[name];
+    };
+    if (typeof(module) !== "undefined" && module.exports) { //node
+        require("../TweenLite.js");
+        module.exports = getGlobal();
+    } else if (typeof(define) === "function" && define.amd) { //AMD
+        define(["TweenLite"], getGlobal);
+    }
+}("ScrollToPlugin"));
+/*!
  * VERSION: 0.5.6
  * DATE: 2017-01-17
  * UPDATES AND DOCS AT: http://greensock.com
@@ -12302,6 +12485,316 @@ if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); } //necessary in case Tween
     }
     
     })( window );
+(function(root, factory) {
+    // AMD
+    if (typeof define === 'function' && define.amd) {
+        define(function() {
+            return factory(root);
+        });
+    } else if (typeof exports === 'object') {
+        // Node.js or CommonJS
+        module.exports = factory;
+    } else {
+        // Browser globals
+        root.emergence = factory(root);
+    }
+})(this, function(root) {
+
+    'use strict';
+
+    var emergence = {};
+    var poll, container, throttle, reset, handheld, elemCushion, offsetTop, offsetRight, offsetBottom, offsetLeft;
+    var callback = function() {};
+
+    // Browser feature test to include any browser APIs required for >= IE8
+    // @return {bool} true if supported, otherwise false
+    var cutsTheMustard = function() {
+        return 'querySelectorAll' in document ? true : false;
+    };
+
+    // Checks if user is on a handheld
+    // @return {bool} true if it's a handheld, otherwise false
+    var isHandheld = function() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|playbook|silk/i.test(
+            navigator.userAgent
+        );
+    };
+
+    // Get the offset of a DOM Element
+    // @param {DOMElement} elem the container or element
+    // @return {int} the top, left, width and height values in pixels
+    var getElemOffset = function(elem) {
+
+        // Width and height of container or element
+        var w = elem.offsetWidth;
+        var h = elem.offsetHeight;
+
+        // Default top and left position of container or element
+        var topPos = 0;
+        var leftPos = 0;
+
+        // Get total distance of container or element to document's top and left origin
+        do {
+            if (!isNaN(elem.offsetTop)) {
+                topPos += elem.offsetTop;
+            }
+            if (!isNaN(elem.offsetLeft)) {
+                leftPos += elem.offsetLeft;
+            }
+        } while ((elem = elem.offsetParent) !== null);
+
+        // Return dimensions and position
+        return {
+            width: w,
+            height: h,
+            top: topPos,
+            left: leftPos
+        };
+    };
+
+    // Get the custom container size if provided, otherwise the documents
+    // @return {int} the width and height in pixels
+    var getContainerSize = function(container) {
+        var w, h;
+
+        // If custom container is provided in options
+        // Else use window or document
+        if (container !== window) {
+            w = container.clientWidth;
+            h = container.clientHeight;
+        } else {
+            w = window.innerWidth || document.documentElement.clientWidth;
+            h = window.innerHeight || document.documentElement.clientHeight;
+        }
+
+        return {
+            width: w,
+            height: h
+        };
+    };
+
+    // Get the X and Y scroll positions
+    // @return {int} the X and Y values in pixels
+    var getContainerScroll = function(container) {
+
+        // If custom container is provided in options
+        // Else use window or document
+        if (container !== window) {
+            return {
+                x: container.scrollLeft + getElemOffset(container).left,
+                y: container.scrollTop + getElemOffset(container).top
+            };
+        } else {
+            return {
+                x: window.pageXOffset || document.documentElement.scrollLeft,
+                y: window.pageYOffset || document.documentElement.scrollTop
+            };
+        }
+    };
+
+    // Check if element's closest parent is hidden (display: none)
+    // @param {DOMElement} elem the element
+    // @return {bool} true if hidden, false otherwise
+    var isHidden = function(elem) {
+        return elem.offsetParent === null;
+    };
+
+    // Check if element is visible
+    // @param {DOMElement} elem the element
+    var isVisible = function(elem) {
+
+        // Discontinue if element's closest parent is hidden
+        if (isHidden(elem)) {
+            return false;
+        }
+
+        // Get information from element and container
+        var elemOffset = getElemOffset(elem);
+        var containerSize = getContainerSize(container);
+        var containerScroll = getContainerScroll(container);
+
+        // Determine element size
+        var elemWidth = elemOffset.width;
+        var elemHeight = elemOffset.height;
+
+        // Determine element position from rect points
+        var elemTop = elemOffset.top;
+        var elemLeft = elemOffset.left;
+        var elemBottom = elemTop + elemHeight;
+        var elemRight = elemLeft + elemWidth;
+
+        // Determine boundaries of container and element
+        // @return {bool} true if element is found within boundaries, otherwise false
+        var checkBoundaries = function() {
+
+            // Determine element boundaries including custom cushion
+            var eTop = elemTop + elemHeight * elemCushion;
+            var eRight = elemRight - elemWidth * elemCushion;
+            var eBottom = elemBottom - elemHeight * elemCushion;
+            var eLeft = elemLeft + elemWidth * elemCushion;
+
+            // Determine container boundaries including custom offset
+            var cTop = containerScroll.y + offsetTop;
+            var cRight = containerScroll.x - offsetRight + containerSize.width;
+            var cBottom = containerScroll.y - offsetBottom + containerSize.height;
+            var cLeft = containerScroll.x + offsetLeft;
+
+            return (eTop < cBottom && eBottom > cTop && eLeft < cRight && eRight > cLeft);
+        };
+
+        return checkBoundaries();
+    };
+
+    // Engage emergence through a throttling method for performance
+    var emergenceThrottle = function() {
+        if (!!poll) {
+            return;
+        }
+        clearTimeout(poll);
+        poll = setTimeout(function() {
+            emergence.engage();
+            poll = null;
+        }, throttle);
+    };
+
+    // Initialize emergence with options, do feature test and create event listeners
+    // @param {Object} options Custom settings
+    emergence.init = function(options) {
+        options = options || {};
+
+        // Function to return an integer
+        var optionInt = function(option, fallback) {
+            return parseInt(option || fallback, 10);
+        };
+
+        // Function to return a floating point number
+        var optionFloat = function(option, fallback) {
+            return parseFloat(option || fallback);
+        };
+
+        // Default options
+        container = options.container || window; // window or document by default
+        reset = typeof options.reset !== 'undefined' ? options.reset : true; // true by default
+        handheld = typeof options.handheld !== 'undefined' ? options.handheld : true; // true by default
+        throttle = optionInt(options.throttle, 250); // 250 by default
+        elemCushion = optionFloat(options.elemCushion, 0.15); // 0.15 by default
+        offsetTop = optionInt(options.offsetTop, 0); // 0 by default
+        offsetRight = optionInt(options.offsetRight, 0); // 0 by default
+        offsetBottom = optionInt(options.offsetBottom, 0); // 0 by default
+        offsetLeft = optionInt(options.offsetLeft, 0); // 0 by default
+        callback = options.callback || callback;
+
+        // If browser doesn't pass feature test
+        if (!cutsTheMustard()) {
+
+            // Provide message in console.log
+            console.log('Emergence.js is not supported in this browser.');
+
+        }
+        // If this is handheld device AND handheld option is true
+        // OR not a handheld device
+        else if ((isHandheld() && handheld) || !isHandheld()) {
+
+            // Add '.emergence' class to document for conditional CSS
+            document.documentElement.className += ' emergence';
+
+            // If browser supports addEventListener
+            // Else use attachEvent
+            if (window.addEventListener) {
+
+                // Add event listeners for load, scroll and resize events
+                window.addEventListener('load', emergenceThrottle, false);
+                container.addEventListener('scroll', emergenceThrottle, false);
+                container.addEventListener('resize', emergenceThrottle, false);
+
+            } else {
+
+                // Attach events for legacy load method, scroll and resize events
+                document.attachEvent('onreadystatechange', function() {
+                    if (document.readyState === 'complete') { emergenceThrottle(); }
+                });
+                container.attachEvent('onscroll', emergenceThrottle);
+                container.attachEvent('onresize', emergenceThrottle);
+
+            }
+        }
+    };
+
+    // Engage emergence
+    emergence.engage = function() {
+        var nodes = document.querySelectorAll('[data-emergence]');
+        var length = nodes.length;
+        var elem;
+
+        // Loop through objects with data-emergence attribute
+        for (var i = 0; i < length; i++) {
+            elem = nodes[i];
+
+            // If element is visible
+            if (isVisible(elem)) {
+
+                // Change the state of the attribute to 'visible'
+                elem.setAttribute('data-emergence', 'visible');
+
+                // Hack to repaint attribute in IE8
+                elem.className = elem.className;
+
+                // Callback for when element is visible
+                callback(elem, 'visible');
+
+            } else if (reset === true) {
+
+                // Else if element is hidden and reset
+                // Change the state of the attribute to 'hidden'
+                elem.setAttribute('data-emergence', 'hidden');
+
+                // Hack to repaint attribute in IE8
+                elem.className = elem.className;
+
+                // Create callback
+                callback(elem, 'reset');
+
+            } else if (reset === false) {
+
+                // Else if element is hidden and NOT reset
+                // Create callback
+                callback(elem, 'noreset');
+
+            }
+        }
+
+        // If no data-emergence attributes are found
+        // Disengage emergence
+        if (!length) {
+            emergence.disengage();
+        }
+    };
+
+    // Disengage emergence
+    emergence.disengage = function() {
+
+        // If browser supports removeEventListener
+        // Else use detachEvent
+        if (window.removeEventListener) {
+
+            // Remove event listeners scroll and resize events
+            container.removeEventListener('scroll', emergenceThrottle, false);
+            container.removeEventListener('resize', emergenceThrottle, false);
+
+        } else {
+
+            // Detach scroll and resize events
+            container.detachEvent('onscroll', emergenceThrottle);
+            container.detachEvent('onresize', emergenceThrottle);
+
+        }
+
+        // Clear timeout from throttle
+        clearTimeout(poll);
+    };
+
+    return emergence;
+});
 /*!
  * jQuery Scrollify
  * Version 1.0.17
@@ -13137,6 +13630,7 @@ if touchScroll is false - update index
   $.scrollify = scrollify;
   return scrollify;
 }));
+
 /** vim: et:ts=4:sw=4:sts=4
  * @license RequireJS 2.3.5 Copyright jQuery Foundation and other contributors.
  * Released under MIT license, https://github.com/requirejs/requirejs/blob/master/LICENSE

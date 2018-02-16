@@ -3,12 +3,13 @@
 // TODO: BROWSER TESTING
 // TODO: SHAW REVIEW
 
+
 define(['./constructionSlideAnimation', './durabilitySlideAnimation', './serviceSlideAnimation'], function (constructionSlideAnimation, durabilitySlideAnimation, serviceSlideAnimation) {
   return function () {
 
     // Contact Button
 
-    // animations 
+    // animations
 
     const constructionAnimation = new constructionSlideAnimation();
     const durabilityAnimation = new durabilitySlideAnimation();
@@ -17,12 +18,12 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
     jQuery(function () {
       jQuery.scrollify({
         section: '.section__wrap',
-        interstitialSection: '.fifth',
-        setHeights: false,
+        setHeights: true,
         sectionName: 'id',
-        scrollbars: false,
+        scrollbars: true,
         easing: 'easeOutExpo',
         scrollSpeed: 1500,
+          touchScroll: false,
         updateHash: false,
         before: function before(index, panels) {
 
@@ -61,7 +62,7 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
 
     function beforeScrollifyEnter(nextSection) {
 
-      // get the data ID from the next slide - this is passed in from the scrollify before callback function 
+      // get the data ID from the next slide - this is passed in from the scrollify before callback function
 
       let section = jQuery('.section__wrap[data-id="' + nextSection + '"]');
       let inactiveSection = jQuery('.mobile__menu__wrap li');

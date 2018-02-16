@@ -8,6 +8,7 @@ require.config({
     baseUrl: pageParams.javascriptDirectory,
     paths: {
         scrollify: 'scrollify',
+        emergence: 'emergence',
         mobilemenu: 'mobilemenu',
         snap: 'snap',
         introSlideAnimation: 'introSlideAnimation',
@@ -25,14 +26,22 @@ require(['introSlideAnimation'], function (introSlideAnimation) {
 
 // scrollify
 
-require(['scrollify'], function (scrollify) {
-    scrollify();
-});
+// if (matchMedia('only screen and (min-width: 768px)').matches) {
+//     require(['scrollify'], function (scrollify) {
+//         scrollify();
+//     });
+// }
 
-// scrollify
+// mobile menu
 
 require(['mobilemenu'], function (mobilemenu) {
     mobilemenu();
+});
+
+// emergence
+
+require(['emergence'], function (emergence) {
+    emergence();
 });
 
 // GSDevTools.create({

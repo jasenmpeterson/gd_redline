@@ -54,14 +54,14 @@ define(function () {
                         y: 0,
                         autoAlpha: 1,
                         delay: 0.3,
-                        ease: Power4.easeInOut
+                        ease: Power4.easeOut
                     }, '-=0.8');
 
                     this.timeline.to(this.contentTwo, 1, {
                         y: 0,
                         autoAlpha: 1,
                         delay: 0.3,
-                        ease: Power4.easeInOut
+                        ease: Power4.easeOut
                     }, '-=0.7');
     
     
