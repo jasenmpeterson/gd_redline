@@ -18,8 +18,12 @@ define( function () {
         function initEvents () {
 
             // toggle the menu closed when a selection is made
-            for (var item of mobile__menu) {
-                item.addEventListener('click', toggleMenu);
+            // for (var item of mobile__menu) {
+            //     item.addEventListener('click', toggleMenu);
+            // }
+
+            for (var i = 0; i < mobile__menu.length; i++) {
+                mobile__menu[i].addEventListener('click', toggleMenu);
             }
             
             open__button.addEventListener( 'click', toggleMenu );

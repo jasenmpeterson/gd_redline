@@ -9,9 +9,9 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
 
                     // vars
 
-                    const constructionAnimation = new constructionSlideAnimation();
-                    const durabilityAnimation = new durabilitySlideAnimation();
-                    const serviceAnimation = new serviceSlideAnimation();
+                    // const constructionAnimation = new constructionSlideAnimation();
+                    //const durabilityAnimation = new durabilitySlideAnimation();
+                    // const serviceAnimation = new serviceSlideAnimation();
 
                     var currSection = jQuery(element).attr("id");
                     var currSectionID = jQuery(element).data("id");
@@ -57,15 +57,15 @@ define(['./constructionSlideAnimation', './durabilitySlideAnimation', './service
                         switch (sectionName) {
 
                             case 'innovation':
-                                constructionAnimation.play();
+                                constructionSlideAnimation();
                                 break;
 
                             case 'resilience':
-                                durabilityAnimation.play();
+                                durabilitySlideAnimation();
                                 break;
 
                             case 'service':
-                                serviceAnimation.play();
+                                serviceSlideAnimation();
                                 break;
 
                         }
